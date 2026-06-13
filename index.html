@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCD Marketing Tracker</title>
+<style>
+  :root {
+    --parchment: #F5EFE3;
+    --parchment-dark: #E8DFC9;
+    --sepia: #6B4C2A;
+    --gold: #C9A84C;
+    --forest: #2D4A3E;
+    --ink: #2A2420;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.5;
+    padding-bottom: 60px;
+  }
+  header {
+    background: var(--forest);
+    color: var(--parchment);
+    padding: 28px 20px 22px;
+    text-align: center;
+    border-bottom: 4px solid var(--gold);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+  }
+  header p {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--gold);
+  }
+  .tabs {
+    display: flex;
+    background: var(--parchment-dark);
+    border-bottom: 2px solid var(--sepia);
+    overflow-x: auto;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-right: 1px solid var(--sepia);
+    white-space: nowrap;
+  }
+  .tab:last-child { border-right: none; }
+  .tab.active {
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: bold;
+  }
+  main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  .section { display: none; }
+  .section.active { display: block; }
+  .board {
+    background: #fff;
+    border: 1px solid var(--parchment-dark);
+    border-left: 5px solid var(--forest);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .board h2 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    color: var(--forest);
+  }
+  .board .sub {
+    font-size: 0.8rem;
+    color: var(--sepia);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .pin {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-top: 1px dashed var(--parchment-dark);
+  }
+  .pin:first-of-type { border-top: none; }
+  .pin input[type=checkbox] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gold);
+    flex-shrink: 0;
+  }
+  .pin label {
+    font-size: 0.92rem;
+    cursor: pointer;
+  }
+  .pin.done label {
+    text-decoration: line-through;
+    color: #999;
+  }
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--sepia);
+    color: var(--sepia);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: auto;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+  .copy-btn:active { background: var(--gold); color: var(--ink); }
+  .tiktok-item {
+    background: #fff;
+    border: 1px solid var(--parchment-dark);
+    border-left: 5px solid var(--sepia);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .tiktok-item h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: var(--sepia);
+  }
+  .tiktok-item .overlay {
+    font-size: 0.85rem;
+    background: var(--parchment-dark);
+    padding: 6px 10px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 6px;
+    font-style: italic;
+  }
+  .tiktok-item .status {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tiktok-item select {
+    font-family: inherit;
+    font-size: 0.8rem;
+    padding: 3px 6px;
+    border: 1px solid var(--sepia);
+    border-radius: 3px;
+    background: var(--parchment);
+  }
+  .tips {
+    background: var(--parchment-dark);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+  .tips h3 { margin: 0 0 6px; font-size: 0.95rem; color: var(--forest); }
+  .tips ul { margin: 6px 0 0; padding-left: 20px; }
+  .progress {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--sepia);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .reset-row {
+    text-align: center;
+    margin-top: 24px;
+  }
+  .reset-row button {
+    background: none;
+    border: 1px solid var(--sepia);
+    color: var(--sepia);
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TheCuratorsDesk &mdash; Marketing Tracker</h1>
+  <p>Pinterest pins &amp; TikTok shot list, Week 3</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-tab="pinterest">Pinterest</div>
+  <div class="tab" data-tab="tiktok">TikTok</div>
+</div>
+
+<main>
+
+  <!-- PINTEREST -->
+  <section class="section active" id="pinterest">
+
+    <div class="progress" id="pinProgress"></div>
+
+    <div class="board">
+      <h2>Board 1 &mdash; Scholar's Reading Challenge</h2>
+      <div class="sub">Direct-to-Etsy, challenge/tracker focus</div>
+
+      <div class="pin">
+        <input type="checkbox" id="p1-1">
+        <label for="p1-1">Track your reading goals in style with this Scholar's Reading Challenge &mdash; perfect for book lovers who want to read more in 2026. Literary stationery for the scholarly life. #readingchallenge #bookjournal #readmorebooks</label>
+        <button class="copy-btn" data-copy="p1-1">Copy</button>
+      </div>
+      <div class="pin">
+        <input type="checkbox" id="p1-2">
+        <label for="p1-2">Looking for a cute way to track books read this year? This reading challenge tracker combines classic scholar aesthetics with practical goal-setting. #booktracker #readinggoals #bookishgifts</label>
+        <button class="copy-btn" data-copy="p1-2">Copy</button>
+      </div>
+      <div class="pin">
+        <input type="checkbox" id="p1-3">
+        <label for="p1-3">Annual reading challenge printable for students, readers, and lifelong learners. Forest green &amp; gold scholar aesthetic. #literarystationery #bookworm #studyaesthetic</label>
+        <button class="copy-btn" data-copy="p1-3">Copy</button>
+      </div>
+    </div>
+
+    <div class="board">
+      <h2>Board 2 &mdash; Commonplace Book Inspiration</h2>
+      <div class="sub">Mix of direct-to-Etsy and educational "what is this" pins</div>
+
+      <div class="pin">
+        <input type="checkbox" id="p2-1">
+        <label for="p2-1">What is a commonplace book? A centuries-old practice for collecting quotes, ideas, and reflections &mdash; revived for modern readers. #commonplacebook #journalideas #literaryjournal</label>
+        <button class="copy-btn" data-copy="p2-1">Copy</button>
+      </div>
+      <div class="pin">
+        <input type="checkbox" id="p2-2">
+        <label for="p2-2">Keep your favorite quotes and reflections in one beautiful place. This commonplace book is designed for scholars, readers, and thinkers. #quotejournal #bookishstationery #scholaraesthetic</label>
+        <button class="copy-btn" data-copy="p2-2">Copy</button>
+      </div>
+      <div class="pin">
+        <input type="checkbox" id="p2-3">
+        <label for="p2-3">A commonplace book is your second brain for ideas worth remembering. Classic design meets practical journaling. #journalwithme #studyplanner #literarygifts</label>
+        <button class="copy-btn" data-copy="p2-3">Copy</button>
+      </div>
+    </div>
+
+    <div class="board">
+      <h2>Board 3 &mdash; Book Club Kit &amp; Reading Life</h2>
+      <div class="sub">Cozy aesthetic, cross-link to TikTok content</div>
+
+      <div class="pin">
+        <input type="checkbox" id="p3-1">
+        <label for="p3-1">Hosting a book club? This kit includes discussion questions, prompts, and trackers to make your next meeting effortless. #bookclub #bookclubideas #readingcommunity</label>
+        <button class="copy-btn" data-copy="p3-1">Copy</button>
+      </div>
+      <div class="pin">
+        <input type="checkbox" id="p3-2">
+        <label for="p3-2">Everything you need for your next book club meeting &mdash; discussion guides, conversation starters, and more. #bookclubkit #bookclubprintables #readinglife</label>
+        <button class="copy-btn" data-copy="p3-2">Copy</button>
+      </div>
+      <div class="pin">
+        <input type="checkbox" id="p3-3">
+        <label for="p3-3">Cozy reading nights call for great conversation. This book club kit makes hosting simple and fun. #bookclubnight #readingaesthetic #literarystationery</label>
+        <button class="copy-btn" data-copy="p3-3">Copy</button>
+      </div>
+    </div>
+
+    <div class="tips">
+      <h3>Pinning rhythm</h3>
+      <ul>
+        <li>70% product pins (direct Etsy link) / 30% lifestyle pins</li>
+        <li>Batch-create 5&ndash;10 pins per product per mockup session</li>
+        <li>Seasonal pins need to go up 4&ndash;6 weeks before the season hits</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- TIKTOK -->
+  <section class="section" id="tiktok">
+
+    <div class="progress" id="tiktokProgress"></div>
+
+    <div class="tiktok-item">
+      <h3>1. "POV: trying to become a consistent reader"</h3>
+      <p>Hands filling in the Reading Challenge tracker, checking off a completed book, sipping coffee.</p>
+      <div class="overlay">"day 1 of actually tracking what I read"</div>
+      <div class="status">
+        <label for="t1">Status:</label>
+        <select id="t1" data-status="t1">
+          <option value="planned">Planned</option>
+          <option value="filmed">Filmed</option>
+          <option value="edited">Edited</option>
+          <option value="posted">Posted</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tiktok-item">
+      <h3>2. "5am scholar morning"</h3>
+      <p>Morning Reflection Journal open, pen writing, soft natural light, quiet desk setup.</p>
+      <div class="overlay">"the morning routine that actually stuck"</div>
+      <div class="status">
+        <label for="t2">Status:</label>
+        <select id="t2" data-status="t2">
+          <option value="planned">Planned</option>
+          <option value="filmed">Filmed</option>
+          <option value="edited">Edited</option>
+          <option value="posted">Posted</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tiktok-item">
+      <h3>3. "things in my commonplace book this week"</h3>
+      <p>Flipping through pages, pausing on a handwritten quote, reading it softly aloud.</p>
+      <div class="overlay">"quotes I didn't want to forget"</div>
+      <div class="status">
+        <label for="t3">Status:</label>
+        <select id="t3" data-status="t3">
+          <option value="planned">Planned</option>
+          <option value="filmed">Filmed</option>
+          <option value="edited">Edited</option>
+          <option value="posted">Posted</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tiktok-item">
+      <h3>4. "book club night prep"</h3>
+      <p>Laying out the Book Club Kit cards, highlighting a discussion question, candle + tea in frame.</p>
+      <div class="overlay">"prepping for book club like it's a personality trait"</div>
+      <div class="status">
+        <label for="t4">Status:</label>
+        <select id="t4" data-status="t4">
+          <option value="planned">Planned</option>
+          <option value="filmed">Filmed</option>
+          <option value="edited">Edited</option>
+          <option value="posted">Posted</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="tips">
+      <h3>Filming tips</h3>
+      <ul>
+        <li>Natural light near a window, same time of day for consistency</li>
+        <li>Hands/journal as focal point &mdash; face optional</li>
+        <li>2&ndash;3 takes per concept, 15&ndash;30 seconds each</li>
+        <li>Save raw footage &mdash; re-cut for Pinterest video pins later</li>
+      </ul>
+    </div>
+
+  </section>
+
+</main>
+
+<div class="reset-row">
+  <button id="resetBtn">Reset all progress</button>
+</div>
+
+<script>
+  const STORAGE_KEY = 'tcd_marketing_state';
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  let state = loadState();
+
+  // Tabs
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Pin checkboxes
+  document.querySelectorAll('.pin input[type=checkbox]').forEach(cb => {
+    cb.checked = !!state[cb.id];
+    if (cb.checked) cb.closest('.pin').classList.add('done');
+    cb.addEventListener('change', () => {
+      state[cb.id] = cb.checked;
+      cb.closest('.pin').classList.toggle('done', cb.checked);
+      saveState(state);
+      updatePinProgress();
+    });
+  });
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.copy;
+      const text = document.querySelector(`label[for="${id}"]`).textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1200);
+      }).catch(() => {
+        btn.textContent = 'Copy failed';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+      });
+    });
+  });
+
+  // TikTok status selects
+  document.querySelectorAll('select[data-status]').forEach(sel => {
+    const key = 'status_' + sel.dataset.status;
+    if (state[key]) sel.value = state[key];
+    sel.addEventListener('change', () => {
+      state[key] = sel.value;
+      saveState(state);
+      updateTiktokProgress();
+    });
+  });
+
+  function updatePinProgress() {
+    const all = document.querySelectorAll('.pin input[type=checkbox]');
+    const done = document.querySelectorAll('.pin input[type=checkbox]:checked');
+    document.getElementById('pinProgress').textContent =
+      `${done.length} of ${all.length} pins ready to post`;
+  }
+
+  function updateTiktokProgress() {
+    const sels = document.querySelectorAll('select[data-status]');
+    let posted = 0;
+    sels.forEach(s => { if (s.value === 'posted') posted++; });
+    document.getElementById('tiktokProgress').textContent =
+      `${posted} of ${sels.length} videos posted`;
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('Reset all checkboxes and statuses?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+  });
+
+  updatePinProgress();
+  updateTiktokProgress();
+</script>
+
+</body>
+</html>
