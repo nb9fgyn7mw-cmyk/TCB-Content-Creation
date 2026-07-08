@@ -117,16 +117,188 @@
     font-size: 0.75rem; padding: 6px 14px; border-radius: 3px;
     cursor: pointer; font-family: inherit;
   }
+
+  /* TABS */
+  .tab-nav {
+    display: flex;
+    background: #1a1a1a;
+    border-bottom: 2px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 12px 8px;
+    font-family: Georgia, serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-right: 1px solid #2a2a2a;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn.active {
+    background: var(--forest);
+    color: var(--gold);
+    font-weight: bold;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* STRATEGY STYLES */
+  .phase-header {
+    margin: 32px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--parchment-dark);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .phase-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: Georgia, serif;
+  }
+  .phase-header h2 {
+    font-size: 1.0rem;
+    color: var(--forest);
+    font-weight: normal;
+  }
+  .phase-dates {
+    font-size: 0.75rem;
+    color: var(--sepia);
+    font-style: italic;
+    margin-left: auto;
+  }
+  .s-card {
+    background: #fff;
+    border: 1px solid var(--parchment-dark);
+    border-left: 5px solid var(--forest);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .s-card.gold { border-left-color: var(--gold); }
+  .s-card.burg { border-left-color: #6B2737; }
+  .s-card.navy { border-left-color: #1E2D4A; }
+  .s-card-header {
+    display: flex; align-items: flex-start;
+    gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .s-card-title {
+    font-size: 0.95rem;
+    color: var(--forest);
+    flex: 1;
+  }
+  .s-badge {
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .s-badge.wk { background: var(--parchment-dark); color: var(--sepia); }
+  .s-badge.q4 { background: #6B2737; color: #fff; }
+  .s-badge.lang { background: #1E2D4A; color: #fff; }
+  .s-badge.new { background: var(--forest); color: #fff; }
+  .s-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 580px) { .s-grid { grid-template-columns: 1fr; } }
+  .s-channel {
+    background: var(--parchment);
+    border-radius: 3px;
+    padding: 9px 11px;
+  }
+  .s-ch-label {
+    font-size: 0.52rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-family: Georgia, serif;
+  }
+  .s-ch-label.tt { color: var(--forest); }
+  .s-ch-label.pt { color: #6B2737; }
+  .s-ch-label.em { color: #1E2D4A; }
+  .s-channel ul { list-style: none; padding: 0; }
+  .s-channel ul li {
+    font-size: 0.76rem;
+    color: var(--ink);
+    padding: 2px 0 2px 10px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .s-channel ul li::before { content: '·'; position: absolute; left: 0; color: var(--gold); }
+  .s-principles {
+    background: var(--forest);
+    color: var(--parchment);
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin: 20px 0;
+  }
+  .s-principles h3 {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .s-principles ol { padding-left: 18px; }
+  .s-principles ol li { font-size: 0.84rem; margin-bottom: 6px; line-height: 1.5; }
+  .s-principles ol li strong { color: #E8C97A; }
+  .s-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px; margin: 16px 0;
+  }
+  .s-metric {
+    background: #fff;
+    border: 1px solid var(--parchment-dark);
+    border-radius: 4px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .s-metric .mp { font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .s-metric .mt { font-size: 1.0rem; color: var(--forest); font-weight: 500; margin-bottom: 2px; }
+  .s-metric .md { font-size: 0.7rem; color: var(--sepia); font-style: italic; }
+  .q4-box {
+    background: linear-gradient(135deg, #6B2737, #3A0F18);
+    color: var(--parchment);
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin: 16px 0;
+    border: 1px solid rgba(201,168,76,0.25);
+  }
+  .q4-box h3 { font-size: 0.8rem; color: var(--gold); margin-bottom: 8px; }
+  .q4-box p { font-size: 0.82rem; line-height: 1.6; opacity: 0.9; }
+  .q4-box ul { margin-top: 8px; padding-left: 16px; }
+  .q4-box ul li { font-size: 0.78rem; margin-bottom: 4px; line-height: 1.4; }
+  .ornament { text-align: center; color: var(--gold); opacity: 0.35; font-size: 0.65rem; letter-spacing: 0.3em; margin: 24px 0; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>TikTok Content Schedule</h1>
-  <p>TheCuratorsDesk &mdash; Jun 29 &ndash; Sep 28, 2026 &nbsp;|&nbsp; Today: Jul 8 (Day 9)</p>
+  <h1>TheCuratorsDesk &mdash; Content Planner</h1>
+  <p>TikTok Schedule &nbsp;&middot;&nbsp; 25-Week Strategy &nbsp;&middot;&nbsp; Jul 2026 &ndash; Jan 2027</p>
 </header>
 
-<main>
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('schedule')">&#128197; Schedule</button>
+  <button class="tab-btn" onclick="switchTab('strategy')">&#128200; Strategy</button>
+</div>
+
+<div class="tab-panel active" id="panel-schedule"><main>
   <div class="progress" id="scheduleProgress"></div>
 
   <div class="stats-row">
@@ -487,8 +659,455 @@
 <div class="reset-row">
   <button id="resetBtn">Reset all progress</button>
 </div>
+</div><!-- end schedule panel -->
+
+<div class="tab-panel" id="panel-strategy">
+<main style="padding-bottom:40px;">
+
+
+  <div style="padding-top:8px;">
+
+  <div class="s-principles">
+    <h3>Core Marketing Principles</h3>
+    <ol>
+      <li><strong>TikTok drives curiosity.</strong> Pinterest builds trust. Etsy/Shopify converts. Every decision serves that flow.</li>
+      <li><strong>Educate first, sell second.</strong> Scholar history slides outperform product videos. The product appears naturally at the end.</li>
+      <li><strong>Test before scaling.</strong> One product, one content type at a time. Double down on what data shows working.</li>
+      <li><strong>Seasonal content leads by 4-6 weeks.</strong> Q4 content starts mid-September. Pinterest seasonal pins start October for December buyers.</li>
+      <li><strong>Every product launch = TikTok + Pinterest + Email.</strong> All three fire together.</li>
+    </ol>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-header">
+    <span class="phase-eyebrow">Phase 1</span>
+    <h2>Foundation &amp; First Sales</h2>
+    <span class="phase-dates">Weeks 1-8 &nbsp;&middot;&nbsp; Jul 8 &ndash; Sep 6</span>
+  </div>
+
+  <div class="s-card gold">
+    <div class="s-card-header">
+      <div class="s-card-title">Current Live Products &mdash; Physical + Digital</div>
+      <span class="s-badge wk">Weeks 1-8</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>Scholar history slides every other video</li>
+          <li>Physical journal ASMR page flips</li>
+          <li>Bookmark creation every 2 weeks</li>
+          <li>Latin word slides with stronger hooks</li>
+          <li>Post every 2-3 days without exception</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>12 digital listings pinning daily &mdash; running</li>
+          <li>Add 5 pins per physical product</li>
+          <li>Week 4 refresh: double best-saving pins</li>
+          <li>Dark academia account boards active</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Klaviyo welcome series live by Jul 12</li>
+          <li>Abandoned checkout flow live</li>
+          <li>First newsletter at 25+ subscribers</li>
+          <li>Subject: "What a scholar's desk looks like"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card">
+    <div class="s-card-header">
+      <div class="s-card-title">Sticker Sheet Vol. III &mdash; journaling-functional stickers</div>
+      <span class="s-badge wk">Weeks 3-4</span>
+      <span class="s-badge new">New</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>Behind the scenes design process</li>
+          <li>Show stickers used as journal answers</li>
+          <li>"functional stickers for your scholar journal"</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins styled on journal pages</li>
+          <li>"mood tracker stickers for digital journals"</li>
+          <li>Add to Scholar's Stationery board</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Mention in next newsletter</li>
+          <li>Include in new arrivals section</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card">
+    <div class="s-card-header">
+      <div class="s-card-title">Bookmark Sets Vol. II&ndash;V</div>
+      <span class="s-badge wk">Weeks 2-10</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>One creation video per set, every 2 weeks</li>
+          <li>306 views, 10 likes on Vol. I &mdash; proven format</li>
+          <li>Show laminating, cutting, final result</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins per set on Scholar's Stationery board</li>
+          <li>Styled flatlay per palette</li>
+          <li>"dark academia bookmarks handmade"</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Bundle all 5 sets in one newsletter</li>
+          <li>Send when Vol. V goes live</li>
+          <li>"The complete bookmark collection is here"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card">
+    <div class="s-card-header">
+      <div class="s-card-title">Reflection-Style Journal &mdash; pairs with sticker sheets</div>
+      <span class="s-badge wk">Weeks 5-6</span>
+      <span class="s-badge new">New</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>Show stickers used as visual answers</li>
+          <li>"this is how the stickers and journal work together"</li>
+          <li>ASMR page flip with sticker placement</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins styled with Vol. III stickers in use</li>
+          <li>"what is a reflection journal?"</li>
+          <li>Add to Reading Trackers &amp; Journals board</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Dedicated launch email</li>
+          <li>Subject: "The journal that works with your stickers"</li>
+          <li>Feature the bundle option prominently</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-metrics">
+    <div class="s-metric"><div class="mp">By Week 4</div><div class="mt">First sale</div><div class="md">Etsy or Shopify</div></div>
+    <div class="s-metric"><div class="mp">By Week 8</div><div class="mt">2-5 sales</div><div class="md">TikTok driving visits</div></div>
+    <div class="s-metric"><div class="mp">By Week 8</div><div class="mt">25+ saves</div><div class="md">TikTok total</div></div>
+    <div class="s-metric"><div class="mp">By Week 8</div><div class="mt">20+ emails</div><div class="md">Klaviyo list</div></div>
+  </div>
+
+  <div class="ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-header">
+    <span class="phase-eyebrow">Phase 2</span>
+    <h2>Q4 Seasonal Push</h2>
+    <span class="phase-dates">Weeks 9-16 &nbsp;&middot;&nbsp; Sep 7 &ndash; Nov 1</span>
+  </div>
+
+  <div class="q4-box">
+    <h3>Q4 is your highest-revenue window &mdash; prepare 4-6 weeks early</h3>
+    <p>Dark academia peaks in autumn. Cozy reading season, gift buying, and new year planning converge Oct&ndash;Dec.</p>
+    <ul>
+      <li>Switch Shopify hero to Autumn Scholar palette by October 1</li>
+      <li>All autumn-palette products featured front and centre</li>
+      <li>Gift bundle strategy: journal + bookmark set + sticker sheet</li>
+      <li>Seasonal TikTok content starts September 15</li>
+      <li>Pinterest seasonal pins live by mid-September for December buyers</li>
+    </ul>
+  </div>
+
+  <div class="s-card burg">
+    <div class="s-card-header">
+      <div class="s-card-title">Scholar's Desk Calendar &mdash; 12-month wall calendar, spiral 11&times;8.5"</div>
+      <span class="s-badge wk">Weeks 9-10</span>
+      <span class="s-badge q4">Q4</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>Flip-through each month's Latin quote</li>
+          <li>ASMR page turn for spiral calendar</li>
+          <li>"plan your reading year like a scholar"</li>
+          <li>Post 2 weeks before October 1 launch</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins per month featured &mdash; 12 total rollout</li>
+          <li>"2027 wall calendar dark academia"</li>
+          <li>Gift guide pin: "for the reader in your life"</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Dedicated launch email</li>
+          <li>Subject: "Plan your reading year, one Latin quote at a time"</li>
+          <li>Calendar + Reading Challenge bundle</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card burg">
+    <div class="s-card-header">
+      <div class="s-card-title">Self-Reflection Journal &mdash; November / New Year launch</div>
+      <span class="s-badge wk">Weeks 14-15</span>
+      <span class="s-badge q4">Q4</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>ASMR page flip &mdash; Nosce Te Ipsum cover reveal</li>
+          <li>Scholar history slide timed with launch</li>
+          <li>"end of year reflection journal for the serious thinker"</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins &mdash; new year reflection aesthetic</li>
+          <li>"self-reflection journal for 2027"</li>
+          <li>Start pinning October 15 for December gift buyers</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Pre-launch teaser: "something new is coming"</li>
+          <li>Launch email: "start 2027 with intention"</li>
+          <li>New Year bundle: Self-Reflection + Annual Planner</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card burg">
+    <div class="s-card-header">
+      <div class="s-card-title">Annual Reading Planner + New Year Intentions + 2027 Goals</div>
+      <span class="s-badge wk">Weeks 14-16</span>
+      <span class="s-badge q4">Q4</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>3 separate videos &mdash; one per product</li>
+          <li>Post between Nov 15 and Dec 1</li>
+          <li>Peak new year planning period</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins each &mdash; 15 new pins total</li>
+          <li>"2027 reading planner printable"</li>
+          <li>Pin from Oct 15 &mdash; 6 weeks before December peak</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Bundle all three in one "New Year Scholar" email</li>
+          <li>Send December 1 &mdash; peak gift + planning season</li>
+          <li>Subject: "Your 2027 reading life starts here"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card burg">
+    <div class="s-card-header">
+      <div class="s-card-title">Year in Letters &mdash; 12 sealed monthly letters, Navy/Silver</div>
+      <span class="s-badge wk">Weeks 15-16</span>
+      <span class="s-badge q4">Q4</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>"you open one letter on the first of every month"</li>
+          <li>Show sealed envelope aesthetic</li>
+          <li>Highest viral potential in the entire lineup</li>
+          <li>Post December 1 &mdash; perfect Christmas gift timing</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>5 pins &mdash; navy/silver winter aesthetic</li>
+          <li>"unique Christmas gift for book lovers"</li>
+          <li>High gift-search volume in December</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>Standalone launch email</li>
+          <li>Subject: "12 letters. one per month. open on New Year's Day."</li>
+          <li>Most giftable product in the line</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-metrics">
+    <div class="s-metric"><div class="mp">By Week 12</div><div class="mt">10-20 sales</div><div class="md">Cumulative all products</div></div>
+    <div class="s-metric"><div class="mp">By Week 12</div><div class="mt">500+ followers</div><div class="md">TikTok</div></div>
+    <div class="s-metric"><div class="mp">By Week 16</div><div class="mt">50+ emails</div><div class="md">Klaviyo list</div></div>
+    <div class="s-metric"><div class="mp">By Week 16</div><div class="mt">Pinterest clicks</div><div class="md">First consistent Etsy traffic</div></div>
+  </div>
+
+  <div class="ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-header">
+    <span class="phase-eyebrow">Phase 3</span>
+    <h2>Language Collections Launch</h2>
+    <span class="phase-dates">Weeks 17-25 &nbsp;&middot;&nbsp; Nov 2 &ndash; Jan 2027</span>
+  </div>
+
+  <div class="s-card navy">
+    <div class="s-card-header">
+      <div class="s-card-title">Biblical Hebrew, Koine Greek, Old English Collections</div>
+      <span class="s-badge wk">Weeks 17-20</span>
+      <span class="s-badge lang">Language</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>Scholar slide per language before launch</li>
+          <li>Hebrew: King David, Solomon (Psalms, Proverbs)</li>
+          <li>Greek: Apostle Paul, early church fathers</li>
+          <li>Old English: Beowulf, Anglo-Saxon manuscripts</li>
+          <li>Position as scholarly/historical art, not devotional</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>New board per language collection</li>
+          <li>"Biblical Hebrew art print"</li>
+          <li>"Koine Greek journal"</li>
+          <li>5 pins per product &mdash; 15+ pins per language</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>One email per language collection</li>
+          <li>Lead with the historical story, not the product</li>
+          <li>Subject (Hebrew): "The language the Psalms were written in"</li>
+          <li>Subject (Greek): "The language of the New Testament"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-card navy">
+    <div class="s-card-header">
+      <div class="s-card-title">Ancient Scholar Gift Bundle &mdash; Q4 2027 prep begins here</div>
+      <span class="s-badge wk">Weeks 22-25</span>
+      <span class="s-badge lang">Language</span>
+    </div>
+    <div class="s-grid">
+      <div class="s-channel">
+        <div class="s-ch-label tt">TikTok</div>
+        <ul>
+          <li>"the complete ancient scholar bundle"</li>
+          <li>Show all three language collections together</li>
+          <li>Highest-value content moment of the year</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label pt">Pinterest</div>
+        <ul>
+          <li>"ancient languages gift set"</li>
+          <li>"unique gift for history lovers"</li>
+          <li>All three journals styled together</li>
+        </ul>
+      </div>
+      <div class="s-channel">
+        <div class="s-ch-label em">Email</div>
+        <ul>
+          <li>"The Ancient Scholar Collection is complete"</li>
+          <li>Feature full bundle with gift pricing</li>
+          <li>Most important email of Q4 2027</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-metrics">
+    <div class="s-metric"><div class="mp">By Week 20</div><div class="mt">Profitability</div><div class="md">First month covering costs</div></div>
+    <div class="s-metric"><div class="mp">By Week 25</div><div class="mt">3 languages live</div><div class="md">Hebrew, Greek, Old English</div></div>
+    <div class="s-metric"><div class="mp">By Week 25</div><div class="mt">100+ emails</div><div class="md">Klaviyo list for Q4 2027</div></div>
+    <div class="s-metric"><div class="mp">By Week 25</div><div class="mt">1,000+ TikTok</div><div class="md">Followers &mdash; unlock link in bio</div></div>
+  </div>
+
+  <div class="s-principles" style="margin-top:24px;">
+    <h3>The Three Biggest Levers</h3>
+    <ol>
+      <li><strong>Year in Letters is your breakout product.</strong> The concept &mdash; 12 sealed letters, one opened per month &mdash; is visual, emotional, instantly understood. Film it well and post December 1.</li>
+      <li><strong>Language collections are your long-term moat.</strong> No other stationery brand in the dark academia niche is doing Biblical Hebrew or Koine Greek journals. This differentiation builds a loyal audience no competitor can easily copy.</li>
+      <li><strong>Scholar history slides built your audience.</strong> Every new product launch should be preceded by a scholar slide that connects thematically to that product. Educate first, sell second &mdash; always.</li>
+    </ol>
+  </div>
+
+  </div>
+
+
+</main>
+</div><!-- end strategy panel -->
 
 <script>
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
   const STORAGE_KEY = 'tcd_tiktok_schedule_v3';
 
   function loadState() {
