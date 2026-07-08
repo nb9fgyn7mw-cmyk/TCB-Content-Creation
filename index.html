@@ -12,6 +12,7 @@
     --gold: #C9A84C;
     --forest: #2D4A3E;
     --ink: #2A2420;
+    --red: #8B2635;
   }
   * { box-sizing: border-box; }
   body {
@@ -29,100 +30,92 @@
     text-align: center;
     border-bottom: 4px solid var(--gold);
   }
-  header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    letter-spacing: 0.04em;
-    font-weight: normal;
-  }
-  header p {
-    margin: 6px 0 0;
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--gold);
-  }
-  main {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 16px;
-  }
+  header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 0.04em; font-weight: normal; }
+  header p { margin: 6px 0 0; font-size: 0.85rem; font-style: italic; color: var(--gold); }
+  main { max-width: 700px; margin: 0 auto; padding: 16px; }
   .progress {
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--sepia);
-    margin: 12px 0 16px;
-    font-style: italic;
+    text-align: center; font-size: 0.85rem; color: var(--sepia);
+    margin: 12px 0 4px; font-style: italic;
   }
+  .stats-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin: 10px 0 16px; justify-content: center;
+  }
+  .stat {
+    background: #fff; border: 1px solid var(--parchment-dark);
+    border-radius: 4px; padding: 8px 14px; text-align: center;
+    font-size: 0.8rem; flex: 1; min-width: 100px;
+  }
+  .stat .num { font-size: 1.2rem; color: var(--forest); font-weight: bold; display: block; }
+  .stat .label { color: var(--sepia); font-style: italic; font-size: 0.72rem; }
   .tips {
-    background: #fff;
-    border: 1px solid var(--parchment-dark);
-    border-left: 5px solid var(--gold);
-    border-radius: 4px;
-    padding: 12px 16px;
-    font-size: 0.85rem;
-    margin-bottom: 16px;
+    background: #fff; border: 1px solid var(--parchment-dark);
+    border-left: 5px solid var(--gold); border-radius: 4px;
+    padding: 12px 16px; font-size: 0.85rem; margin-bottom: 16px;
   }
   .tips h3 { margin: 0 0 6px; font-size: 0.95rem; color: var(--forest); }
   .tips ul { margin: 6px 0 0; padding-left: 20px; }
   .tips li { margin-bottom: 4px; }
   .board {
-    background: #fff;
-    border: 1px solid var(--parchment-dark);
-    border-left: 5px solid var(--forest);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
+    background: #fff; border: 1px solid var(--parchment-dark);
+    border-left: 5px solid var(--forest); border-radius: 4px;
+    padding: 14px 16px; margin-bottom: 16px;
   }
-  .board h2 {
-    margin: 0 0 2px;
-    font-size: 1.05rem;
-    color: var(--forest);
-  }
-  .board .sub {
-    font-size: 0.8rem;
-    color: var(--sepia);
-    margin-bottom: 10px;
-    font-style: italic;
-  }
+  .board h2 { margin: 0 0 2px; font-size: 1.05rem; color: var(--forest); }
+  .board .sub { font-size: 0.8rem; color: var(--sepia); margin-bottom: 10px; font-style: italic; }
   .pin {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 0;
-    border-top: 1px dashed var(--parchment-dark);
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-top: 1px dashed var(--parchment-dark);
   }
   .pin:first-of-type { border-top: none; }
   .pin input[type=checkbox] {
-    margin-top: 3px;
-    width: 18px;
-    height: 18px;
-    accent-color: var(--gold);
-    flex-shrink: 0;
+    margin-top: 3px; width: 18px; height: 18px;
+    accent-color: var(--gold); flex-shrink: 0;
   }
-  .pin label {
-    font-size: 0.9rem;
-    cursor: pointer;
-    line-height: 1.5;
-  }
+  .pin label { font-size: 0.9rem; cursor: pointer; line-height: 1.5; }
   .pin label strong { color: var(--forest); }
   .pin label em { color: var(--sepia); }
-  .pin.done label {
-    text-decoration: line-through;
-    color: #aaa;
+  .pin.done label { text-decoration: line-through; color: #aaa; }
+  .pin.posted { background: #f0f5f0; border-radius: 4px; padding: 10px; }
+  .pin.repost { background: #fff8ee; border-radius: 4px; padding: 10px; }
+  .pin.slide { background: #f5f0f8; border-radius: 4px; padding: 10px; }
+  .pin.needs-filming { background: #fff8ee; border-radius: 4px; padding: 10px; }
+  .badge {
+    display: inline-block; font-size: 0.62rem; background: var(--gold);
+    color: var(--ink); padding: 1px 6px; border-radius: 3px;
+    margin-left: 4px; vertical-align: middle; font-style: normal;
   }
-  .reset-row {
-    text-align: center;
-    margin-top: 24px;
+  .badge-slide {
+    display: inline-block; font-size: 0.62rem; background: #6B4899;
+    color: #fff; padding: 1px 6px; border-radius: 3px;
+    margin-left: 4px; vertical-align: middle; font-style: normal;
   }
+  .badge-hot {
+    display: inline-block; font-size: 0.62rem; background: var(--forest);
+    color: #fff; padding: 1px 6px; border-radius: 3px;
+    margin-left: 4px; vertical-align: middle; font-style: normal;
+  }
+  .badge-repost {
+    display: inline-block; font-size: 0.62rem; background: var(--red);
+    color: #fff; padding: 1px 6px; border-radius: 3px;
+    margin-left: 4px; vertical-align: middle; font-style: normal;
+  }
+  .analytics {
+    font-size: 0.75rem; color: var(--sepia);
+    background: var(--parchment-dark); border-radius: 3px;
+    padding: 3px 8px; margin-top: 4px; display: inline-block;
+  }
+  .legend {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    font-size: 0.74rem; margin-bottom: 14px; align-items: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .dot { width: 10px; height: 10px; border-radius: 2px; }
+  .reset-row { text-align: center; margin-top: 24px; }
   .reset-row button {
-    background: none;
-    border: 1px solid var(--sepia);
-    color: var(--sepia);
-    font-size: 0.75rem;
-    padding: 6px 14px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-family: inherit;
+    background: none; border: 1px solid var(--sepia); color: var(--sepia);
+    font-size: 0.75rem; padding: 6px 14px; border-radius: 3px;
+    cursor: pointer; font-family: inherit;
   }
 </style>
 </head>
@@ -130,230 +123,362 @@
 
 <header>
   <h1>TikTok Content Schedule</h1>
-  <p>TheCuratorsDesk &mdash; Jun 29 &ndash; Aug 20, 2026</p>
+  <p>TheCuratorsDesk &mdash; Jun 29 &ndash; Sep 28, 2026 &nbsp;|&nbsp; Today: Jul 8 (Day 9)</p>
 </header>
 
 <main>
-
   <div class="progress" id="scheduleProgress"></div>
 
+  <div class="stats-row">
+    <div class="stat"><span class="num">6</span><span class="label">posted</span></div>
+    <div class="stat"><span class="num">434</span><span class="label">best video views</span></div>
+    <div class="stat"><span class="num">7</span><span class="label">best video saves</span></div>
+    <div class="stat"><span class="num">11</span><span class="label">drafts ready</span></div>
+  </div>
+
+  <div class="legend">
+    <span style="color:var(--sepia); font-style:italic; font-size:0.74rem;">Key:</span>
+    <div class="legend-item"><div class="dot" style="background:#f0f5f0; border:1px solid #ccc;"></div> Posted</div>
+    <div class="legend-item"><div class="dot" style="background:#f5f0f8; border:1px solid #ccc;"></div> Informative slide</div>
+    <div class="legend-item"><div class="dot" style="background:#fff8ee; border:1px solid #ccc;"></div> Needs attention</div>
+  </div>
+
   <div class="tips">
-    <h3>Posting rules</h3>
+    <h3>What your data is telling you</h3>
     <ul>
-      <li>Post every 2&ndash;3 days — consistency beats volume</li>
-      <li>Classicist's Companion already posted ✓ — Day 1 starts Jun 29</li>
-      <li>Bookmark sets Vol. I&ndash;V each get their own creation video, spaced every 2 weeks</li>
-      <li>Tick each video once posted</li>
+      <li><strong>Scholar history slides are your #1 format</strong> &mdash; Marcus Aurelius: 434 views, 11 likes, 7 saves</li>
+      <li><strong>Behind the scenes is #2</strong> &mdash; Bookmarks creation: 306 views, 10 likes, 2 saves</li>
+      <li><strong>Festina Lente underperformed</strong> &mdash; Latin word slides need a stronger hook before posting more</li>
+      <li>Prioritise: scholar history &rarr; behind the scenes &rarr; page flips &rarr; Latin slides (with improved hooks)</li>
+      <li>Anchor hashtags every video: #darkacademia + alternate #booktok / #journalwithme</li>
     </ul>
   </div>
 
-  <!-- WEEK 1 -->
-  <div class="board" style="border-left-color: var(--gold);">
-    <h2>Week 1 &mdash; Jun 29 &ndash; Jul 5</h2>
-    <div class="sub">Lead with your strongest content</div>
+  <!-- POSTED VIDEOS -->
+  <div class="board" style="border-left-color: var(--forest);">
+    <h2>Already Posted &mdash; Jun 29 &ndash; Jul 7</h2>
+    <div class="sub">Days 1&ndash;8 complete</div>
 
-    <div class="pin">
-      <input type="checkbox" id="s-0">
-      <label for="s-0"><strong>Already posted</strong> &mdash; Classicist's Companion physical flip-through<br>
-      <em>"this is what a scholar's reading journal actually looks like"</em><br>
-      #darkacademia #journalwithme #scholaraesthetic #classicalstudies</label>
+    <div class="pin posted">
+      <input type="checkbox" id="s-0" checked>
+      <label for="s-0"><strong>Video 1</strong> &mdash; Classicist's Companion physical flip-through <span class="badge-hot">184 views</span><br>
+      <em>"the sound of a scholar's journal &#128214;"</em><br>
+      <span class="analytics">12 likes &nbsp;·&nbsp; 5 saves</span></label>
     </div>
-    <div class="pin">
-      <input type="checkbox" id="s-1">
-      <label for="s-1"><strong>Jun 29 (Day 1)</strong> &mdash; Latin sticker translation video<br>
-      <em>"translating my Latin stickers into English in my journal"</em><br>
-      #darkacademia #latinwords #journalwithme #scholaraesthetic #studywithme</label>
+    <div class="pin posted">
+      <input type="checkbox" id="s-1" checked>
+      <label for="s-1"><strong>Video 2</strong> &mdash; Latin sticker translation video<br>
+      <em>"romanticizing learning Latin"</em><br>
+      <span class="analytics">4 likes &nbsp;·&nbsp; 1 save</span></label>
     </div>
-    <div class="pin">
-      <input type="checkbox" id="s-2">
-      <label for="s-2"><strong>Jul 1 (Day 3)</strong> &mdash; Festina Lente informative slide<br>
-      <em>"the Latin phrase that was an emperor's motto — and should be yours"</em><br>
-      #darkacademia #latinwords #scholaraesthetic #studytok</label>
+    <div class="pin posted">
+      <input type="checkbox" id="s-2" checked>
+      <label for="s-2"><strong>Video 3</strong> &mdash; Festina Lente slide <span class="badge-slide">SLIDE</span><br>
+      <em>"the Latin phrase that was an emperor's motto"</em><br>
+      <span class="analytics">102 views &nbsp;·&nbsp; 0 likes &nbsp;·&nbsp; 0 saves &mdash; hook needs strengthening before posting more Latin slides</span></label>
     </div>
-    <div class="pin">
-      <input type="checkbox" id="s-3">
-      <label for="s-3"><strong>Jul 3 (Day 5)</strong> &mdash; Bookmark Set Vol. I creation behind the scenes<br>
-      <em>"how I design bookmarks for my Etsy shop"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #stationerydesign #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-4">
-      <label for="s-4"><strong>Jul 5 (Day 7)</strong> &mdash; Marcus Aurelius scholars slide<br>
+    <div class="pin posted">
+      <input type="checkbox" id="s-3" checked>
+      <label for="s-3"><strong>Video 4</strong> &mdash; Marcus Aurelius scholars slide <span class="badge-slide">SLIDE</span> <span class="badge-hot">&#11088; BEST</span><br>
       <em>"Meditations was never meant to be published. it was just his journal."</em><br>
-      #darkacademia #marcusaurelius #scholaraesthetic #studytok</label>
+      <span class="analytics">434 views &nbsp;·&nbsp; 11 likes &nbsp;·&nbsp; 7 saves</span></label>
+    </div>
+    <div class="pin posted">
+      <input type="checkbox" id="s-4" checked>
+      <label for="s-4"><strong>Video 5</strong> &mdash; Bookmark Set Vol. I creation behind the scenes <span class="badge-hot">306 views</span><br>
+      <em>"how I design bookmarks for my Etsy shop"</em><br>
+      <span class="analytics">10 likes &nbsp;·&nbsp; 2 saves</span></label>
+    </div>
+    <div class="pin repost">
+      <input type="checkbox" id="s-5">
+      <label for="s-5"><strong>Video 6 &mdash; REPOST TODAY</strong> &mdash; Morning Reflection Journal digital page-flip <span class="badge-repost">REPOST</span><br>
+      <em>"this is what structured morning reflection actually looks like"</em><br>
+      <span class="analytics">0 views &mdash; did not post correctly, repost Jul 8</span><br>
+      #darkacademia #morningroutine #journalwithme #scholarmindset #studytok</label>
     </div>
   </div>
 
-  <!-- WEEK 2 -->
-  <div class="board" style="border-left-color: var(--forest);">
-    <h2>Week 2 &mdash; Jul 7 &ndash; Jul 13</h2>
-    <div class="sub">Physical journals + Latin words</div>
+  <!-- WEEK 2 FORWARD -->
+  <div class="board" style="border-left-color: var(--gold);">
+    <h2>Jul 10 &ndash; Jul 17 &mdash; Scholar History Priority</h2>
+    <div class="sub">Lead with your two strongest remaining scholar slides</div>
 
-    <div class="pin">
-      <input type="checkbox" id="s-5">
-      <label for="s-5"><strong>Jul 7 (Day 9)</strong> &mdash; Autumn Reading Journal physical flip-through<br>
-      <em>"this is what a reading journal for serious readers looks like"</em><br>
-      #darkacademia #readingjournal #journalwithme #scholaraesthetic</label>
-    </div>
-    <div class="pin">
+    <div class="pin slide">
       <input type="checkbox" id="s-6">
-      <label for="s-6"><strong>Jul 9 (Day 11)</strong> &mdash; Carpe Diem informative slide<br>
-      <em>"carpe diem doesn't mean what you think it means"</em><br>
-      #darkacademia #latinwords #carpediem #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-7">
-      <label for="s-7"><strong>Jul 11 (Day 13)</strong> &mdash; Bookmark Set Vol. II creation behind the scenes<br>
-      <em>"designing Vol. II of my scholar bookmark set"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #stationerydesign #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-8">
-      <label for="s-8"><strong>Jul 13 (Day 15)</strong> &mdash; Thomas Jefferson scholars slide<br>
+      <label for="s-6"><strong>Jul 10</strong> &mdash; Thomas Jefferson scholars slide <span class="badge-slide">SLIDE</span><br>
       <em>"Thomas Jefferson started his commonplace book at 15. it shaped everything he wrote after."</em><br>
       #darkacademia #commonplacebook #scholaraesthetic #studytok</label>
     </div>
-  </div>
-
-  <!-- WEEK 3 -->
-  <div class="board" style="border-left-color: var(--sepia);">
-    <h2>Week 3 &mdash; Jul 15 &ndash; Jul 21</h2>
-    <div class="sub">Digital products + scholars series</div>
-
     <div class="pin">
-      <input type="checkbox" id="s-9">
-      <label for="s-9"><strong>Jul 15 (Day 17)</strong> &mdash; Commonplace Book digital page-flip<br>
-      <em>"this is what a commonplace book looks like inside"</em><br>
-      #darkacademia #commonplacebook #journalwithme #bookishaesthetic</label>
+      <input type="checkbox" id="s-7">
+      <label for="s-7"><strong>Jul 12</strong> &mdash; Autumn Reading Journal physical flip-through<br>
+      <em>"the sound that makes you want to read all season"</em><br>
+      #darkacademia #journalasmr #booktok #scholaraesthetic #journalwithme</label>
     </div>
-    <div class="pin">
-      <input type="checkbox" id="s-10">
-      <label for="s-10"><strong>Jul 17 (Day 19)</strong> &mdash; Sapere Aude informative slide<br>
-      <em>"the two Latin words that started the Enlightenment"</em><br>
-      #darkacademia #latinwords #sapereAude #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-11">
-      <label for="s-11"><strong>Jul 19 (Day 21)</strong> &mdash; Bookmark Set Vol. III creation behind the scenes<br>
-      <em>"designing the autumn scholar bookmark set — Vol. III"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #autumnaesthetic #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-12">
-      <label for="s-12"><strong>Jul 21 (Day 23)</strong> &mdash; C.S. Lewis scholars slide<br>
+    <div class="pin slide">
+      <input type="checkbox" id="s-8">
+      <label for="s-8"><strong>Jul 14</strong> &mdash; C.S. Lewis scholars slide <span class="badge-slide">SLIDE</span><br>
       <em>"his most honest book wasn't planned. it was just his journal."</em><br>
       #darkacademia #cslewis #journalwithme #scholaraesthetic</label>
     </div>
+    <div class="pin">
+      <input type="checkbox" id="s-9">
+      <label for="s-9"><strong>Jul 16</strong> &mdash; Bookmark Set Vol. II creation behind the scenes<br>
+      <em>"designing Vol. II of my scholar bookmark set"</em><br>
+      #darkacademia #etsyseller #bookmarkdesign #stationerydesign #scholaraesthetic</label>
+    </div>
   </div>
 
-  <!-- WEEK 4 -->
-  <div class="board" style="border-left-color: var(--gold);">
-    <h2>Week 4 &mdash; Jul 23 &ndash; Jul 29</h2>
-    <div class="sub">Stickers + more physical journals</div>
+  <div class="board" style="border-left-color: var(--sepia);">
+    <h2>Jul 18 &ndash; Jul 26</h2>
+    <div class="sub">Blaise Pascal + digital products + stickers</div>
 
-    <div class="pin">
-      <input type="checkbox" id="s-13">
-      <label for="s-13"><strong>Jul 23 (Day 25)</strong> &mdash; Sticker Vol. I adding to journal<br>
-      <em>"scholar stickers designed for digital journals — this is Vol. I"</em><br>
-      #darkacademia #journaldecorating #stickers #studyaesthetic</label>
+    <div class="pin slide">
+      <input type="checkbox" id="s-10">
+      <label for="s-10"><strong>Jul 18</strong> &mdash; Blaise Pascal scholars slide <span class="badge-slide">SLIDE</span><br>
+      <em>"he was 19 years old. and he built a calculating machine that still influences computing today."</em><br>
+      #darkacademia #blazepascal #scholaraesthetic #studytok</label>
     </div>
     <div class="pin">
+      <input type="checkbox" id="s-11">
+      <label for="s-11"><strong>Jul 20</strong> &mdash; Scholar's Reading Challenge digital page-flip<br>
+      <em>"a reading challenge tracker designed for serious readers"</em><br>
+      #darkacademia #readingchallenge #booktok #scholaraesthetic #journalwithme</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-12">
+      <label for="s-12"><strong>Jul 22</strong> &mdash; Carpe Diem Latin word slide <span class="badge-slide">SLIDE</span> <span class="badge">IMPROVE HOOK</span><br>
+      <em>"carpe diem doesn't mean what you think it means"</em><br>
+      #darkacademia #latinwords #carpediem #scholaraesthetic<br>
+      <span class="analytics">Note: revise hook slide wording before posting &mdash; lesson from Festina Lente</span></label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-13">
+      <label for="s-13"><strong>Jul 24</strong> &mdash; Sticker Vol. I adding to journal<br>
+      <em>"scholar stickers designed for digital journals &mdash; this is Vol. I"</em><br>
+      #darkacademia #journaldecorating #stickers #studyaesthetic #scholaraesthetic</label>
+    </div>
+    <div class="pin slide">
       <input type="checkbox" id="s-14">
-      <label for="s-14"><strong>Jul 25 (Day 27)</strong> &mdash; Dum Spiro Spero informative slide<br>
+      <label for="s-14"><strong>Jul 26</strong> &mdash; Apostle Paul scholars slide <span class="badge-slide">SLIDE</span><br>
+      <em>"Paul wrote letters from prison that are still read by billions. that's the power of intentional writing."</em><br>
+      #darkacademia #apostlepaul #scholaraesthetic #studytok</label>
+    </div>
+  </div>
+
+  <div class="board" style="border-left-color: var(--forest);">
+    <h2>Jul 28 &ndash; Aug 7</h2>
+    <div class="sub">Reading log + Dum Spiro Spero + Francis Bacon</div>
+
+    <div class="pin">
+      <input type="checkbox" id="s-15">
+      <label for="s-15"><strong>Jul 28</strong> &mdash; Reading Log digital page-flip<br>
+      <em>"every book you've ever read &mdash; tracked in one place"</em><br>
+      #darkacademia #readinglog #booktok #scholaraesthetic #journalwithme</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-16">
+      <label for="s-16"><strong>Jul 30</strong> &mdash; Dum Spiro Spero Latin word slide <span class="badge-slide">SLIDE</span><br>
       <em>"the Latin phrase I come back to every hard season"</em><br>
       #darkacademia #latinwords #dumspirospero #scholaraesthetic</label>
     </div>
     <div class="pin">
-      <input type="checkbox" id="s-15">
-      <label for="s-15"><strong>Jul 27 (Day 29)</strong> &mdash; Bookmark Set Vol. IV creation behind the scenes<br>
-      <em>"designing the winter scholar bookmark set — Vol. IV"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #winteraesthetic #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-16">
-      <label for="s-16"><strong>Jul 29 (Day 31)</strong> &mdash; Nosce Te Ipsum informative slide<br>
-      <em>"the question every scholar has to start with"</em><br>
-      #darkacademia #latinwords #nosceteipsum #scholaraesthetic</label>
-    </div>
-  </div>
-
-  <!-- WEEK 5 -->
-  <div class="board" style="border-left-color: var(--forest);">
-    <h2>Week 5 &mdash; Jul 31 &ndash; Aug 6</h2>
-    <div class="sub">Physical journals wrap-up + stickers Vol. II</div>
-
-    <div class="pin">
       <input type="checkbox" id="s-17">
-      <label for="s-17"><strong>Jul 31 (Day 33)</strong> &mdash; Autumn TBR Journal physical flip-through<br>
-      <em>"a to-be-read journal built for the serious reader"</em><br>
-      #darkacademia #tbrjournal #booktok #scholaraesthetic</label>
+      <label for="s-17"><strong>Aug 1</strong> &mdash; Bookmark Set Vol. III creation behind the scenes<br>
+      <em>"designing the autumn scholar bookmark set &mdash; Vol. III"</em><br>
+      #darkacademia #etsyseller #bookmarkdesign #autumnaesthetic #scholaraesthetic</label>
     </div>
-    <div class="pin">
+    <div class="pin slide">
       <input type="checkbox" id="s-18">
-      <label for="s-18"><strong>Aug 2 (Day 35)</strong> &mdash; Sticker Vol. II adding to journal<br>
-      <em>"Vol. II — more literary stickers for your digital journal"</em><br>
-      #darkacademia #journaldecorating #stickers #bookishaesthetic</label>
+      <label for="s-18"><strong>Aug 3</strong> &mdash; Francis Bacon scholars slide <span class="badge-slide">SLIDE</span><br>
+      <em>"Francis Bacon said reading makes a full man. he spent his life proving it."</em><br>
+      #darkacademia #francisbacon #scholaraesthetic #studytok</label>
     </div>
     <div class="pin">
       <input type="checkbox" id="s-19">
-      <label for="s-19"><strong>Aug 4 (Day 37)</strong> &mdash; Bookmark Set Vol. V creation behind the scenes<br>
-      <em>"designing the winter Vol. II scholar bookmark set"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #scholaraesthetic #stationerydesign</label>
+      <label for="s-19"><strong>Aug 5</strong> &mdash; Autumn TBR Journal physical flip-through<br>
+      <em>"every book on your TBR deserves this sound"</em><br>
+      #darkacademia #journalasmr #tbrjournal #booktok #scholaraesthetic</label>
     </div>
-    <div class="pin">
+    <div class="pin slide">
       <input type="checkbox" id="s-20">
-      <label for="s-20"><strong>Aug 6 (Day 39)</strong> &mdash; Morning Reflection Journal physical flip-through<br>
-      <em>"90 days of intentional mornings — this is what's inside"</em><br>
-      #darkacademia #morningroutine #journalwithme #scholarmindset</label>
+      <label for="s-20"><strong>Aug 7</strong> &mdash; Sapere Aude Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"the two Latin words that started the Enlightenment"</em><br>
+      #darkacademia #latinwords #sapereAude #scholaraesthetic</label>
     </div>
   </div>
 
-  <!-- WEEK 6 -->
-  <div class="board" style="border-left-color: var(--sepia);">
-    <h2>Week 6 &mdash; Aug 8 &ndash; Aug 20</h2>
-    <div class="sub">Reading + planning journals + digital wrap-up</div>
+  <div class="board" style="border-left-color: var(--gold);">
+    <h2>Aug 9 &ndash; Aug 19</h2>
+    <div class="sub">John Milton + stickers + daily notepad</div>
 
     <div class="pin">
       <input type="checkbox" id="s-21">
-      <label for="s-21"><strong>Aug 8 (Day 41)</strong> &mdash; Reading Challenge digital page-flip<br>
-      <em>"a reading challenge tracker designed for serious readers"</em><br>
-      #darkacademia #booktok #readingchallenge #journalwithme</label>
+      <label for="s-21"><strong>Aug 9</strong> &mdash; Daily Notepad page-flip<br>
+      <em>"the scholar's daily notepad &mdash; this is what's inside"</em><br>
+      #darkacademia #stationery #studyaesthetic #scholaraesthetic #journalwithme</label>
     </div>
-    <div class="pin">
+    <div class="pin slide">
       <input type="checkbox" id="s-22">
-      <label for="s-22"><strong>Aug 10 (Day 43)</strong> &mdash; Weekly Planner physical flip-through<br>
-      <em>"a weekly planner built for the scholarly life"</em><br>
-      #darkacademia #planwithme #weeklyplanner #scholaraesthetic</label>
+      <label for="s-22"><strong>Aug 11</strong> &mdash; John Milton scholars slide <span class="badge-slide">SLIDE</span><br>
+      <em>"John Milton went blind and still dictated Paradise Lost every morning. writing was not optional for him."</em><br>
+      #darkacademia #johnmilton #scholaraesthetic #studytok</label>
     </div>
     <div class="pin">
       <input type="checkbox" id="s-23">
-      <label for="s-23"><strong>Aug 12 (Day 45)</strong> &mdash; Classicist's Reading Journal physical flip-through<br>
-      <em>"a reading journal built around classical study methods"</em><br>
-      #darkacademia #readingjournal #scholaraesthetic #journalwithme</label>
+      <label for="s-23"><strong>Aug 13</strong> &mdash; Sticker Vol. II adding to journal<br>
+      <em>"Vol. II &mdash; more literary stickers for your digital journal"</em><br>
+      #darkacademia #journaldecorating #stickers #bookishaesthetic #scholaraesthetic</label>
     </div>
-    <div class="pin">
+    <div class="pin slide">
       <input type="checkbox" id="s-24">
-      <label for="s-24"><strong>Aug 14 (Day 47)</strong> &mdash; Commonplace Book physical flip-through<br>
-      <em>"the physical commonplace book — this is what's inside"</em><br>
-      #darkacademia #commonplacebook #journalwithme #bookishaesthetic</label>
+      <label for="s-24"><strong>Aug 15</strong> &mdash; Nosce Te Ipsum Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"the question every scholar has to start with"</em><br>
+      #darkacademia #latinwords #nosceteipsum #scholaraesthetic</label>
     </div>
     <div class="pin">
       <input type="checkbox" id="s-25">
-      <label for="s-25"><strong>Aug 16 (Day 49)</strong> &mdash; Weekly Planner digital page-flip<br>
-      <em>"planning pages designed around focus, not productivity hacks"</em><br>
-      #darkacademia #planwithme #weeklyplanner #scholaraesthetic</label>
+      <label for="s-25"><strong>Aug 17</strong> &mdash; Bookmark Set Vol. IV creation behind the scenes<br>
+      <em>"designing the winter scholar bookmark set &mdash; Vol. IV"</em><br>
+      #darkacademia #etsyseller #bookmarkdesign #winteraesthetic #scholaraesthetic</label>
     </div>
-    <div class="pin">
+    <div class="pin slide">
       <input type="checkbox" id="s-26">
-      <label for="s-26"><strong>Aug 18 (Day 51)</strong> &mdash; Morning Reflection Journal digital page-flip<br>
-      <em>"this is what structured morning reflection actually looks like"</em><br>
-      #darkacademia #morningroutine #journalwithme #scholarmindset</label>
+      <label for="s-26"><strong>Aug 19</strong> &mdash; Boethius scholars slide <span class="badge-slide">SLIDE</span><br>
+      <em>"he wrote his greatest work while awaiting execution. we call it the Consolation of Philosophy."</em><br>
+      #darkacademia #boethius #scholaraesthetic #studytok</label>
     </div>
+  </div>
+
+  <div class="board" style="border-left-color: var(--sepia);">
+    <h2>Aug 21 &ndash; Sep 1</h2>
+    <div class="sub">Reading journals + In Silentio Et Spe + sticker bundle</div>
+
     <div class="pin">
       <input type="checkbox" id="s-27">
-      <label for="s-27"><strong>Aug 20 (Day 53)</strong> &mdash; Commonplace Book informative slide<br>
+      <label for="s-27"><strong>Aug 21</strong> &mdash; Reading Challenge physical flip-through<br>
+      <em>"the sound of a fresh journal &#128214; &mdash; 50 books this year starts here"</em><br>
+      #darkacademia #journalasmr #readingchallenge #booktok #scholaraesthetic</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-28">
+      <label for="s-28"><strong>Aug 23</strong> &mdash; In Silentio Et Spe Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"the phrase from Isaiah that scholars have carried for two thousand years"</em><br>
+      #darkacademia #latinwords #christianfaith #scholaraesthetic</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-29">
+      <label for="s-29"><strong>Aug 25</strong> &mdash; Morning Reflection Journal physical flip-through<br>
+      <em>"the sound of a new morning habit &#128214;"</em><br>
+      #darkacademia #journalasmr #morningroutine #booktok #scholaraesthetic</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-30">
+      <label for="s-30"><strong>Aug 27</strong> &mdash; Augustine of Hippo scholars slide <span class="badge-slide">SLIDE</span><br>
+      <em>"Augustine wrote his Confessions as a direct conversation with God. it became one of the most read books in history."</em><br>
+      #darkacademia #augustineofhippo #scholaraesthetic #studytok</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-31">
+      <label for="s-31"><strong>Aug 29</strong> &mdash; Sticker Sheet Bundle (Vol. I + II)<br>
+      <em>"everything in the scholar sticker collection &mdash; Vol. I &amp; II together"</em><br>
+      #darkacademia #journaldecorating #stickers #scholaraesthetic #studyaesthetic</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-32">
+      <label for="s-32"><strong>Sep 1</strong> &mdash; Per Aspera Ad Astra Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"through hardship to the stars &mdash; the phrase that has carried scholars through every difficult season"</em><br>
+      #darkacademia #latinwords #perasperaadastra #scholaraesthetic</label>
+    </div>
+  </div>
+
+  <div class="board" style="border-left-color: var(--forest);">
+    <h2>Sep 3 &ndash; Sep 14</h2>
+    <div class="sub">Classicist's Reading Journal + weekly planner + Bookmark Vol. V</div>
+
+    <div class="pin">
+      <input type="checkbox" id="s-33">
+      <label for="s-33"><strong>Sep 3</strong> &mdash; Weekly Planner physical flip-through<br>
+      <em>"planning sounds better on paper"</em><br>
+      #darkacademia #journalasmr #planwithme #booktok #scholaraesthetic</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-34">
+      <label for="s-34"><strong>Sep 5</strong> &mdash; Veritas Lux Mea Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"truth is my light &mdash; the phrase that has guided scholars and believers for centuries"</em><br>
+      #darkacademia #latinwords #veritasluxmea #scholaraesthetic</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-35">
+      <label for="s-35"><strong>Sep 7</strong> &mdash; Classicist's Reading Journal physical flip-through<br>
+      <em>"fresh pages for a fresh reading season &#128214;"</em><br>
+      #darkacademia #journalasmr #readingjournal #booktok #scholaraesthetic</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-36">
+      <label for="s-36"><strong>Sep 9</strong> &mdash; Bookmark Set Vol. V creation behind the scenes<br>
+      <em>"designing the final scholar bookmark set &mdash; Vol. V"</em><br>
+      #darkacademia #etsyseller #bookmarkdesign #scholaraesthetic #stationerydesign</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-37">
+      <label for="s-37"><strong>Sep 11</strong> &mdash; Ars Longa Vita Brevis Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"art is long, life is short &mdash; the phrase every scholar lives by"</em><br>
+      #darkacademia #latinwords #arslongavitabrevis #scholaraesthetic</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-38">
+      <label for="s-38"><strong>Sep 13</strong> &mdash; Reading Log physical flip-through<br>
+      <em>"the sound of a fresh reading log &#128214;"</em><br>
+      #darkacademia #journalasmr #readinglog #booktok #scholaraesthetic</label>
+    </div>
+  </div>
+
+  <div class="board" style="border-left-color: var(--gold);">
+    <h2>Sep 16 &ndash; Sep 28</h2>
+    <div class="sub">Digital wrap-up + Deus Providebit + Commonplace Book</div>
+
+    <div class="pin slide">
+      <input type="checkbox" id="s-39">
+      <label for="s-39"><strong>Sep 16</strong> &mdash; Deus Providebit Latin word slide <span class="badge-slide">SLIDE</span><br>
+      <em>"God will provide &mdash; the phrase carried by scholars and believers through every uncertain season"</em><br>
+      #darkacademia #latinwords #deusprovidebit #christianfaith #scholaraesthetic</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-40">
+      <label for="s-40"><strong>Sep 18</strong> &mdash; Commonplace Book physical flip-through<br>
+      <em>"centuries of scholars heard this same sound &#128214;"</em><br>
+      #darkacademia #journalasmr #commonplacebook #booktok #scholaraesthetic</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-41">
+      <label for="s-41"><strong>Sep 20</strong> &mdash; Commonplace Book informative slide <span class="badge-slide">SLIDE</span><br>
       <em>"the Renaissance study habit making a comeback"</em><br>
       #darkacademia #commonplacebook #studytok #bookishaesthetic</label>
+    </div>
+    <div class="pin needs-filming">
+      <input type="checkbox" id="s-42">
+      <label for="s-42"><strong>Sep 22</strong> &mdash; Commonplace Book digital page-flip <span class="badge">FILM FIRST</span><br>
+      <em>"this is what a commonplace book looks like inside"</em><br>
+      #darkacademia #commonplacebook #journalwithme #bookishaesthetic #studytok</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-43">
+      <label for="s-43"><strong>Sep 24</strong> &mdash; Weekly Planner digital page-flip<br>
+      <em>"planning pages designed around focus, not productivity hacks"</em><br>
+      #darkacademia #planwithme #weeklyplanner #scholaraesthetic #studytok</label>
+    </div>
+    <div class="pin">
+      <input type="checkbox" id="s-44">
+      <label for="s-44"><strong>Sep 26</strong> &mdash; Autumn TBR Journal second post<br>
+      <em>"what your autumn reading list looks like on paper"</em><br>
+      #darkacademia #tbrjournal #autumnreading #booktok #scholaraesthetic</label>
+    </div>
+    <div class="pin slide">
+      <input type="checkbox" id="s-45">
+      <label for="s-45"><strong>Sep 28</strong> &mdash; Scholar's Reading Challenge digital second post <span class="badge-slide">SLIDE</span><br>
+      <em>"50 books. one tracker. this is how scholars read."</em><br>
+      #darkacademia #readingchallenge #booktok #scholaraesthetic #studytok</label>
     </div>
   </div>
 
@@ -364,23 +489,26 @@
 </div>
 
 <script>
-  const STORAGE_KEY = 'tcd_tiktok_schedule';
+  const STORAGE_KEY = 'tcd_tiktok_schedule_v3';
 
   function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch(e) { return {}; }
+    try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : {}; }
+    catch(e) { return {}; }
   }
 
   function saveState(state) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-    catch(e) {}
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
   }
 
   let state = loadState();
 
+  // Auto-check already posted videos on first load
+  const alreadyPosted = ['s-0','s-1','s-2','s-3','s-4'];
+
   document.querySelectorAll('[id^="s-"]').forEach(cb => {
+    if (alreadyPosted.includes(cb.id) && state[cb.id] === undefined) {
+      state[cb.id] = true;
+    }
     cb.checked = !!state[cb.id];
     if (cb.checked) cb.closest('.pin').classList.add('done');
     cb.addEventListener('change', () => {
@@ -390,6 +518,8 @@
       updateProgress();
     });
   });
+
+  saveState(state);
 
   function updateProgress() {
     const all = document.querySelectorAll('[id^="s-"]');
