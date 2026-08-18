@@ -7,7 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
-:root {
+:root{
   --forest:#2D4A3E;--forest-deep:#1A2E24;--gold:#C9A84C;--parchment:#F5E6C8;
   --sepia:#6B4C2A;--sepia-light:#8B6840;--ink:#1E1510;--muted:#9B8060;
   --bg:#0A0806;--card:#1a1208;--cb:#2a2010;--red:#8B3A3A;--blue:#4A6B8B;
@@ -16,36 +16,27 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:var(--parchment);display:flex;flex-direction:column;}
-::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:#111;}::-webkit-scrollbar-thumb{background:var(--cb);border-radius:2px;}
-
-/* HEADER */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#111;}
+::-webkit-scrollbar-thumb{background:var(--cb);border-radius:2px;}
 .hdr{background:var(--forest-deep);border-bottom:2px solid var(--gold);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;flex-shrink:0;}
 .hdr-brand .ey{font-family:'Cinzel',serif;font-size:0.44rem;letter-spacing:0.2em;color:var(--gold);opacity:.7;text-transform:uppercase;display:block;margin-bottom:2px;}
 .hdr-brand h1{font-family:'Cinzel',serif;font-size:0.9rem;color:#fff;letter-spacing:.05em;font-weight:400;}
 .tabs{display:flex;gap:5px;}
 .tab{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 11px;border:1px solid var(--cb);background:transparent;color:var(--muted);border-radius:3px;cursor:pointer;text-transform:uppercase;}
 .tab.active{background:var(--gold);color:var(--ink);border-color:var(--gold);}
-
-/* STATS BAR */
 .sb{background:var(--card);border-bottom:1px solid var(--cb);padding:7px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
 .si .sv{font-family:'Cinzel',serif;font-size:0.85rem;color:var(--gold);display:block;}
 .si .sl{font-size:0.5rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
-.esb{margin-left:auto;font-family:'Cinzel',serif;font-size:0.44rem;letter-spacing:.1em;padding:3px 8px;border:1px solid var(--cb);background:transparent;color:var(--muted);border-radius:3px;cursor:pointer;white-space:nowrap;}
-
-/* SCROLL AREA */
+.esb{margin-left:auto;font-family:'Cinzel',serif;font-size:0.44rem;letter-spacing:.1em;padding:3px 8px;border:1px solid var(--cb);background:transparent;color:var(--muted);border-radius:3px;cursor:pointer;}
 .scroll{flex:1;overflow-y:auto;padding:14px;}
-
-/* TAB PANELS */
 .tp{display:none;}.tp.active{display:block;}
-
-/* FILTERS */
 .fr{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
-.fr select{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.07em;padding:5px 8px;background:var(--card);border:1px solid var(--cb);color:var(--parchment);border-radius:3px;max-width:130px;}
+.fr select{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.07em;padding:5px 8px;background:var(--card);border:1px solid var(--cb);color:var(--parchment);border-radius:3px;max-width:140px;}
 .cl{font-size:0.7rem;color:var(--muted);font-style:italic;}
-.ab{margin-left:auto;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 11px;background:var(--forest);border:1px solid var(--gold);color:var(--parchment);border-radius:3px;cursor:pointer;white-space:nowrap;}
-
-/* POST CARD */
-.pc{background:var(--card);border:1px solid var(--cb);border-radius:4px;margin-bottom:6px;cursor:grab;}
+.ab{margin-left:auto;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 11px;background:var(--forest);border:1px solid var(--gold);color:var(--parchment);border-radius:3px;cursor:pointer;}
+.wh{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;opacity:.7;margin:14px 0 5px;padding-left:4px;border-left:2px solid var(--gold);}
+.pc{background:var(--card);border:1px solid var(--cb);border-radius:4px;margin-bottom:5px;cursor:grab;}
 .pc:active{cursor:grabbing;}
 .pc.drag-over{outline:2px dashed var(--gold);outline-offset:2px;}
 .pc.dragging{opacity:.4;}
@@ -53,7 +44,7 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
 .mbs{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
 .mb{background:transparent;border:1px solid var(--cb);color:var(--muted);border-radius:2px;cursor:pointer;font-size:0.48rem;padding:1px 3px;line-height:1;}
 .mb:hover{color:var(--gold);}
-.pd{font-family:'Cinzel',serif;font-size:0.48rem;color:var(--gold);opacity:.7;min-width:42px;letter-spacing:.04em;flex-shrink:0;}
+.pd{font-family:'Cinzel',serif;font-size:0.48rem;color:var(--gold);opacity:.7;min-width:42px;flex-shrink:0;}
 .tb{font-size:0.42rem;font-family:'Cinzel',serif;letter-spacing:.06em;padding:2px 5px;color:#fff;border-radius:2px;flex-shrink:0;opacity:.85;white-space:nowrap;}
 .pt{flex:1;font-size:0.82rem;color:var(--parchment);line-height:1.2;cursor:pointer;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .pn{font-size:0.58rem;color:var(--gold);font-style:italic;margin-left:5px;}
@@ -70,31 +61,21 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
 .pe.open{display:block;}
 .pe-cap{font-size:0.76rem;color:var(--sepia-light);font-style:italic;margin-bottom:3px;line-height:1.4;word-break:break-word;}
 .pe-ht{font-size:0.62rem;color:#555;word-break:break-word;}
-
-/* WEEK HEADER */
-.wh{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;opacity:.7;margin:16px 0 6px;padding-left:4px;border-left:2px solid var(--gold);}
-.wh:first-child{margin-top:0;}
-
-/* FORM */
 .fc{background:var(--card);border:1px solid var(--gold);border-radius:4px;padding:12px;margin-bottom:12px;}
 .fh{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
 .fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
 .fg{display:flex;flex-direction:column;gap:3px;}
 .fl{font-size:0.5rem;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;}
-.fi,.fs,.fta{width:100%;padding:6px 8px;background:#0E0A06;border:1px solid var(--cb);color:var(--parchment);border-radius:3px;font-size:0.82rem;font-family:'Cormorant Garamond',Georgia,serif;}
+.fi,.fsl,.fta{width:100%;padding:6px 8px;background:#0E0A06;border:1px solid var(--cb);color:var(--parchment);border-radius:3px;font-size:0.82rem;font-family:'Cormorant Garamond',Georgia,serif;}
 .fta{resize:vertical;}
 .fsh{font-family:'Cinzel',serif;font-size:0.46rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin:8px 0 5px;opacity:.7;}
 .fa{display:flex;gap:6px;margin-top:10px;}
 .svb{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 13px;background:var(--forest);border:1px solid var(--gold);color:var(--parchment);border-radius:3px;cursor:pointer;}
 .cnb{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 13px;background:transparent;border:1px solid var(--cb);color:var(--muted);border-radius:3px;cursor:pointer;}
-
-/* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:100;padding:12px;}
 .mo.open{display:flex;}
 .mb2{background:var(--card);border:1px solid var(--gold);border-radius:6px;padding:16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;}
-
-/* ANALYTICS */
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:7px;margin-bottom:14px;}
 .sc{background:var(--card);border:1px solid var(--cb);border-radius:3px;padding:9px 10px;text-align:center;}
 .sc .sv3{font-family:'Cinzel',serif;font-size:1.0rem;display:block;margin-bottom:2px;}
@@ -106,15 +87,13 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
 .tr:last-child{border-bottom:none;}
 .tbb{flex:1;background:#0E0A06;border-radius:2px;height:4px;overflow:hidden;}
 .tbf{height:100%;border-radius:2px;transition:width .4s;}
-
-/* STRATEGY */
 .stc{background:var(--card);border:1px solid var(--cb);border-radius:4px;padding:12px 14px;margin-bottom:10px;}
 .stc.gt{border-top:2px solid var(--gold);}
 .stc.ft{border-top:2px solid var(--forest);}
 .sth{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;opacity:.8;margin-bottom:10px;display:block;}
 .ii{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--cb);font-size:0.82rem;color:var(--parchment);line-height:1.5;}
 .ii:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.id{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.id2{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px;}
 .is{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:.04em;display:block;margin-bottom:1px;}
 .mr{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #1a1208;font-size:0.78rem;}
 .mr:last-child{border-bottom:none;}
@@ -141,9 +120,9 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
     <h1>Content Planner</h1>
   </div>
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('content')">✦ Content</button>
-    <button class="tab" onclick="switchTab('analytics')">↗ Analytics</button>
-    <button class="tab" onclick="switchTab('strategy')">◈ Strategy</button>
+    <button class="tab active" onclick="switchTab('content')">&#10022; Content</button>
+    <button class="tab" onclick="switchTab('analytics')">&#8599; Analytics</button>
+    <button class="tab" onclick="switchTab('strategy')">&#9672; Strategy</button>
   </div>
 </div>
 
@@ -151,13 +130,14 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
   <div class="si"><span class="sv" id="sb-f">22</span><span class="sl">Followers</span></div>
   <div class="si"><span class="sv" id="sb-e">2</span><span class="sl">Email Subs</span></div>
   <div class="si"><span class="sv" id="sb-p">1,400</span><span class="sl">Pinterest</span></div>
-  <div class="si"><span class="sv" id="sb-v">—</span><span class="sl">Total Views</span></div>
-  <div class="si"><span class="sv" id="sb-n">—</span><span class="sl">Posted</span></div>
+  <div class="si"><span class="sv" id="sb-v">-</span><span class="sl">Total Views</span></div>
+  <div class="si"><span class="sv" id="sb-n">-</span><span class="sl">Posted</span></div>
   <button class="esb" onclick="openAcc()">Edit Stats</button>
 </div>
 
 <div class="scroll">
 
+  <!-- CONTENT TAB -->
   <div class="tp active" id="tp-content">
     <div class="fr">
       <select id="fs" onchange="render()">
@@ -180,22 +160,23 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
       <span class="cl" id="pc2"></span>
       <button class="ab" onclick="openAdd()">+ Add Post</button>
     </div>
-
     <div class="fc" id="add-form" style="display:none">
       <div class="fh">New Post</div>
       <div class="fg2">
         <div class="fg"><label class="fl">Title</label><input class="fi" id="nf-ti" type="text"></div>
         <div class="fg"><label class="fl">Date</label><input class="fi" id="nf-da" type="date"></div>
         <div class="fg"><label class="fl">Type</label>
-          <select class="fs" id="nf-ty">
+          <select class="fsl" id="nf-ty">
             <option value="face">Face Video</option><option value="educational">Educational Slide</option>
             <option value="scholar">Scholar Slide</option><option value="latin">Latin Slide</option>
             <option value="product">Product Showcase</option><option value="seasonal">Seasonal</option><option value="other">Other</option>
-          </select></div>
+          </select>
+        </div>
         <div class="fg"><label class="fl">Status</label>
-          <select class="fs" id="nf-st">
-            <option value="planned">Planned</option><option value="scheduled">Scheduled</option>
-            <option value="posted">Posted</option></select></div>
+          <select class="fsl" id="nf-st">
+            <option value="planned">Planned</option><option value="scheduled">Scheduled</option><option value="posted">Posted</option>
+          </select>
+        </div>
       </div>
       <div class="fg" style="margin-top:7px"><label class="fl">Caption</label><textarea class="fta" id="nf-ca" rows="2"></textarea></div>
       <div class="fg" style="margin-top:7px"><label class="fl">Hashtags</label><input class="fi" id="nf-ha" type="text"></div>
@@ -205,34 +186,35 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
         <button class="cnb" onclick="closeAdd()">Cancel</button>
       </div>
     </div>
-
     <div id="post-list"></div>
   </div>
 
+  <!-- ANALYTICS TAB -->
   <div class="tp" id="tp-analytics">
     <div class="sg" id="sum-grid"></div>
     <div class="bvc" id="best-v"></div>
-    <div class="cc"><span class="clbl">Per-Video Performance — Last 12 Posted</span><canvas id="bar-c" height="110"></canvas></div>
+    <div class="cc"><span class="clbl">Per-Video Performance - Last 12 Posted</span><canvas id="bar-c" height="110"></canvas></div>
     <div class="cc"><span class="clbl">Views Growth Over Time</span><canvas id="line-c" height="90"></canvas></div>
     <div class="cc"><span class="clbl">Average Performance by Content Type</span><div id="type-bd"></div></div>
   </div>
 
+  <!-- STRATEGY TAB -->
   <div class="tp" id="tp-strategy">
-    <div class="stc gt"><span class="sth">Live Insights — Auto-updated from your data</span><div id="insights"></div></div>
+    <div class="stc gt"><span class="sth">Live Insights - Auto-updated from your data</span><div id="insights"></div></div>
     <div class="stc">
       <span class="sth">Weekly Theme Template</span>
-      <div class="ii"><div class="id" style="background:var(--forest)"></div><div><span class="is" style="color:var(--forest)">Post 1 — Educational Slide</span>What is this product, why do scholars use it, the history or practice behind it. Targets TikTok search and generates saves.</div></div>
-      <div class="ii"><div class="id" style="background:var(--sepia-light)"></div><div><span class="is" style="color:var(--sepia-light)">Post 2 — Scholar Slide</span>A scholar linked to that week's product theme. Gives the week credibility and broader reach. Can be thematically adjacent, not an exact match.</div></div>
-      <div class="ii"><div class="id" style="background:var(--purple)"></div><div><span class="is" style="color:var(--purple)">Post 3 — Face Video Showcase</span>Audience is now warm and educated. The face video converts that warm audience into buyers. Feels personal, not salesy.</div></div>
+      <div class="ii"><div class="id2" style="background:var(--forest)"></div><div><span class="is" style="color:var(--forest)">Post 1 - Educational Slide</span>What is this product, why scholars use it, the history or practice behind it. Targets search and gets saves.</div></div>
+      <div class="ii"><div class="id2" style="background:var(--sepia-light)"></div><div><span class="is" style="color:var(--sepia-light)">Post 2 - Scholar Slide</span>A scholar linked to that week's product theme. Gives the week credibility and broader reach.</div></div>
+      <div class="ii"><div class="id2" style="background:var(--purple)"></div><div><span class="is" style="color:var(--purple)">Post 3 - Face Video Showcase</span>Audience is warm and educated. The face video converts that warm audience into buyers.</div></div>
     </div>
     <div class="stc">
       <span class="sth">Target Content Ratio</span>
-      <div class="ri"><div class="rp" style="color:var(--forest)">60%</div><div><div class="rl" style="color:var(--forest)">Educational</div><div class="rd2">Scholar history, educational product slides, commonplace book content — your highest-performing category by saves and views.</div></div></div>
-      <div class="ri"><div class="rp" style="color:var(--blue)">25%</div><div><div class="rl" style="color:var(--blue)">Lead Magnet &amp; Face Videos</div><div class="rd2">Free reading log, journal face videos — builds trust and grows email list.</div></div></div>
+      <div class="ri"><div class="rp" style="color:var(--forest)">60%</div><div><div class="rl" style="color:var(--forest)">Educational</div><div class="rd2">Scholar history, educational product slides, commonplace book content - your highest-performing category.</div></div></div>
+      <div class="ri"><div class="rp" style="color:var(--blue)">25%</div><div><div class="rl" style="color:var(--blue)">Lead Magnet and Face Videos</div><div class="rd2">Free reading log, journal face videos - builds trust and grows email list.</div></div></div>
       <div class="ri"><div class="rp" style="color:var(--sepia)">15%</div><div><div class="rl" style="color:var(--sepia)">Product Showcase</div><div class="rd2">Only after educational context is set. Never post a product showcase without an educational slide first.</div></div></div>
     </div>
-    <div class="stc ft"><span class="sth">Key Unlocks — What Changes Everything</span><div id="unlocks"></div></div>
-    <div class="stc"><span class="sth">Revenue Milestones — Target $3,000/mo by Jun 2027</span><div id="revenue"></div></div>
+    <div class="stc ft"><span class="sth">Key Unlocks - What Changes Everything</span><div id="unlocks"></div></div>
+    <div class="stc"><span class="sth">Revenue Milestones - Target $3,000/mo by Jun 2027</span><div id="revenue"></div></div>
   </div>
 
 </div>
@@ -245,16 +227,18 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
       <div class="fg"><label class="fl">Title</label><input class="fi" id="ef-ti" type="text"></div>
       <div class="fg"><label class="fl">Date</label><input class="fi" id="ef-da" type="date"></div>
       <div class="fg"><label class="fl">Type</label>
-        <select class="fs" id="ef-ty">
+        <select class="fsl" id="ef-ty">
           <option value="face">Face Video</option><option value="educational">Educational Slide</option>
           <option value="scholar">Scholar Slide</option><option value="latin">Latin Slide</option>
           <option value="product">Product Showcase</option><option value="seasonal">Seasonal</option><option value="other">Other</option>
-        </select></div>
+        </select>
+      </div>
       <div class="fg"><label class="fl">Status</label>
-        <select class="fs" id="ef-st">
+        <select class="fsl" id="ef-st">
           <option value="planned">Planned</option><option value="scheduled">Scheduled</option>
           <option value="posted">Posted</option><option value="deleted">Deleted</option>
-        </select></div>
+        </select>
+      </div>
     </div>
     <div class="fsh">Analytics</div>
     <div class="fg3">
@@ -290,386 +274,467 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
 </div>
 
 <script>
-const TC={face:'#7B5EA7',educational:'#2D4A3E',scholar:'#8B6840',latin:'#C9A84C',product:'#4A6B8B',seasonal:'#8B3A3A',other:'#555'};
-const TL={face:'Face Video',educational:'Educational Slide',scholar:'Scholar Slide',latin:'Latin Slide',product:'Product Showcase',seasonal:'Seasonal',other:'Other'};
-const SC={posted:'#2D4A3E',scheduled:'#4A6B8B',planned:'#555',deleted:'#8B3A3A'};
-const SL={posted:'Posted',scheduled:'Scheduled',planned:'Planned',deleted:'Deleted'};
+var TC = {face:'#7B5EA7',educational:'#2D4A3E',scholar:'#8B6840',latin:'#C9A84C',product:'#4A6B8B',seasonal:'#8B3A3A',other:'#555'};
+var TL = {face:'Face Video',educational:'Educational Slide',scholar:'Scholar Slide',latin:'Latin Slide',product:'Product Showcase',seasonal:'Seasonal',other:'Other'};
+var SC = {posted:'#2D4A3E',scheduled:'#4A6B8B',planned:'#555',deleted:'#8B3A3A'};
+var SL = {posted:'Posted',scheduled:'Scheduled',planned:'Planned',deleted:'Deleted'};
 
-// DEFAULT POSTS — clean themed weekly structure
-const DP=[
-  // === POSTED HISTORY ===
-  {id:'p1',date:'2024-06-26',title:'Stickers on Companion iPad',type:'product',status:'posted',views:191,likes:12,saves:5,caption:'',hashtags:'#darkacademia #scholaraesthetic',notes:'iPad format — discontinued'},
-  {id:'p2',date:'2024-06-30',title:'Latin word stickers iPad',type:'product',status:'posted',views:164,likes:5,saves:1,caption:'',hashtags:'#darkacademia #scholaraesthetic',notes:'iPad format — discontinued'},
-  {id:'p3',date:'2024-07-01',title:'Festina Lente slides',type:'latin',status:'posted',views:108,likes:3,saves:0,caption:'',hashtags:'#darkacademia #latinwords',notes:'Hook too weak'},
-  {id:'p4',date:'2024-07-03',title:'Reasons to Journal slides',type:'educational',status:'posted',views:496,likes:12,saves:8,caption:'',hashtags:'#darkacademia #scholaraesthetic',notes:''},
-  {id:'p5',date:'2024-07-06',title:'Bookmarks Vol. I creation',type:'product',status:'posted',views:407,likes:20,saves:4,caption:'',hashtags:'#darkacademia #etsyseller',notes:'1 purchase-intent comment'},
-  {id:'p6',date:'2024-07-10',title:'Thomas Jefferson slides',type:'scholar',status:'posted',views:906,likes:40,saves:12,caption:'"the Declaration of Independence grew from a habit he started at 15"',hashtags:'#darkacademia #scholaraesthetic',notes:'⭐ #2 all time'},
-  {id:'p7',date:'2024-07-12',title:'Autumn Reading Journal',type:'product',status:'posted',views:253,likes:8,saves:2,caption:'',hashtags:'#darkacademia #autumnreading',notes:''},
-  {id:'p8',date:'2024-07-14',title:'C.S. Lewis slides',type:'scholar',status:'posted',views:454,likes:11,saves:1,caption:'',hashtags:'#darkacademia #scholaraesthetic',notes:''},
-  {id:'p9',date:'2024-07-17',title:'Reading Challenge iPad digital',type:'product',status:'posted',views:164,likes:5,saves:0,caption:'',hashtags:'#darkacademia #readingchallenge',notes:'iPad — discontinued'},
-  {id:'p10',date:'2024-07-18',title:'Free Reading Log slides',type:'educational',status:'posted',views:595,likes:15,saves:6,caption:'',hashtags:'#darkacademia #scholaraesthetic',notes:'Pinned #1'},
-  {id:'p11',date:'2024-07-22',title:'Blaise Pascal slides',type:'scholar',status:'posted',views:302,likes:5,saves:0,caption:'',hashtags:'#darkacademia #scholaraesthetic',notes:'Name recognition issue'},
-  {id:'p12',date:'2024-07-30',title:'Francis Bacon slides',type:'scholar',status:'posted',views:548,likes:28,saves:8,caption:'"he wrote one sentence in 1597 that still describes why serious readers journal"',hashtags:'#darkacademia #francisbacon',notes:'148% above account average'},
-  {id:'p13',date:'2024-08-01',title:'Bookmarks Vol. II slides',type:'product',status:'posted',views:204,likes:8,saves:1,caption:'',hashtags:'#darkacademia #etsyseller',notes:''},
-  {id:'p14',date:'2024-08-03',title:'Commonplace Educational slides',type:'educational',status:'posted',views:655,likes:31,saves:19,caption:'',hashtags:'#darkacademia #commonplacebook',notes:''},
-  {id:'p15',date:'2024-08-05',title:'Reading Journal picture slides',type:'product',status:'posted',views:168,likes:4,saves:0,caption:'',hashtags:'#darkacademia #readingjournal',notes:'Product showcase without edu context'},
-  {id:'p16',date:'2024-08-07',title:'Carpe Diem slides',type:'latin',status:'posted',views:197,likes:5,saves:0,caption:'',hashtags:'#darkacademia #latinwords',notes:'Hook needs strengthening'},
-  {id:'p17',date:'2024-08-11',title:'Commonplace Not a Diary slides',type:'educational',status:'posted',views:922,likes:43,saves:38,caption:'"most people journal their feelings — scholars journal their ideas"',hashtags:'#darkacademia #commonplacebook',notes:'⭐ BEST EVER — 38 saves'},
-  {id:'p18',date:'2024-08-13',title:'Commonplace showcase voiceover',type:'product',status:'posted',views:142,likes:4,saves:1,caption:'',hashtags:'#darkacademia #commonplacebook',notes:'Voiceover without face underperforms'},
-  {id:'p19',date:'2024-08-15',title:'Before Google Commonplace slides',type:'educational',status:'posted',views:202,likes:6,saves:5,caption:'',hashtags:'#darkacademia #commonplacebook',notes:''},
-  {id:'p20',date:'2024-08-17',title:'Commonplace page flip video',type:'product',status:'posted',views:171,likes:3,saves:0,caption:'',hashtags:'#darkacademia #commonplacebook',notes:''},
+function makePost(id,date,title,type,status,views,likes,saves,caption,hashtags,notes){
+  return {id:id,date:date,title:title,type:type,status:status,views:views,likes:likes,saves:saves,caption:caption,hashtags:hashtags,notes:notes};
+}
 
-  // === SCHEDULED (vacation) ===
-  {id:'p21',date:'2024-08-19',title:'Brand Introduction face video',type:'face',status:'scheduled',views:0,likes:0,saves:0,caption:'"literary goods for the reader who takes their inner life seriously"',hashtags:'#darkacademia #scholaraesthetic #thecuratorsdesk #booktok #stationery',notes:'PIN IMMEDIATELY after posting'},
-  {id:'p22',date:'2024-08-21',title:"Classicist's Companion face video",type:'face',status:'scheduled',views:0,likes:0,saves:0,caption:'"the journal built for the reader who thinks seriously — not just reads"',hashtags:'#darkacademia #scholaraesthetic #journalwithme #booktok',notes:''},
-  {id:'p23',date:'2024-08-23',title:'Sapere Aude Latin slide',type:'latin',status:'scheduled',views:0,likes:0,saves:0,caption:'"Kant called these two Latin words the motto of the Enlightenment"',hashtags:'#darkacademia #latinwords #sapereAude #scholaraesthetic',notes:''},
-
-  // === WEEK: CLASSICIST'S COMPANION ===
-  {id:'w1a',date:'2024-08-25',title:"What is the Classicist's Companion? — Educational slide",type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"the journal that serious readers and writers have always kept — this is what goes inside"',hashtags:'#darkacademia #scholaraesthetic #journalwithme #studytok',notes:'Edu slide — goes before product showcase'},
-  {id:'w1b',date:'2024-08-27',title:'Boethius scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he wrote his greatest work while awaiting execution"',hashtags:'#darkacademia #boethius #scholaraesthetic #studytok',notes:'Scholar for Companion week — writing under constraint'},
-  {id:'w1c',date:'2024-08-29',title:"Classicist's Companion face video",type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"the journal built for the reader who thinks seriously — not just reads"',hashtags:'#darkacademia #scholaraesthetic #journalwithme #booktok',notes:'Face video — warm audience after edu + scholar'},
-
-  // === WEEK: COMMONPLACE BOOK ===
-  {id:'w2a',date:'2024-08-31',title:'How to start a Commonplace Book — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"how to start a commonplace book today — the scholar\'s 5-step method"',hashtags:'#darkacademia #commonplacebook #journalwithme #scholaraesthetic',notes:'Most conversion-focused commonplace slide'},
-  {id:'w2b',date:'2024-09-02',title:'John Milton scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he went blind and wrote 10,565 lines from memory"',hashtags:'#darkacademia #johnmilton #paradiselost #scholaraesthetic',notes:'Scholar for Commonplace week — writing as discipline'},
-  {id:'w2c',date:'2024-09-04',title:"Scholar's Commonplace Book face video",type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"Jefferson kept one. Darwin kept one — this is yours"',hashtags:'#darkacademia #commonplacebook #scholaraesthetic #booktok',notes:'Most important face video — connects to viral slides'},
-
-  // === WEEK: READING CHALLENGE ===
-  {id:'w3a',date:'2024-09-06',title:'Why serious readers track their books — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"science says you forget 70% of what you read within 24 hours — unless you write it down"',hashtags:'#darkacademia #readingchallenge #booktok #scholaraesthetic',notes:'Strong scientific hook — memory + reading angle'},
-  {id:'w3b',date:'2024-09-08',title:'Augustine of Hippo scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he wrote the world\'s first autobiography — addressed directly to God"',hashtags:'#darkacademia #augustine #scholaraesthetic #studytok',notes:'Scholar for Reading Challenge week — prolific writer'},
-  {id:'w3c',date:'2024-09-10',title:"Scholar's Reading Challenge face video",type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"50 books. one year. writing the goal down changes everything"',hashtags:'#darkacademia #readingchallenge #booktok #scholaraesthetic',notes:''},
-
-  // === LATIN PALETTE CLEANSER ===
-  {id:'lat1',date:'2024-09-11',title:'Dum Spiro Spero Latin slide',type:'latin',status:'planned',views:0,likes:0,saves:0,caption:'"the Latin phrase that ties hope to breathing — not to circumstances"',hashtags:'#darkacademia #latinwords #dumspirospero #scholaraesthetic',notes:'Latin palette cleanser between product weeks'},
-
-  // === WEEK: MORNING REFLECTION JOURNAL ===
-  {id:'w4a',date:'2024-09-13',title:'Why scholars journaled every morning — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"Marcus Aurelius wrote the Meditations before the demands of the day began — here is why morning journaling works"',hashtags:'#darkacademia #morningroutine #journalwithme #scholaraesthetic',notes:'Edu slide — morning journaling practice history'},
-  {id:'w4b',date:'2024-09-15',title:'In Silentio Et Spe Latin slide',type:'latin',status:'planned',views:0,likes:0,saves:0,caption:'"the phrase from Isaiah that scholars have carried for 2,700 years"',hashtags:'#darkacademia #latinwords #insilentioetspe #christianfaith',notes:'Faith-compatible Latin — fits morning reflection theme'},
-  {id:'w4c',date:'2024-09-17',title:'Morning Reflection Journal face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"the scholars who journaled in the mornings said it sharpened everything else"',hashtags:'#darkacademia #morningroutine #journalwithme #scholaraesthetic',notes:''},
-
-  // === WEEK: CLASSICIST'S READING JOURNAL ===
-  {id:'w5a',date:'2024-09-19',title:'Why reading without writing is half the work — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"you finish the book. a week later you remember almost none of it — here is the fix"',hashtags:'#darkacademia #readingjournal #booktok #scholaraesthetic',notes:''},
-  {id:'w5b',date:'2024-09-21',title:'Nosce Te Ipsum Latin slide',type:'latin',status:'planned',views:0,likes:0,saves:0,caption:'"it was carved above the entrance to the most powerful oracle in the ancient world"',hashtags:'#darkacademia #latinwords #nosceteipsum #scholaraesthetic',notes:'Latin palette cleanser'},
-  {id:'w5c',date:'2024-09-23',title:"Classicist's Reading Journal face video",type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"reading without writing is half the work — this is the other half"',hashtags:'#darkacademia #readingjournal #booktok #scholaraesthetic',notes:''},
-
-  // === WEEK: AUTUMN READING JOURNAL ===
-  {id:'w6a',date:'2024-09-25',title:'Reading seasonally — the Autumn Scholar tradition — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"there is a season made for reading — and the scholars who lived by it read more, remembered more"',hashtags:'#darkacademia #autumnreading #scholaraesthetic #booktok',notes:'Edu slide — seasonal reading tradition'},
-  {id:'w6b',date:'2024-09-27',title:'Autumn Scholar season opener — Seasonal',type:'seasonal',status:'planned',views:0,likes:0,saves:0,caption:'"Autumn Scholar season is here — the reading list gets longer and the light gets better"',hashtags:'#darkacademia #autumnreading #scholaraesthetic #booktok #autumnaesthetic',notes:'Desk setup — candle, warm light, autumn palette'},
-  {id:'w6c',date:'2024-09-29',title:'Autumn Reading Journal face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"a reading journal built for the season when you want to read more intentionally"',hashtags:'#darkacademia #autumnreading #readingjournal #scholaraesthetic',notes:''},
-
-  // === WEEK: WEEKLY PLANNER ===
-  {id:'w7a',date:'2024-10-02',title:'How scholars planned their weeks — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"the difference between a productive week and an intentional one — and why scholars chose the latter"',hashtags:'#darkacademia #planwithme #weeklyplanner #scholaraesthetic',notes:''},
-  {id:'w7b',date:'2024-10-04',title:'Benjamin Franklin scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he scheduled every hour of every day from age 20 — and reviewed it every night"',hashtags:'#darkacademia #benjaminfranklin #scholaraesthetic #studytok',notes:'Perfect scholar for planner week'},
-  {id:'w7c',date:'2024-10-06',title:"Scholar's Weekly Planner face video",type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"a planner that feels like stationery — not a spreadsheet"',hashtags:'#darkacademia #planwithme #weeklyplanner #scholaraesthetic',notes:''},
-
-  // === WEEK: AUTUMN TBR JOURNAL ===
-  {id:'w8a',date:'2024-10-09',title:'The TBR list that never gets read — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"why serious readers keep a dedicated TBR — and how it changes what you actually read"',hashtags:'#darkacademia #tbrjournal #booktok #scholaraesthetic',notes:''},
-  {id:'w8b',date:'2024-10-11',title:'Virginia Woolf scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"she kept reading lists, journals, and diaries her entire life — and published 9 novels"',hashtags:'#darkacademia #virginiawoolf #scholaraesthetic #booktok',notes:'Perfect scholar for TBR week — prolific reader and writer'},
-  {id:'w8c',date:'2024-10-13',title:'Autumn TBR Journal face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"a home for the reading list that never gets read — no shame, just organisation"',hashtags:'#darkacademia #tbrjournal #autumnreading #booktok',notes:''},
-
-  // === WEEK: KOINE GREEK LANGUAGE JOURNAL ===
-  {id:'w9a',date:'2024-10-16',title:'Why Koine Greek matters to scholars — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"the language the New Testament was written in — and why learning it changes how you read scripture"',hashtags:'#darkacademia #koingreek #languagelearning #scholaraesthetic #christianfaith',notes:'Edu slide — Koine Greek history and significance'},
-  {id:'w9b',date:'2024-10-18',title:'Erasmus scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he spent 20 years learning Greek so he could read the New Testament in its original language"',hashtags:'#darkacademia #erasmus #scholaraesthetic #studytok',notes:'Perfect scholar for Koine Greek week'},
-  {id:'w9c',date:'2024-10-20',title:'Koine Greek Language Journal face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"90 days of studying the language of the New Testament — one word at a time"',hashtags:'#darkacademia #koingreek #languagejournal #scholaraesthetic #christianfaith',notes:'New Lulu product — inspect sample Aug 24'},
-
-  // === WEEK: OLD ENGLISH LANGUAGE JOURNAL ===
-  {id:'w10a',date:'2024-10-23',title:'Why Old English is the scholar\'s hidden language — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"the language of Beowulf and the Anglo-Saxon Chronicle — and why serious scholars still study it"',hashtags:'#darkacademia #oldenglish #languagelearning #scholaraesthetic',notes:''},
-  {id:'w10b',date:'2024-10-25',title:'J.R.R. Tolkien scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he was a professor of Old English at Oxford — and used it to build Middle Earth"',hashtags:'#darkacademia #tolkien #scholaraesthetic #studytok',notes:'Perfect scholar for Old English week — huge name recognition'},
-  {id:'w10c',date:'2024-10-27',title:'Old English Language Journal face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"90 days of the language that shaped the English we speak — one word at a time"',hashtags:'#darkacademia #oldenglish #languagejournal #scholaraesthetic',notes:'New Lulu product — inspect sample Aug 24'},
-
-  // === WEEK: HEBREW LANGUAGE JOURNAL ===
-  {id:'w11a',date:'2024-10-30',title:'Why Biblical Hebrew is worth studying — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"the language the Old Testament was written in — and what you gain when you study it"',hashtags:'#darkacademia #biblicalhebrew #languagelearning #scholaraesthetic #christianfaith',notes:''},
-  {id:'w11b',date:'2024-11-01',title:'C.S. Lewis scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he taught himself Hebrew in his 50s because he wanted to read the Psalms in their original language"',hashtags:'#darkacademia #cslewis #scholaraesthetic #christianfaith',notes:'Perfect for Hebrew week — faith + scholarship angle'},
-  {id:'w11c',date:'2024-11-03',title:'Hebrew Language Journal face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"90 days studying the language of the Old Testament — one word at a time"',hashtags:'#darkacademia #biblicalhebrew #languagejournal #scholaraesthetic #christianfaith',notes:'New Lulu product — inspect sample Aug 24'},
-
-  // === NEW ARRIVALS INTRODUCTION VIDEO ===
-  {id:'intro1',date:'2024-10-08',title:'New arrivals — All 3 Language Journals + Omnibus unboxing',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"the new arrivals — language journals and the scholar's omnibus are here"',hashtags:'#darkacademia #languagejournal #scholaraesthetic #booktok #stationery',notes:'Event moment — unboxing style. Film Aug 24 on arrival. Hint that Vol I-VIII is coming. Post BEFORE individual journal weeks begin.'},
-
-  // === WEEK: CURIOSITY JOURNAL OMNIBUS ===
-  {id:'w12a',date:'2024-11-06',title:'What is a Curiosity Journal? — Educational slide',type:'educational',status:'planned',views:0,likes:0,saves:0,caption:'"90 concepts across 5 disciplines — the journal built for the lifelong learner"',hashtags:'#darkacademia #curiosityjournal #scholaraesthetic #studytok #lifelonglearning',notes:'Edu slide for Omnibus week'},
-  {id:'w12b',date:'2024-11-08',title:'Leonardo da Vinci scholar slide',type:'scholar',status:'planned',views:0,likes:0,saves:0,caption:'"he kept notebooks on anatomy, engineering, art, and philosophy — all at once. we call that curiosity."',hashtags:'#darkacademia #leonardodavinci #scholaraesthetic #studytok',notes:'Perfect scholar for Omnibus — curiosity across disciplines'},
-  {id:'w12c',date:'2024-11-10',title:'Curiosity Journal Omnibus face video',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"90 concepts. 5 disciplines. one journal built for the lifelong learner — and Vol I-VIII is coming."',hashtags:'#darkacademia #curiosityjournal #scholaraesthetic #booktok',notes:'Hint that Vol I-VIII launches Jan 2027'},
-
-  // === GIFT BUNDLE VIDEOS — GIFTING SEASON OCT-DEC ===
-  {id:'gift1',date:'2024-11-13',title:'Bundle 1 — The Reader's Bundle showcase',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"the perfect gift for the serious reader — the scholar's reading bundle"',hashtags:'#darkacademia #giftideas #booktok #scholaraesthetic #christmasgifts',notes:'Commonplace Book + Classicist's Reading Journal + Bookmarks Vol. I — for the serious book lover'},
-  {id:'gift2',date:'2024-11-17',title:'Bundle 2 — The Morning Scholar Bundle showcase',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"the gift for someone who wants to start their days more intentionally"',hashtags:'#darkacademia #giftideas #journalwithme #scholaraesthetic #christmasgifts',notes:'Morning Reflection Journal + Weekly Planner — intentional mornings bundle'},
-  {id:'gift3',date:'2024-11-21',title:'Bundle 3 — The Language Scholar Bundle showcase',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"for the student, seminarian, or classical scholar on your list"',hashtags:'#darkacademia #giftideas #languagejournal #scholaraesthetic #christmasgifts',notes:'Language Journal (choice of Greek/Old English/Hebrew) + Classicist's Companion'},
-  {id:'gift4',date:'2024-11-25',title:'Bundle 4 — The Autumn Reading Bundle showcase',type:'face',status:'planned',views:0,likes:0,saves:0,caption:'"for the reader who reads seasonally and loves the aesthetic"',hashtags:'#darkacademia #giftideas #autumnreading #scholaraesthetic #christmasgifts',notes:'Autumn Reading Journal + Autumn TBR Journal + Bookmarks — seasonal reader bundle'},
-
-  // === LATIN PALETTE CLEANSERS — NOV/DEC ===
-  {id:'lat2',date:'2024-11-15',title:'Nosce Te Ipsum Latin slide',type:'latin',status:'planned',views:0,likes:0,saves:0,caption:'"it was carved above the entrance to the most powerful oracle in the ancient world"',hashtags:'#darkacademia #latinwords #nosceteipsum #scholaraesthetic',notes:'Latin palette cleanser — gifting season'},
-  {id:'lat3',date:'2024-11-29',title:'In Silentio Et Spe Latin slide',type:'latin',status:'planned',views:0,likes:0,saves:0,caption:'"the phrase from Isaiah that scholars have carried for 2,700 years"',hashtags:'#darkacademia #latinwords #insilentioetspe #christianfaith #scholaraesthetic',notes:'Latin palette cleanser — advent/Christmas season — faith-compatible timing'},
+var DP = [
+  makePost('p1','2024-06-26','Stickers on Companion iPad','product','posted',191,12,5,'','#darkacademia #scholaraesthetic','iPad format discontinued'),
+  makePost('p2','2024-06-30','Latin word stickers iPad','product','posted',164,5,1,'','#darkacademia #scholaraesthetic','iPad format discontinued'),
+  makePost('p3','2024-07-01','Festina Lente slides','latin','posted',108,3,0,'','#darkacademia #latinwords','Hook too weak'),
+  makePost('p4','2024-07-03','Reasons to Journal slides','educational','posted',496,12,8,'','#darkacademia #scholaraesthetic',''),
+  makePost('p5','2024-07-06','Bookmarks Vol. I creation','product','posted',407,20,4,'','#darkacademia #etsyseller','1 purchase-intent comment'),
+  makePost('p6','2024-07-10','Thomas Jefferson slides','scholar','posted',906,40,12,'the Declaration of Independence grew from a habit he started at 15','#darkacademia #scholaraesthetic','Best video #2 all time'),
+  makePost('p7','2024-07-12','Autumn Reading Journal','product','posted',253,8,2,'','#darkacademia #autumnreading',''),
+  makePost('p8','2024-07-14','C.S. Lewis slides','scholar','posted',454,11,1,'','#darkacademia #scholaraesthetic',''),
+  makePost('p9','2024-07-17','Reading Challenge iPad digital','product','posted',164,5,0,'','#darkacademia #readingchallenge','iPad format discontinued'),
+  makePost('p10','2024-07-18','Free Reading Log slides','educational','posted',595,15,6,'','#darkacademia #scholaraesthetic','Pinned #1'),
+  makePost('p11','2024-07-22','Blaise Pascal slides','scholar','posted',302,5,0,'','#darkacademia #scholaraesthetic','Name recognition issue'),
+  makePost('p12','2024-07-30','Francis Bacon slides','scholar','posted',548,28,8,'he wrote one sentence in 1597 that still describes why serious readers journal','#darkacademia #francisbacon','148% above account average'),
+  makePost('p13','2024-08-01','Bookmarks Vol. II slides','product','posted',204,8,1,'','#darkacademia #etsyseller',''),
+  makePost('p14','2024-08-03','Commonplace Educational slides','educational','posted',655,31,19,'','#darkacademia #commonplacebook',''),
+  makePost('p15','2024-08-05','Reading Journal picture slides','product','posted',168,4,0,'','#darkacademia #readingjournal','No edu context before - underperformed'),
+  makePost('p16','2024-08-07','Carpe Diem slides','latin','posted',197,5,0,'carpe diem doesnt mean seize the day','#darkacademia #latinwords','Hook needs strengthening'),
+  makePost('p17','2024-08-11','Commonplace Not a Diary slides','educational','posted',922,43,38,'most people journal their feelings - scholars journal their ideas','#darkacademia #commonplacebook','BEST EVER - 38 saves'),
+  makePost('p18','2024-08-13','Commonplace showcase voiceover','product','posted',142,4,1,'','#darkacademia #commonplacebook','Voiceover without face underperforms'),
+  makePost('p19','2024-08-15','Before Google Commonplace slides','educational','posted',202,6,5,'','#darkacademia #commonplacebook',''),
+  makePost('p20','2024-08-17','Commonplace page flip video','product','posted',171,3,0,'','#darkacademia #commonplacebook',''),
+  makePost('p21','2024-08-19','Brand Introduction face video','face','scheduled',0,0,0,'literary goods for the reader who takes their inner life seriously','#darkacademia #scholaraesthetic #thecuratorsdesk #booktok','PIN IMMEDIATELY after posting'),
+  makePost('p22','2024-08-21',"Classicist's Companion face video",'face','scheduled',0,0,0,'the journal built for the reader who thinks seriously','#darkacademia #scholaraesthetic #journalwithme #booktok',''),
+  makePost('p23','2024-08-23','Sapere Aude Latin slide','latin','scheduled',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords #sapereAude #scholaraesthetic',''),
+  makePost('wk1a','2024-08-25',"What is the Classicist's Companion - Educational",'educational','planned',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic #journalwithme #studytok','Week: Classicists Companion'),
+  makePost('wk1b','2024-08-27','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #boethius #scholaraesthetic #studytok','Week: Classicists Companion'),
+  makePost('wk1c','2024-08-29',"Classicist's Companion face video",'face','planned',0,0,0,'the journal built for the reader who thinks seriously - not just reads','#darkacademia #scholaraesthetic #journalwithme #booktok','Week: Classicists Companion'),
+  makePost('wk2a','2024-08-31','How to start a Commonplace Book - Educational','educational','planned',0,0,0,'how to start a commonplace book today - the scholars 5-step method','#darkacademia #commonplacebook #journalwithme #scholaraesthetic','Week: Commonplace Book'),
+  makePost('wk2b','2024-09-02','John Milton scholar slide','scholar','planned',0,0,0,'he went blind and wrote 10565 lines from memory','#darkacademia #johnmilton #paradiselost #scholaraesthetic','Week: Commonplace Book'),
+  makePost('wk2c','2024-09-04',"Scholar's Commonplace Book face video",'face','planned',0,0,0,'Jefferson kept one. Darwin kept one - this is yours','#darkacademia #commonplacebook #scholaraesthetic #booktok','Week: Commonplace Book - most important face video'),
+  makePost('wk3a','2024-09-06','Why serious readers track their books - Educational','educational','planned',0,0,0,'science says you forget 70% of what you read within 24 hours - unless you write it down','#darkacademia #readingchallenge #booktok #scholaraesthetic','Week: Reading Challenge'),
+  makePost('wk3b','2024-09-08','Augustine of Hippo scholar slide','scholar','planned',0,0,0,'he wrote the worlds first autobiography - addressed directly to God','#darkacademia #augustine #scholaraesthetic #studytok','Week: Reading Challenge'),
+  makePost('wk3c','2024-09-10',"Scholar's Reading Challenge face video",'face','planned',0,0,0,'50 books. one year. writing the goal down changes everything','#darkacademia #readingchallenge #booktok #scholaraesthetic','Week: Reading Challenge'),
+  makePost('lat1','2024-09-11','Dum Spiro Spero Latin slide','latin','planned',0,0,0,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords #dumspirospero #scholaraesthetic','Latin palette cleanser'),
+  makePost('wk4a','2024-09-13','Why scholars journaled every morning - Educational','educational','planned',0,0,0,'Marcus Aurelius wrote the Meditations before the demands of the day began','#darkacademia #morningroutine #journalwithme #scholaraesthetic','Week: Morning Reflection'),
+  makePost('wk4b','2024-09-15','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #insilentioetspe #christianfaith','Week: Morning Reflection - faith theme'),
+  makePost('wk4c','2024-09-17','Morning Reflection Journal face video','face','planned',0,0,0,'the scholars who journaled in the mornings said it sharpened everything else','#darkacademia #morningroutine #journalwithme #scholaraesthetic','Week: Morning Reflection'),
+  makePost('wk5a','2024-09-19','Why reading without writing is half the work - Educational','educational','planned',0,0,0,'you finish the book. a week later you remember almost none of it - here is the fix','#darkacademia #readingjournal #booktok #scholaraesthetic','Week: Classicists Reading Journal'),
+  makePost('wk5b','2024-09-21','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords #nosceteipsum #scholaraesthetic','Latin palette cleanser'),
+  makePost('wk5c','2024-09-23',"Classicist's Reading Journal face video",'face','planned',0,0,0,'reading without writing is half the work - this is the other half','#darkacademia #readingjournal #booktok #scholaraesthetic','Week: Classicists Reading Journal'),
+  makePost('wk6a','2024-09-25','Reading seasonally - the Autumn Scholar tradition - Educational','educational','planned',0,0,0,'there is a season made for reading - and the scholars who lived by it read more','#darkacademia #autumnreading #scholaraesthetic #booktok','Week: Autumn Reading Journal'),
+  makePost('wk6b','2024-09-27','Autumn Scholar season opener','seasonal','planned',0,0,0,'Autumn Scholar season is here - the reading list gets longer and the light gets better','#darkacademia #autumnreading #scholaraesthetic #autumnaesthetic','Desk setup - candle, warm light'),
+  makePost('wk6c','2024-09-29','Autumn Reading Journal face video','face','planned',0,0,0,'a reading journal built for the season when you want to read more intentionally','#darkacademia #autumnreading #readingjournal #scholaraesthetic','Week: Autumn Reading Journal'),
+  makePost('wk7a','2024-10-02','How scholars planned their weeks - Educational','educational','planned',0,0,0,'the difference between a productive week and an intentional one','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
+  makePost('wk7b','2024-10-04','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin #scholaraesthetic #studytok','Week: Weekly Planner - perfect scholar match'),
+  makePost('wk7c','2024-10-06',"Scholar's Weekly Planner face video",'face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
+  makePost('wk8a','2024-10-09','The TBR list that never gets read - Educational','educational','planned',0,0,0,'why serious readers keep a dedicated TBR - and how it changes what you actually read','#darkacademia #tbrjournal #booktok #scholaraesthetic','Week: Autumn TBR Journal'),
+  makePost('wk8b','2024-10-11','Virginia Woolf scholar slide','scholar','planned',0,0,0,'she kept reading lists journals and diaries her entire life - and published 9 novels','#darkacademia #virginiawoolf #scholaraesthetic #booktok','Week: Autumn TBR - prolific reader and writer'),
+  makePost('wk8c','2024-10-13','Autumn TBR Journal face video','face','planned',0,0,0,'a home for the reading list that never gets read - no shame just organisation','#darkacademia #tbrjournal #autumnreading #booktok','Week: Autumn TBR Journal'),
+  makePost('intro1','2024-10-08','New Arrivals - All Language Journals plus Omnibus unboxing','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #scholaraesthetic #booktok #stationery','Event moment - film Aug 24 on arrival day. Hint Vol I-VIII is coming.'),
+  makePost('wk9a','2024-10-16','Why Koine Greek matters to scholars - Educational','educational','planned',0,0,0,'the language the New Testament was written in - and why learning it changes how you read scripture','#darkacademia #koinGreek #languagelearning #scholaraesthetic #christianfaith','Week: Koine Greek Journal'),
+  makePost('wk9b','2024-10-18','Erasmus scholar slide','scholar','planned',0,0,0,'he spent 20 years learning Greek so he could read the New Testament in its original language','#darkacademia #erasmus #scholaraesthetic #studytok','Week: Koine Greek - perfect scholar match'),
+  makePost('wk9c','2024-10-20','Koine Greek Language Journal face video','face','planned',0,0,0,'90 days of studying the language of the New Testament - one word at a time','#darkacademia #koinGreek #languagejournal #scholaraesthetic #christianfaith','Week: Koine Greek - new Lulu product'),
+  makePost('wk10a','2024-10-23','Why Old English is the scholars hidden language - Educational','educational','planned',0,0,0,'the language of Beowulf and the Anglo-Saxon Chronicle - why serious scholars still study it','#darkacademia #oldEnglish #languagelearning #scholaraesthetic','Week: Old English Journal'),
+  makePost('wk10b','2024-10-25','J.R.R. Tolkien scholar slide','scholar','planned',0,0,0,'he was a professor of Old English at Oxford - and used it to build Middle Earth','#darkacademia #tolkien #scholaraesthetic #studytok','Week: Old English - huge name recognition'),
+  makePost('wk10c','2024-10-27','Old English Language Journal face video','face','planned',0,0,0,'90 days of the language that shaped the English we speak - one word at a time','#darkacademia #oldEnglish #languagejournal #scholaraesthetic','Week: Old English - new Lulu product'),
+  makePost('wk11a','2024-10-30','Why Biblical Hebrew is worth studying - Educational','educational','planned',0,0,0,'the language the Old Testament was written in - and what you gain when you study it','#darkacademia #biblicalHebrew #languagelearning #scholaraesthetic #christianfaith','Week: Hebrew Journal'),
+  makePost('wk11b','2024-11-01','C.S. Lewis scholar slide','scholar','planned',0,0,0,'he taught himself Hebrew in his 50s to read the Psalms in their original language','#darkacademia #cslewis #scholaraesthetic #christianfaith','Week: Hebrew - faith and scholarship angle'),
+  makePost('wk11c','2024-11-03','Hebrew Language Journal face video','face','planned',0,0,0,'90 days studying the language of the Old Testament - one word at a time','#darkacademia #biblicalHebrew #languagejournal #scholaraesthetic #christianfaith','Week: Hebrew - new Lulu product'),
+  makePost('wk12a','2024-11-06','What is a Curiosity Journal - Educational','educational','planned',0,0,0,'90 concepts across 5 disciplines - the journal built for the lifelong learner','#darkacademia #curiosityjournal #scholaraesthetic #studytok #lifelonglearning','Week: Curiosity Journal Omnibus'),
+  makePost('wk12b','2024-11-08','Leonardo da Vinci scholar slide','scholar','planned',0,0,0,'he kept notebooks on anatomy engineering art and philosophy - all at once. we call that curiosity.','#darkacademia #leonardodavinci #scholaraesthetic #studytok','Week: Omnibus - curiosity across disciplines'),
+  makePost('wk12c','2024-11-10','Curiosity Journal Omnibus face video','face','planned',0,0,0,'90 concepts. 5 disciplines. one journal built for the lifelong learner - and Vol I-VIII is coming.','#darkacademia #curiosityjournal #scholaraesthetic #booktok','Hint Vol I-VIII launches Jan 2027'),
+  makePost('gift1','2024-11-13',"Bundle 1 - The Reader's Bundle",'face','planned',0,0,0,'the perfect gift for the serious reader - the scholars reading bundle','#darkacademia #giftideas #booktok #scholaraesthetic #christmasgifts','Commonplace Book + Classicists Reading Journal + Bookmarks Vol. I'),
+  makePost('lat2','2024-11-15','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords #nosceteipsum #scholaraesthetic','Latin palette cleanser - gifting season'),
+  makePost('gift2','2024-11-17','Bundle 2 - The Morning Scholar Bundle','face','planned',0,0,0,'the gift for someone who wants to start their days more intentionally','#darkacademia #giftideas #journalwithme #scholaraesthetic #christmasgifts','Morning Reflection Journal + Weekly Planner'),
+  makePost('gift3','2024-11-21','Bundle 3 - The Language Scholar Bundle','face','planned',0,0,0,'for the student seminarian or classical scholar on your list','#darkacademia #giftideas #languagejournal #scholaraesthetic #christmasgifts','Language Journal plus Classicists Companion'),
+  makePost('gift4','2024-11-25','Bundle 4 - The Autumn Reading Bundle','face','planned',0,0,0,'for the reader who reads seasonally and loves the aesthetic','#darkacademia #giftideas #autumnreading #scholaraesthetic #christmasgifts','Autumn Reading Journal + Autumn TBR + Bookmarks'),
+  makePost('lat3','2024-11-29','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #insilentioetspe #christianfaith #scholaraesthetic','Latin cleanser - Advent season timing')
 ];
 
-const DA={followers:22,email:2,pinterest:1400,etsy:0};
-
-let posts=[],acc={...DA},editId=null,expId=null,dragId=null,barC=null,lineC=null;
+var DA = {followers:22,email:2,pinterest:1400,etsy:0};
+var posts = [];
+var acc = {followers:22,email:2,pinterest:1400,etsy:0};
+var editId = null;
+var expId = null;
+var dragId = null;
+var barC = null;
+var lineC = null;
 
 function load(){
   try{
-    const sp=localStorage.getItem('tcd_posts_v2');
-    const sa=localStorage.getItem('tcd_acc');
-    posts=sp?JSON.parse(sp):JSON.parse(JSON.stringify(DP));
-    acc=sa?JSON.parse(sa):{...DA};
-  }catch(e){posts=JSON.parse(JSON.stringify(DP));acc={...DA};}
+    var sp = localStorage.getItem('tcd_posts_v3');
+    var sa = localStorage.getItem('tcd_acc_v2');
+    if(sp){ posts = JSON.parse(sp); } else { posts = JSON.parse(JSON.stringify(DP)); }
+    if(sa){ acc = JSON.parse(sa); } else { acc = {followers:22,email:2,pinterest:1400,etsy:0}; }
+  } catch(e){
+    posts = JSON.parse(JSON.stringify(DP));
+    acc = {followers:22,email:2,pinterest:1400,etsy:0};
+  }
 }
 
 function save(){
-  try{localStorage.setItem('tcd_posts_v2',JSON.stringify(posts));localStorage.setItem('tcd_acc',JSON.stringify(acc));}catch(e){}
+  try{
+    localStorage.setItem('tcd_posts_v3', JSON.stringify(posts));
+    localStorage.setItem('tcd_acc_v2', JSON.stringify(acc));
+  } catch(e){}
 }
 
 function switchTab(t){
-  document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tp').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
   document.getElementById('tp-'+t).classList.add('active');
-  document.querySelectorAll('.tab').forEach(b=>{if(b.getAttribute('onclick').includes("'"+t+"'"))b.classList.add('active');});
-  if(t==='analytics')renderAnalytics();
-  if(t==='strategy')renderStrategy();
+  document.querySelectorAll('.tab').forEach(function(b){
+    if(b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'"+t+"'") > -1){
+      b.classList.add('active');
+    }
+  });
+  if(t === 'analytics') renderAnalytics();
+  if(t === 'strategy') renderStrategy();
 }
 
-function updateSB(){
-  const posted=posts.filter(p=>p.status==='posted');
-  const tv=posted.reduce((s,p)=>s+p.views,0);
-  document.getElementById('sb-f').textContent=acc.followers.toLocaleString();
-  document.getElementById('sb-e').textContent=acc.email;
-  document.getElementById('sb-p').textContent=acc.pinterest.toLocaleString();
-  document.getElementById('sb-v').textContent=tv.toLocaleString();
-  document.getElementById('sb-n').textContent=posted.length+' posted';
-}
-
-// Group posts by week label
 function getWeekLabel(post){
-  const d=new Date(post.date+'T12:00:00');
-  const id=post.id;
-  if(id.startsWith('w1'))return '— Week: Classicist\'s Companion';
-  if(id.startsWith('w2'))return '— Week: Commonplace Book';
-  if(id.startsWith('w3'))return '— Week: Reading Challenge';
-  if(id.startsWith('w4'))return '— Week: Morning Reflection Journal';
-  if(id.startsWith('w5'))return '— Week: Classicist\'s Reading Journal';
-  if(id.startsWith('w6'))return '— Week: Autumn Reading Journal';
-  if(id.startsWith('w7'))return '— Week: Weekly Planner';
-  if(id.startsWith('w8'))return '— Week: Autumn TBR Journal';
-  if(id.startsWith('w9'))return '— Week: Koine Greek Language Journal';
-  if(id.startsWith('w10'))return '— Week: Old English Language Journal';
-  if(id.startsWith('w11'))return '— Week: Hebrew Language Journal';
-  if(id.startsWith('w12'))return '— Week: Curiosity Journal Omnibus';
-  if(id.startsWith('intro'))return '— New Arrivals Introduction';
-  if(id.startsWith('gift'))return '— Gift Bundle Videos (Gifting Season)';
-  if(id.startsWith('lat'))return '— Latin Palette Cleanser';
-  if(id.startsWith('lat'))return '— Latin Palette Cleanser';
-  if(id.startsWith('p') && parseInt(id.slice(1))<=20)return '— Posted History';
-  if(id.startsWith('p') && parseInt(id.slice(1))>20)return '— Scheduled (Vacation)';
+  var id = post.id;
+  if(id === 'intro1') return 'New Arrivals Introduction';
+  if(id.indexOf('gift') === 0) return 'Gift Bundle Videos - Gifting Season';
+  if(id.indexOf('lat') === 0) return 'Latin Palette Cleanser';
+  if(id.indexOf('wk12') === 0) return 'Week: Curiosity Journal Omnibus';
+  if(id.indexOf('wk11') === 0) return 'Week: Hebrew Language Journal';
+  if(id.indexOf('wk10') === 0) return 'Week: Old English Language Journal';
+  if(id.indexOf('wk9') === 0) return 'Week: Koine Greek Language Journal';
+  if(id.indexOf('wk8') === 0) return 'Week: Autumn TBR Journal';
+  if(id.indexOf('wk7') === 0) return 'Week: Weekly Planner';
+  if(id.indexOf('wk6') === 0) return 'Week: Autumn Reading Journal';
+  if(id.indexOf('wk5') === 0) return 'Week: Classicists Reading Journal';
+  if(id.indexOf('wk4') === 0) return 'Week: Morning Reflection Journal';
+  if(id.indexOf('wk3') === 0) return 'Week: Reading Challenge';
+  if(id.indexOf('wk2') === 0) return 'Week: Commonplace Book';
+  if(id.indexOf('wk1') === 0) return 'Week: Classicists Companion';
+  if(id.indexOf('p') === 0){
+    var num = parseInt(id.slice(1));
+    if(num <= 20) return 'Posted History';
+    return 'Scheduled - Vacation';
+  }
   return '';
 }
 
-function render(){
-  const sf=document.getElementById('fs').value;
-  const tf=document.getElementById('ft').value;
-  const filtered=posts.filter(p=>{
-    if(sf!=='all'&&p.status!==sf)return false;
-    if(tf!=='all'&&p.type!==tf)return false;
-    return true;
-  });
-  document.getElementById('pc2').textContent=filtered.length+' posts';
-
-  let html='';
-  let lastWeek='';
-  filtered.forEach(post=>{
-    const wl=getWeekLabel(post);
-    if(wl&&wl!==lastWeek){
-      html+=`<div class="wh">${wl}</div>`;
-      lastWeek=wl;
-    }
-    const bl=`3px solid ${TC[post.type]||'#555'}`;
-    const exp=expId===post.id;
-    html+=`
-    <div class="pc${dragId===post.id?' dragging':''}" id="card-${post.id}"
-      draggable="true"
-      ondragstart="dStart('${post.id}')"
-      ondragover="dOver(event,'${post.id}')"
-      ondrop="dDrop(event,'${post.id}')"
-      ondragend="dEnd()"
-      style="border-left:${bl}">
-      <div class="pch">
-        <div class="mbs">
-          <button class="mb" onclick="mv('${post.id}',-1)">▲</button>
-          <button class="mb" onclick="mv('${post.id}',1)">▼</button>
-        </div>
-        <div class="pd">${post.date.slice(5)}</div>
-        <div class="tb" style="background:${TC[post.type]||'#555'}">${TL[post.type]||post.type}</div>
-        <div class="pt" onclick="tog('${post.id}')" title="${post.title}">${post.title}${post.notes?`<span class="pn">${post.notes}</span>`:''}</div>
-        <div class="stb" style="color:${SC[post.status]};border-color:${SC[post.status]}">${SL[post.status]||post.status}</div>
-        ${post.status==='posted'?`<div class="ps">
-          <span><span class="sv2">${post.views.toLocaleString()}</span><span class="sl2">v</span></span>
-          <span><span class="sv2">${post.likes}</span><span class="sl2">l</span></span>
-          <span><span class="sv2${post.saves>=10?' hs':''}">${post.saves}</span><span class="sl2">s</span></span>
-        </div>`:''}
-        <div class="pa">
-          <button class="eb" onclick="openEdit('${post.id}')">Edit</button>
-          <button class="db" onclick="del('${post.id}')">✕</button>
-        </div>
-      </div>
-      <div class="pe${exp?' open':''}">
-        ${post.caption?`<div class="pe-cap">"${post.caption}"</div>`:''}
-        ${post.hashtags?`<div class="pe-ht">${post.hashtags}</div>`:''}
-      </div>
-    </div>`;
-  });
-  document.getElementById('post-list').innerHTML=html;
+function updateSB(){
+  var posted = posts.filter(function(p){ return p.status === 'posted'; });
+  var tv = posted.reduce(function(s,p){ return s+p.views; }, 0);
+  document.getElementById('sb-f').textContent = acc.followers.toLocaleString();
+  document.getElementById('sb-e').textContent = acc.email;
+  document.getElementById('sb-p').textContent = acc.pinterest.toLocaleString();
+  document.getElementById('sb-v').textContent = tv.toLocaleString();
+  document.getElementById('sb-n').textContent = posted.length + ' posted';
 }
 
-function tog(id){expId=expId===id?null:id;render();}
-function openAdd(){document.getElementById('add-form').style.display='block';}
-function closeAdd(){document.getElementById('add-form').style.display='none';['nf-ti','nf-da','nf-ca','nf-ha','nf-no'].forEach(i=>document.getElementById(i).value='');}
+function render(){
+  var sf = document.getElementById('fs').value;
+  var tf = document.getElementById('ft').value;
+  var filtered = posts.filter(function(p){
+    if(sf !== 'all' && p.status !== sf) return false;
+    if(tf !== 'all' && p.type !== tf) return false;
+    return true;
+  });
+  document.getElementById('pc2').textContent = filtered.length + ' posts';
+
+  var html = '';
+  var lastWeek = '';
+
+  filtered.forEach(function(post){
+    var wl = getWeekLabel(post);
+    if(wl && wl !== lastWeek){
+      html += '<div class="wh">' + wl + '</div>';
+      lastWeek = wl;
+    }
+    var bl = '3px solid ' + (TC[post.type] || '#555');
+    var exp = expId === post.id;
+    var statsHtml = '';
+    if(post.status === 'posted'){
+      var hsClass = post.saves >= 10 ? ' hs' : '';
+      statsHtml = '<div class="ps">' +
+        '<span><span class="sv2">' + post.views.toLocaleString() + '</span><span class="sl2">v</span></span>' +
+        '<span><span class="sv2">' + post.likes + '</span><span class="sl2">l</span></span>' +
+        '<span><span class="sv2' + hsClass + '">' + post.saves + '</span><span class="sl2">s</span></span>' +
+        '</div>';
+    }
+    var noteHtml = post.notes ? '<span class="pn">' + post.notes + '</span>' : '';
+    var capHtml = post.caption ? '<div class="pe-cap">"' + post.caption + '"</div>' : '';
+    var htHtml = post.hashtags ? '<div class="pe-ht">' + post.hashtags + '</div>' : '';
+    var expClass = exp ? ' open' : '';
+
+    html += '<div class="pc' + (dragId === post.id ? ' dragging' : '') + '" id="card-' + post.id + '"' +
+      ' draggable="true"' +
+      ' ondragstart="dStart(\'' + post.id + '\')"' +
+      ' ondragover="dOver(event,\'' + post.id + '\')"' +
+      ' ondrop="dDrop(event,\'' + post.id + '\')"' +
+      ' ondragend="dEnd()"' +
+      ' style="border-left:' + bl + '">' +
+      '<div class="pch">' +
+      '<div class="mbs">' +
+      '<button class="mb" onclick="mv(\'' + post.id + '\',-1)">&#9650;</button>' +
+      '<button class="mb" onclick="mv(\'' + post.id + '\',1)">&#9660;</button>' +
+      '</div>' +
+      '<div class="pd">' + post.date.slice(5) + '</div>' +
+      '<div class="tb" style="background:' + (TC[post.type]||'#555') + '">' + (TL[post.type]||post.type) + '</div>' +
+      '<div class="pt" onclick="tog(\'' + post.id + '\')" title="' + post.title + '">' + post.title + noteHtml + '</div>' +
+      '<div class="stb" style="color:' + (SC[post.status]||'#555') + ';border-color:' + (SC[post.status]||'#555') + '">' + (SL[post.status]||post.status) + '</div>' +
+      statsHtml +
+      '<div class="pa">' +
+      '<button class="eb" onclick="openEdit(\'' + post.id + '\')">Edit</button>' +
+      '<button class="db" onclick="del(\'' + post.id + '\')">&#215;</button>' +
+      '</div>' +
+      '</div>' +
+      '<div class="pe' + expClass + '">' + capHtml + htHtml + '</div>' +
+      '</div>';
+  });
+
+  document.getElementById('post-list').innerHTML = html;
+}
+
+function tog(id){ expId = expId === id ? null : id; render(); }
+function openAdd(){ document.getElementById('add-form').style.display = 'block'; }
+function closeAdd(){
+  document.getElementById('add-form').style.display = 'none';
+  ['nf-ti','nf-da','nf-ca','nf-ha','nf-no'].forEach(function(i){ document.getElementById(i).value=''; });
+}
 
 function addPost(){
-  const ti=document.getElementById('nf-ti').value.trim();
-  if(!ti)return;
-  posts.push({id:'p'+Date.now(),date:document.getElementById('nf-da').value,title:ti,type:document.getElementById('nf-ty').value,status:document.getElementById('nf-st').value,views:0,likes:0,saves:0,caption:document.getElementById('nf-ca').value,hashtags:document.getElementById('nf-ha').value,notes:document.getElementById('nf-no').value});
-  save();closeAdd();render();updateSB();
+  var ti = document.getElementById('nf-ti').value.trim();
+  if(!ti) return;
+  var p = makePost('p'+Date.now(), document.getElementById('nf-da').value, ti,
+    document.getElementById('nf-ty').value, document.getElementById('nf-st').value,
+    0,0,0, document.getElementById('nf-ca').value,
+    document.getElementById('nf-ha').value, document.getElementById('nf-no').value);
+  posts.push(p);
+  save(); closeAdd(); render(); updateSB();
 }
 
 function del(id){
-  posts=posts.map(p=>p.id===id?{...p,status:'deleted'}:p);
-  save();render();updateSB();
+  posts = posts.map(function(p){ return p.id === id ? Object.assign({},p,{status:'deleted'}) : p; });
+  save(); render(); updateSB();
 }
 
-function mv(id,dir){
-  const i=posts.findIndex(p=>p.id===id);
-  const ni=i+dir;
-  if(ni<0||ni>=posts.length)return;
-  [posts[i],posts[ni]]=[posts[ni],posts[i]];
-  save();render();
+function mv(id, dir){
+  var i = posts.findIndex(function(p){ return p.id === id; });
+  var ni = i + dir;
+  if(ni < 0 || ni >= posts.length) return;
+  var tmp = posts[i]; posts[i] = posts[ni]; posts[ni] = tmp;
+  save(); render();
 }
 
-function dStart(id){dragId=id;setTimeout(()=>render(),0);}
-function dOver(e,id){e.preventDefault();document.querySelectorAll('.pc').forEach(c=>c.classList.remove('drag-over'));const el=document.getElementById('card-'+id);if(el)el.classList.add('drag-over');}
-function dDrop(e,tid){
+function dStart(id){ dragId = id; setTimeout(function(){ render(); }, 0); }
+function dOver(e, id){
   e.preventDefault();
-  document.querySelectorAll('.pc').forEach(c=>c.classList.remove('drag-over'));
-  if(!dragId||dragId===tid){dragId=null;render();return;}
-  const fi=posts.findIndex(p=>p.id===dragId);
-  const ti=posts.findIndex(p=>p.id===tid);
-  const[m]=posts.splice(fi,1);posts.splice(ti,0,m);
-  dragId=null;save();render();
+  document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over'); });
+  var el = document.getElementById('card-'+id);
+  if(el) el.classList.add('drag-over');
 }
-function dEnd(){dragId=null;document.querySelectorAll('.pc').forEach(c=>c.classList.remove('drag-over','dragging'));}
+function dDrop(e, tid){
+  e.preventDefault();
+  document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over'); });
+  if(!dragId || dragId === tid){ dragId = null; render(); return; }
+  var fi = posts.findIndex(function(p){ return p.id === dragId; });
+  var ti2 = posts.findIndex(function(p){ return p.id === tid; });
+  var m = posts.splice(fi,1)[0];
+  posts.splice(ti2,0,m);
+  dragId = null; save(); render();
+}
+function dEnd(){
+  dragId = null;
+  document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over','dragging'); });
+}
 
 function openEdit(id){
-  editId=id;const p=posts.find(x=>x.id===id);if(!p)return;
-  document.getElementById('ef-ti').value=p.title;
-  document.getElementById('ef-da').value=p.date;
-  document.getElementById('ef-ty').value=p.type;
-  document.getElementById('ef-st').value=p.status;
-  document.getElementById('ef-vi').value=p.views;
-  document.getElementById('ef-li').value=p.likes;
-  document.getElementById('ef-sa').value=p.saves;
-  document.getElementById('ef-ca').value=p.caption||'';
-  document.getElementById('ef-ha').value=p.hashtags||'';
-  document.getElementById('ef-no').value=p.notes||'';
+  editId = id;
+  var p = posts.find(function(x){ return x.id === id; });
+  if(!p) return;
+  document.getElementById('ef-ti').value = p.title;
+  document.getElementById('ef-da').value = p.date;
+  document.getElementById('ef-ty').value = p.type;
+  document.getElementById('ef-st').value = p.status;
+  document.getElementById('ef-vi').value = p.views;
+  document.getElementById('ef-li').value = p.likes;
+  document.getElementById('ef-sa').value = p.saves;
+  document.getElementById('ef-ca').value = p.caption || '';
+  document.getElementById('ef-ha').value = p.hashtags || '';
+  document.getElementById('ef-no').value = p.notes || '';
   document.getElementById('edit-mo').classList.add('open');
 }
-function closeEdit(){document.getElementById('edit-mo').classList.remove('open');editId=null;}
+function closeEdit(){ document.getElementById('edit-mo').classList.remove('open'); editId = null; }
 function saveEdit(){
-  if(!editId)return;
-  posts=posts.map(p=>p.id===editId?{...p,title:document.getElementById('ef-ti').value,date:document.getElementById('ef-da').value,type:document.getElementById('ef-ty').value,status:document.getElementById('ef-st').value,views:parseInt(document.getElementById('ef-vi').value)||0,likes:parseInt(document.getElementById('ef-li').value)||0,saves:parseInt(document.getElementById('ef-sa').value)||0,caption:document.getElementById('ef-ca').value,hashtags:document.getElementById('ef-ha').value,notes:document.getElementById('ef-no').value}:p);
-  save();closeEdit();render();updateSB();
+  if(!editId) return;
+  posts = posts.map(function(p){
+    if(p.id !== editId) return p;
+    return makePost(p.id,
+      document.getElementById('ef-da').value,
+      document.getElementById('ef-ti').value,
+      document.getElementById('ef-ty').value,
+      document.getElementById('ef-st').value,
+      parseInt(document.getElementById('ef-vi').value)||0,
+      parseInt(document.getElementById('ef-li').value)||0,
+      parseInt(document.getElementById('ef-sa').value)||0,
+      document.getElementById('ef-ca').value,
+      document.getElementById('ef-ha').value,
+      document.getElementById('ef-no').value);
+  });
+  save(); closeEdit(); render(); updateSB();
 }
 
-function openAcc(){document.getElementById('am-f').value=acc.followers;document.getElementById('am-e').value=acc.email;document.getElementById('am-p').value=acc.pinterest;document.getElementById('am-et').value=acc.etsy;document.getElementById('acc-mo').classList.add('open');}
-function closeAcc(){document.getElementById('acc-mo').classList.remove('open');}
-function saveAcc(){acc.followers=parseInt(document.getElementById('am-f').value)||0;acc.email=parseInt(document.getElementById('am-e').value)||0;acc.pinterest=parseInt(document.getElementById('am-p').value)||0;acc.etsy=parseInt(document.getElementById('am-et').value)||0;save();closeAcc();updateSB();if(document.getElementById('tp-strategy').classList.contains('active'))renderStrategy();}
+function openAcc(){
+  document.getElementById('am-f').value = acc.followers;
+  document.getElementById('am-e').value = acc.email;
+  document.getElementById('am-p').value = acc.pinterest;
+  document.getElementById('am-et').value = acc.etsy;
+  document.getElementById('acc-mo').classList.add('open');
+}
+function closeAcc(){ document.getElementById('acc-mo').classList.remove('open'); }
+function saveAcc(){
+  acc.followers = parseInt(document.getElementById('am-f').value)||0;
+  acc.email = parseInt(document.getElementById('am-e').value)||0;
+  acc.pinterest = parseInt(document.getElementById('am-p').value)||0;
+  acc.etsy = parseInt(document.getElementById('am-et').value)||0;
+  save(); closeAcc(); updateSB();
+  if(document.getElementById('tp-strategy').classList.contains('active')) renderStrategy();
+}
 
 function renderAnalytics(){
-  const posted=posts.filter(p=>p.status==='posted');
-  const tv=posted.reduce((s,p)=>s+p.views,0);
-  const tl=posted.reduce((s,p)=>s+p.likes,0);
-  const ts=posted.reduce((s,p)=>s+p.saves,0);
-  const av=posted.length?Math.round(tv/posted.length):0;
-  const als=posted.length?(tl/posted.length).toFixed(1):0;
-  const ass=posted.length?(ts/posted.length).toFixed(1):0;
-  const best=posted.reduce((b,p)=>p.views>(b?.views||0)?p:b,null);
+  var posted = posts.filter(function(p){ return p.status === 'posted'; });
+  var tv = posted.reduce(function(s,p){ return s+p.views; },0);
+  var tl = posted.reduce(function(s,p){ return s+p.likes; },0);
+  var ts = posted.reduce(function(s,p){ return s+p.saves; },0);
+  var av = posted.length ? Math.round(tv/posted.length) : 0;
+  var als = posted.length ? (tl/posted.length).toFixed(1) : 0;
+  var ass = posted.length ? (ts/posted.length).toFixed(1) : 0;
+  var best = posted.reduce(function(b,p){ return p.views>(b?b.views:0)?p:b; }, null);
 
-  document.getElementById('sum-grid').innerHTML=[
+  document.getElementById('sum-grid').innerHTML = [
     ['Total Views',tv.toLocaleString(),'var(--gold)'],
     ['Total Likes',tl.toLocaleString(),'#7B8BC9'],
     ['Total Saves',ts.toLocaleString(),'var(--green)'],
     ['Avg Views',av.toLocaleString(),'var(--gold)'],
     ['Avg Saves',ass,'var(--green)'],
-    ['Posted',posted.length,'var(--muted)'],
-  ].map(([l,v,c])=>`<div class="sc" style="border-top:2px solid ${c}"><span class="sv3" style="color:${c}">${v}</span><span class="sl3">${l}</span></div>`).join('');
+    ['Posted',posted.length,'var(--muted)']
+  ].map(function(x){
+    return '<div class="sc" style="border-top:2px solid '+x[2]+'"><span class="sv3" style="color:'+x[2]+'">'+x[1]+'</span><span class="sl3">'+x[0]+'</span></div>';
+  }).join('');
 
-  document.getElementById('best-v').innerHTML=best?`
-    <div style="font-family:'Cinzel',serif;font-size:0.46rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;flex-shrink:0">⭐ Best Video</div>
-    <div style="flex:1;font-size:0.82rem;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${best.title}</div>
-    <div style="display:flex;gap:10px;font-size:0.78rem;flex-shrink:0">
-      <span style="color:var(--gold)">${best.views.toLocaleString()}v</span>
-      <span style="color:#7B8BC9">${best.likes}l</span>
-      <span style="color:var(--green)">${best.saves}s</span>
-    </div>`:'';
+  document.getElementById('best-v').innerHTML = best ?
+    '<div style="font-family:\'Cinzel\',serif;font-size:0.46rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;flex-shrink:0">Best Video</div>' +
+    '<div style="flex:1;font-size:0.82rem;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+best.title+'</div>' +
+    '<div style="display:flex;gap:10px;font-size:0.78rem;flex-shrink:0">' +
+    '<span style="color:var(--gold)">'+best.views.toLocaleString()+'v</span>' +
+    '<span style="color:#7B8BC9">'+best.likes+'l</span>' +
+    '<span style="color:var(--green)">'+best.saves+'s</span></div>' : '';
 
-  const l12=posted.slice(-12);
-  if(barC)barC.destroy();
-  barC=new Chart(document.getElementById('bar-c').getContext('2d'),{type:'bar',data:{labels:l12.map(p=>p.title.length>13?p.title.slice(0,13)+'…':p.title),datasets:[{label:'Views',data:l12.map(p=>p.views),backgroundColor:'rgba(201,168,76,0.7)',borderRadius:2},{label:'Likes',data:l12.map(p=>p.likes),backgroundColor:'rgba(123,91,167,0.7)',borderRadius:2},{label:'Saves',data:l12.map(p=>p.saves),backgroundColor:'rgba(90,154,122,0.7)',borderRadius:2}]},options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{family:'Cormorant Garamond',size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}});
+  var l12 = posted.slice(-12);
+  if(barC) barC.destroy();
+  barC = new Chart(document.getElementById('bar-c').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: l12.map(function(p){ return p.title.length>13?p.title.slice(0,13)+'...':p.title; }),
+      datasets: [
+        {label:'Views',data:l12.map(function(p){return p.views;}),backgroundColor:'rgba(201,168,76,0.7)',borderRadius:2},
+        {label:'Likes',data:l12.map(function(p){return p.likes;}),backgroundColor:'rgba(123,91,167,0.7)',borderRadius:2},
+        {label:'Saves',data:l12.map(function(p){return p.saves;}),backgroundColor:'rgba(90,154,122,0.7)',borderRadius:2}
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{family:'Cormorant Garamond',size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}
+  });
 
-  if(lineC)lineC.destroy();
-  let cum=0;
-  lineC=new Chart(document.getElementById('line-c').getContext('2d'),{type:'line',data:{labels:posted.map(p=>p.date.slice(5)),datasets:[{label:'Per-video',data:posted.map(p=>p.views),borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.08)',tension:.3,pointRadius:2,fill:true},{label:'Cumulative',data:posted.map(p=>{cum+=p.views;return cum;}),borderColor:'#5A9A7A',borderDash:[4,2],tension:.3,pointRadius:0}]},options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{family:'Cormorant Garamond',size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35,maxTicksLimit:10},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}});
+  if(lineC) lineC.destroy();
+  var cum = 0;
+  lineC = new Chart(document.getElementById('line-c').getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: posted.map(function(p){ return p.date.slice(5); }),
+      datasets: [
+        {label:'Per-video',data:posted.map(function(p){return p.views;}),borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.08)',tension:.3,pointRadius:2,fill:true},
+        {label:'Cumulative',data:posted.map(function(p){cum+=p.views;return cum;}),borderColor:'#5A9A7A',borderDash:[4,2],tension:.3,pointRadius:0}
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{family:'Cormorant Garamond',size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35,maxTicksLimit:10},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}
+  });
 
-  const types=Object.keys(TL);
-  const ts2=types.map(type=>{const tp=posted.filter(p=>p.type===type);return{type,label:TL[type],count:tp.length,avgV:tp.length?Math.round(tp.reduce((s,p)=>s+p.views,0)/tp.length):0,avgS:tp.length?(tp.reduce((s,p)=>s+p.saves,0)/tp.length).toFixed(1):0};}).filter(t=>t.count>0).sort((a,b)=>b.avgV-a.avgV);
-  const mx=ts2[0]?.avgV||1;
-  document.getElementById('type-bd').innerHTML=ts2.map(t=>`
-    <div class="tr">
-      <div style="width:3px;height:24px;background:${TC[t.type]};border-radius:2px;flex-shrink:0"></div>
-      <div style="min-width:100px;font-size:0.76rem;color:var(--parchment)">${t.label}</div>
-      <div class="tbb"><div class="tbf" style="width:${Math.round((t.avgV/mx)*100)}%;background:${TC[t.type]}"></div></div>
-      <div style="font-size:0.7rem;color:var(--gold);min-width:70px;text-align:right">${t.avgV} avg views</div>
-      <div style="font-size:0.66rem;color:var(--green);min-width:56px;text-align:right">${t.avgS} avg saves</div>
-      <div style="font-size:0.56rem;color:var(--muted);min-width:40px;text-align:right">${t.count} posts</div>
-    </div>`).join('');
+  var types = Object.keys(TL);
+  var ts2 = types.map(function(type){
+    var tp = posted.filter(function(p){ return p.type===type; });
+    return {type:type,label:TL[type],count:tp.length,
+      avgV:tp.length?Math.round(tp.reduce(function(s,p){return s+p.views;},0)/tp.length):0,
+      avgS:tp.length?(tp.reduce(function(s,p){return s+p.saves;},0)/tp.length).toFixed(1):0};
+  }).filter(function(t){ return t.count>0; }).sort(function(a,b){ return b.avgV-a.avgV; });
+
+  var mx = ts2.length ? ts2[0].avgV : 1;
+  document.getElementById('type-bd').innerHTML = ts2.map(function(t){
+    return '<div class="tr">' +
+      '<div style="width:3px;height:24px;background:'+TC[t.type]+';border-radius:2px;flex-shrink:0"></div>' +
+      '<div style="min-width:100px;font-size:0.76rem;color:var(--parchment)">'+t.label+'</div>' +
+      '<div class="tbb"><div class="tbf" style="width:'+Math.round((t.avgV/mx)*100)+'%;background:'+TC[t.type]+'"></div></div>' +
+      '<div style="font-size:0.7rem;color:var(--gold);min-width:70px;text-align:right">'+t.avgV+' avg views</div>' +
+      '<div style="font-size:0.66rem;color:var(--green);min-width:56px;text-align:right">'+t.avgS+' avg saves</div>' +
+      '<div style="font-size:0.56rem;color:var(--muted);min-width:40px;text-align:right">'+t.count+' posts</div>' +
+      '</div>';
+  }).join('');
 }
 
 function renderStrategy(){
-  const posted=posts.filter(p=>p.status==='posted');
-  const tv=posted.reduce((s,p)=>s+p.views,0);
-  const ts=posted.reduce((s,p)=>s+p.saves,0);
-  const types=Object.keys(TL);
-  const ts2=types.map(type=>{const tp=posted.filter(p=>p.type===type);return{type,label:TL[type],count:tp.length,avgV:tp.length?Math.round(tp.reduce((s,p)=>s+p.views,0)/tp.length):0,avgS:tp.length?(tp.reduce((s,p)=>s+p.saves,0)/tp.length).toFixed(1):0};}).filter(t=>t.count>0).sort((a,b)=>b.avgV-a.avgV);
-  const sr=tv?((ts/tv)*100).toFixed(2):0;
+  var posted = posts.filter(function(p){ return p.status==='posted'; });
+  var tv = posted.reduce(function(s,p){ return s+p.views; },0);
+  var ts = posted.reduce(function(s,p){ return s+p.saves; },0);
+  var types = Object.keys(TL);
+  var ts2 = types.map(function(type){
+    var tp = posted.filter(function(p){ return p.type===type; });
+    return {type:type,label:TL[type],count:tp.length,
+      avgV:tp.length?Math.round(tp.reduce(function(s,p){return s+p.views;},0)/tp.length):0,
+      avgS:tp.length?(tp.reduce(function(s,p){return s+p.saves;},0)/tp.length).toFixed(1):0};
+  }).filter(function(t){ return t.count>0; }).sort(function(a,b){ return b.avgV-a.avgV; });
 
-  const ins=[
-    ts2[0]?{c:TC[ts2[0].type],s:`Best format: ${ts2[0].label}`,t:`Averaging ${ts2[0].avgV} views and ${ts2[0].avgS} saves. Make this your primary format — at least 60% of your schedule.`}:null,
-    ts2.length>1?{c:'#8B3A3A',s:`Lowest format: ${ts2[ts2.length-1].label}`,t:`Averaging ${ts2[ts2.length-1].avgV} views. Limit to 15% of schedule. Always precede product showcases with an educational slide.`}:null,
-    {c:'#5A9A7A',s:`Save rate: ${sr}% of views`,t:`Industry average is ~1%. Your rate is ${tv?(sr/1).toFixed(1):0}x the average. Saves are TikTok's strongest push signal — keep maximising them.`},
-    {c:'#7B8BC9',s:`Email list: ${acc.email} subscriber${acc.email!==1?'s':''}`,t:`Funnel is proven. First subscriber opened welcome email within 60 seconds and browsed Shopify immediately. Priority: grow to 50+ for reliable revenue.`},
-    {c:'#8B6840',s:`Pinterest: ${acc.pinterest.toLocaleString()} monthly views`,t:acc.pinterest>=2000?`✦ Past the 2,000 threshold. Check Pinterest analytics for outbound link clicks — they should be appearing now.`:`${(2000-acc.pinterest).toLocaleString()} views from the 2,000 threshold where outbound clicks begin. Resume daily pinning.`},
-  ].filter(Boolean);
+  var sr = tv ? ((ts/tv)*100).toFixed(2) : 0;
 
-  document.getElementById('insights').innerHTML=ins.map(i=>`<div class="ii"><div class="id" style="background:${i.c}"></div><div><span class="is" style="color:${i.c}">${i.s}</span>${i.t}</div></div>`).join('');
+  var insData = [];
+  if(ts2.length > 0){
+    insData.push({c:TC[ts2[0].type],s:'Best format: '+ts2[0].label,t:'Averaging '+ts2[0].avgV+' views and '+ts2[0].avgS+' saves. Make this your primary format.'});
+  }
+  if(ts2.length > 1){
+    insData.push({c:'#8B3A3A',s:'Lowest format: '+ts2[ts2.length-1].label,t:'Averaging '+ts2[ts2.length-1].avgV+' views. Always precede product showcases with an educational slide.'});
+  }
+  insData.push({c:'#5A9A7A',s:'Save rate: '+sr+'% of views',t:'Industry average is ~1%. Your rate is '+(tv?(sr/1).toFixed(1):0)+'x the average.'});
+  insData.push({c:'#7B8BC9',s:'Email list: '+acc.email+' subscriber'+(acc.email!==1?'s':''),t:'Funnel is proven. Subscriber opened welcome email within 60 seconds. Priority: grow to 50+ for reliable revenue.'});
+  insData.push({c:'#8B6840',s:'Pinterest: '+acc.pinterest.toLocaleString()+' monthly views',t:acc.pinterest>=2000?'Past the 2,000 threshold. Check Pinterest analytics for outbound link clicks.':(2000-acc.pinterest).toLocaleString()+' views from the 2,000 outbound click threshold. Resume daily pinning.'});
 
-  document.getElementById('unlocks').innerHTML=[
-    [acc.followers>=1000?'✦ Done':`${acc.followers}/1,000`,'TikTok Bio Link','Clickable link removes manual URL friction — expected to 5-10x email signups overnight.',acc.followers>=1000],
-    [acc.email>=50?'✦ Done':`${acc.email}/50`,'50 Email Subscribers','Email as a reliable revenue driver — each send to 50 engaged subscribers generates 2-5 sales.',acc.email>=50],
-    ['Check Etsy','First Etsy Review','One review changes Etsy\'s algorithm trust score and improves organic search visibility dramatically.',false],
-    [acc.pinterest>=2000?'✦ Reached':`${acc.pinterest.toLocaleString()}/2,000`,'Pinterest 2,000 Views','First outbound clicks to curatorsdesk.com — converts better than TikTok because users click directly.',acc.pinterest>=2000],
-  ].map(([p,l,d,dn])=>`<div class="mr"><div class="mp" style="color:${dn?'#5A9A7A':'var(--gold)'}">${p}</div><div class="ml" style="color:${dn?'#5A9A7A':'var(--parchment)'}">${dn?'✦ ':' '}${l}</div><div class="md">${d}</div></div>`).join('');
+  document.getElementById('insights').innerHTML = insData.map(function(i){
+    return '<div class="ii"><div class="id2" style="background:'+i.c+'"></div><div><span class="is" style="color:'+i.c+'">'+i.s+'</span>'+i.t+'</div></div>';
+  }).join('');
 
-  document.getElementById('revenue').innerHTML=[
-    ['Sep 2026','$100–300','First sales, Etsy reviews begin'],
-    ['Oct 2026','$300–600','Autumn season, Pinterest clicks, language journals live'],
-    ['Nov 2026','$500–900','Holiday gifting window opens'],
-    ['Dec 2026','$800–1,500','Christmas gifting peak'],
-    ['Jan 2027','$400–700','New Year journaling surge + new builds resume'],
-    ['Feb 2027','$500–900',"Valentine's + Spring Reading Journal launch"],
-    ['Mar 2027','$700–1,200','Spring season, email list maturing'],
-    ['Apr 2027','$1,000–1,800','Full funnel mature, expanded catalogue'],
-    ['May 2027','$1,500–2,500','New builds live, audience established'],
-    ['Jun 2027','$2,500–3,500','✦ Target month'],
-  ].map(([m,t,d])=>`<div class="rr"><div class="rm">${m}</div><div class="rt">${t}</div><div class="rd">${d}</div></div>`).join('');
+  document.getElementById('unlocks').innerHTML = [
+    [acc.followers>=1000?'Done':''+acc.followers+'/1,000','TikTok Bio Link','Clickable link removes manual URL friction - expected to 5-10x email signups overnight.',acc.followers>=1000],
+    [acc.email>=50?'Done':''+acc.email+'/50','50 Email Subscribers','Email as a reliable revenue driver - each send to 50 engaged subscribers generates 2-5 sales.',acc.email>=50],
+    ['Check Etsy','First Etsy Review','One review changes Etsy algorithm trust score and improves organic search visibility dramatically.',false],
+    [acc.pinterest>=2000?'Reached':''+acc.pinterest.toLocaleString()+'/2,000','Pinterest 2,000 Views','First outbound clicks to curatorsdesk.com - converts better than TikTok because users click directly.',acc.pinterest>=2000]
+  ].map(function(x){
+    return '<div class="mr"><div class="mp" style="color:'+(x[3]?'#5A9A7A':'var(--gold)')+'">'+x[0]+'</div><div class="ml" style="color:'+(x[3]?'#5A9A7A':'var(--parchment)')+'">'+x[1]+'</div><div class="md">'+x[2]+'</div></div>';
+  }).join('');
+
+  document.getElementById('revenue').innerHTML = [
+    ['Sep 2026','$100-300','First sales, Etsy reviews begin'],
+    ['Oct 2026','$300-600','Autumn season, Pinterest clicks, language journals live'],
+    ['Nov 2026','$500-900','Holiday gifting window opens'],
+    ['Dec 2026','$800-1,500','Christmas gifting peak'],
+    ['Jan 2027','$400-700','New Year journaling surge + new builds resume'],
+    ['Feb 2027','$500-900',"Valentine's + Spring Reading Journal launch"],
+    ['Mar 2027','$700-1,200','Spring season, email list maturing'],
+    ['Apr 2027','$1,000-1,800','Full funnel mature, expanded catalogue'],
+    ['May 2027','$1,500-2,500','New builds live, audience established'],
+    ['Jun 2027','$2,500-3,500','Target month']
+  ].map(function(x){
+    return '<div class="rr"><div class="rm">'+x[0]+'</div><div class="rt">'+x[1]+'</div><div class="rd">'+x[2]+'</div></div>';
+  }).join('');
 }
 
-load();render();updateSB();
+load();
+render();
+updateSB();
 </script>
 </body>
 </html>
