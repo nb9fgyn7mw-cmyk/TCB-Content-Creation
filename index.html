@@ -1,1546 +1,670 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TCD TikTok Schedule</title>
-<style>
-  :root {
-    --parchment: #F5EFE3;
-    --parchment-dark: #E8DFC9;
-    --sepia: #6B4C2A;
-    --gold: #C9A84C;
-    --forest: #2D4A3E;
-    --ink: #2A2420;
-    --red: #8B2635;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: Georgia, 'Times New Roman', serif;
-    background: var(--parchment);
-    color: var(--ink);
-    line-height: 1.5;
-    padding-bottom: 60px;
-  }
-  header {
-    background: var(--forest);
-    color: var(--parchment);
-    padding: 28px 20px 22px;
-    text-align: center;
-    border-bottom: 4px solid var(--gold);
-  }
-  header h1 { margin: 0; font-size: 1.5rem; letter-spacing: 0.04em; font-weight: normal; }
-  header p { margin: 6px 0 0; font-size: 0.85rem; font-style: italic; color: var(--gold); }
-  main { max-width: 700px; margin: 0 auto; padding: 16px; }
-  .progress {
-    text-align: center; font-size: 0.85rem; color: var(--sepia);
-    margin: 12px 0 4px; font-style: italic;
-  }
-  .stats-row {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    margin: 10px 0 16px; justify-content: center;
-  }
-  .stat {
-    background: #fff; border: 1px solid var(--parchment-dark);
-    border-radius: 4px; padding: 8px 14px; text-align: center;
-    font-size: 0.8rem; flex: 1; min-width: 100px;
-  }
-  .stat .num { font-size: 1.2rem; color: var(--forest); font-weight: bold; display: block; }
-  .stat .label { color: var(--sepia); font-style: italic; font-size: 0.72rem; }
-  .tips {
-    background: #fff; border: 1px solid var(--parchment-dark);
-    border-left: 5px solid var(--gold); border-radius: 4px;
-    padding: 12px 16px; font-size: 0.85rem; margin-bottom: 16px;
-  }
-  .tips h3 { margin: 0 0 6px; font-size: 0.95rem; color: var(--forest); }
-  .tips ul { margin: 6px 0 0; padding-left: 20px; }
-  .tips li { margin-bottom: 4px; }
-  .board {
-    background: #fff; border: 1px solid var(--parchment-dark);
-    border-left: 5px solid var(--forest); border-radius: 4px;
-    padding: 14px 16px; margin-bottom: 16px;
-  }
-  .board h2 { margin: 0 0 2px; font-size: 1.05rem; color: var(--forest); }
-  .board .sub { font-size: 0.8rem; color: var(--sepia); margin-bottom: 10px; font-style: italic; }
-  .pin {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 10px 0; border-top: 1px dashed var(--parchment-dark);
-  }
-  .pin:first-of-type { border-top: none; }
-  .pin input[type=checkbox] {
-    margin-top: 3px; width: 18px; height: 18px;
-    accent-color: var(--gold); flex-shrink: 0;
-  }
-  .pin label { font-size: 0.9rem; cursor: pointer; line-height: 1.5; }
-  .pin label strong { color: var(--forest); }
-  .pin label em { color: var(--sepia); }
-  .pin.done label { text-decoration: line-through; color: #aaa; }
-  .pin.posted { background: #f0f5f0; border-radius: 4px; padding: 10px; }
-  .pin.repost { background: #fff8ee; border-radius: 4px; padding: 10px; }
-  .pin.slide { background: #f5f0f8; border-radius: 4px; padding: 10px; }
-  .pin.needs-filming { background: #fff8ee; border-radius: 4px; padding: 10px; }
-  .badge {
-    display: inline-block; font-size: 0.62rem; background: var(--gold);
-    color: var(--ink); padding: 1px 6px; border-radius: 3px;
-    margin-left: 4px; vertical-align: middle; font-style: normal;
-  }
-  .badge-slide {
-    display: inline-block; font-size: 0.62rem; background: #6B4899;
-    color: #fff; padding: 1px 6px; border-radius: 3px;
-    margin-left: 4px; vertical-align: middle; font-style: normal;
-  }
-  .badge-hot {
-    display: inline-block; font-size: 0.62rem; background: var(--forest);
-    color: #fff; padding: 1px 6px; border-radius: 3px;
-    margin-left: 4px; vertical-align: middle; font-style: normal;
-  }
-  .badge-repost {
-    display: inline-block; font-size: 0.62rem; background: var(--red);
-    color: #fff; padding: 1px 6px; border-radius: 3px;
-    margin-left: 4px; vertical-align: middle; font-style: normal;
-  }
-  .analytics {
-    font-size: 0.75rem; color: var(--sepia);
-    background: var(--parchment-dark); border-radius: 3px;
-    padding: 3px 8px; margin-top: 4px; display: inline-block;
-  }
-  .legend {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    font-size: 0.74rem; margin-bottom: 14px; align-items: center;
-  }
-  .legend-item { display: flex; align-items: center; gap: 4px; }
-  .dot { width: 10px; height: 10px; border-radius: 2px; }
-  .reset-row { text-align: center; margin-top: 24px; }
-  .reset-row button {
-    background: none; border: 1px solid var(--sepia); color: var(--sepia);
-    font-size: 0.75rem; padding: 6px 14px; border-radius: 3px;
-    cursor: pointer; font-family: inherit;
-  }
-
-  /* TABS */
-  .tab-nav {
-    display: flex;
-    background: #1a1a1a;
-    border-bottom: 2px solid var(--gold);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .tab-btn {
-    flex: 1;
-    padding: 12px 8px;
-    font-family: Georgia, serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    color: #888;
-    background: none;
-    border: none;
-    cursor: pointer;
-    border-right: 1px solid #2a2a2a;
-    transition: background 0.15s, color 0.15s;
-  }
-  .tab-btn:last-child { border-right: none; }
-  .tab-btn.active {
-    background: var(--forest);
-    color: var(--gold);
-    font-weight: bold;
-  }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* STRATEGY STYLES */
-  .phase-header {
-    margin: 32px 0 12px;
-    padding-bottom: 6px;
-    border-bottom: 2px solid var(--parchment-dark);
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .phase-eyebrow {
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-family: Georgia, serif;
-  }
-  .phase-header h2 {
-    font-size: 1.0rem;
-    color: var(--forest);
-    font-weight: normal;
-  }
-  .phase-dates {
-    font-size: 0.75rem;
-    color: var(--sepia);
-    font-style: italic;
-    margin-left: auto;
-  }
-  .s-card {
-    background: #fff;
-    border: 1px solid var(--parchment-dark);
-    border-left: 5px solid var(--forest);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-  }
-  .s-card.gold { border-left-color: var(--gold); }
-  .s-card.burg { border-left-color: #6B2737; }
-  .s-card.navy { border-left-color: #1E2D4A; }
-  .s-card-header {
-    display: flex; align-items: flex-start;
-    gap: 8px; flex-wrap: wrap; margin-bottom: 10px;
-  }
-  .s-card-title {
-    font-size: 0.95rem;
-    color: var(--forest);
-    flex: 1;
-  }
-  .s-badge {
-    font-size: 0.55rem;
-    letter-spacing: 0.08em;
-    padding: 2px 7px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-  .s-badge.wk { background: var(--parchment-dark); color: var(--sepia); }
-  .s-badge.q4 { background: #6B2737; color: #fff; }
-  .s-badge.lang { background: #1E2D4A; color: #fff; }
-  .s-badge.new { background: var(--forest); color: #fff; }
-  .s-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-  @media (max-width: 580px) { .s-grid { grid-template-columns: 1fr; } }
-  .s-channel {
-    background: var(--parchment);
-    border-radius: 3px;
-    padding: 9px 11px;
-  }
-  .s-ch-label {
-    font-size: 0.52rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    font-family: Georgia, serif;
-  }
-  .s-ch-label.tt { color: var(--forest); }
-  .s-ch-label.pt { color: #6B2737; }
-  .s-ch-label.em { color: #1E2D4A; }
-  .s-channel ul { list-style: none; padding: 0; }
-  .s-channel ul li {
-    font-size: 0.76rem;
-    color: var(--ink);
-    padding: 2px 0 2px 10px;
-    position: relative;
-    line-height: 1.4;
-  }
-  .s-channel ul li::before { content: '·'; position: absolute; left: 0; color: var(--gold); }
-  .s-principles {
-    background: var(--forest);
-    color: var(--parchment);
-    border-radius: 4px;
-    padding: 16px 18px;
-    margin: 20px 0;
-  }
-  .s-principles h3 {
-    font-size: 0.65rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-  .s-principles ol { padding-left: 18px; }
-  .s-principles ol li { font-size: 0.84rem; margin-bottom: 6px; line-height: 1.5; }
-  .s-principles ol li strong { color: #E8C97A; }
-  .s-metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 8px; margin: 16px 0;
-  }
-  .s-metric {
-    background: #fff;
-    border: 1px solid var(--parchment-dark);
-    border-radius: 4px;
-    padding: 10px 12px;
-    text-align: center;
-  }
-  .s-metric .mp { font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
-  .s-metric .mt { font-size: 1.0rem; color: var(--forest); font-weight: 500; margin-bottom: 2px; }
-  .s-metric .md { font-size: 0.7rem; color: var(--sepia); font-style: italic; }
-  .q4-box {
-    background: linear-gradient(135deg, #6B2737, #3A0F18);
-    color: var(--parchment);
-    border-radius: 4px;
-    padding: 16px 18px;
-    margin: 16px 0;
-    border: 1px solid rgba(201,168,76,0.25);
-  }
-  .q4-box h3 { font-size: 0.8rem; color: var(--gold); margin-bottom: 8px; }
-  .q4-box p { font-size: 0.82rem; line-height: 1.6; opacity: 0.9; }
-  .q4-box ul { margin-top: 8px; padding-left: 16px; }
-  .q4-box ul li { font-size: 0.78rem; margin-bottom: 4px; line-height: 1.4; }
-  .ornament { text-align: center; color: var(--gold); opacity: 0.35; font-size: 0.65rem; letter-spacing: 0.3em; margin: 24px 0; }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>TheCuratorsDesk &mdash; Content Planner</h1>
-  <p>TikTok Schedule &nbsp;&middot;&nbsp; 25-Week Strategy &nbsp;&middot;&nbsp; Jul 2026 &ndash; Jan 2027</p>
-</header>
-
-<div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('schedule')">&#128197; Schedule</button>
-  <button class="tab-btn" onclick="switchTab('strategy')">&#128200; Strategy</button>
-  <button class="tab-btn" onclick="switchTab('brainstorm')">&#128161; New Content</button>
-</div>
-
-<div class="tab-panel active" id="panel-schedule"><main>
-
-  <div class="progress" id="scheduleProgress"></div>
-
-  <div class="stats-row">
-    <div class="stat"><span class="num">13</span><span class="label">posted</span></div>
-    <div class="stat"><span class="num">780</span><span class="label">best video views</span></div>
-    <div class="stat"><span class="num">10</span><span class="label">best video saves</span></div>
-    <div class="stat"><span class="num">4</span><span class="label">followers</span></div>
-  </div>
-
-  <div class="legend">
-    <span style="color:var(--sepia); font-style:italic; font-size:0.74rem;">Key:</span>
-    <div class="legend-item"><div class="dot" style="background:#f0f5f0; border:1px solid #ccc;"></div> Posted</div>
-    <div class="legend-item"><div class="dot" style="background:#f5f0f8; border:1px solid #ccc;"></div> Informative slide</div>
-    <div class="legend-item"><div class="dot" style="background:#fff8ee; border:1px solid #ccc;"></div> Needs attention</div>
-  </div>
-
-  <div class="tips">
-    <h3>What your data is telling you</h3>
-    <ul>
-      <li><strong>Scholar history is your #1 format</strong> &mdash; Thomas Jefferson: 780 views, 28 likes, 10 saves &#11088;</li>
-      <li><strong>Educational slides are #2</strong> &mdash; Commonplace Book slide = same video as Jefferson</li>
-      <li><strong>Physical ASMR is #3</strong> &mdash; Bookmarks Vol. I: 387 views &mdash; Autumn Reading Journal: 239 views</li>
-      <li><strong>Pascal underperformed at 187 views</strong> &mdash; name recognition matters, stick to household names</li>
-      <li><strong>Morning Pages still at 0</strong> &mdash; try stripping all hashtags and changing the hook text overlay</li>
-      <li>Post every 2&ndash;3 days &mdash; anchor tags every video: #darkacademia + alternate #booktok / #journalwithme</li>
-    </ul>
-  </div>
-
-  <!-- POSTED VIDEOS -->
-  <div class="board" style="border-left-color: var(--forest);">
-    <h2>Already Posted &mdash; Jun 29 &ndash; Jul 24</h2>
-    <div class="sub">13 videos posted &mdash; updated Jul 24</div>
-
-    <div class="pin posted">
-      <input type="checkbox" id="s-0" checked>
-      <label for="s-0"><strong>Video 1</strong> &mdash; Classicist's Companion physical flip-through<br>
-      <em>"the sound of a scholar's journal &#128214;"</em><br>
-      <span class="analytics">184 views &nbsp;·&nbsp; 12 likes &nbsp;·&nbsp; 5 saves</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-1" checked>
-      <label for="s-1"><strong>Video 2</strong> &mdash; Vol. I &amp; II Sticker Sheets showcase<br>
-      <em>"scholar stickers designed for digital journals"</em><br>
-      <span class="analytics">153 views</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-2" checked>
-      <label for="s-2"><strong>Video 3</strong> &mdash; Festina Lente slide <span class="badge-slide">SLIDE</span><br>
-      <em>"a reminder to slow down"</em><br>
-      <span class="analytics">103 views &mdash; hook needs strengthening on future Latin slides</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-3" checked>
-      <label for="s-3"><strong>Video 4</strong> &mdash; Marcus Aurelius &mdash; Reasons to Journal <span class="badge-slide">SLIDE</span><br>
-      <em>"he was one of the most powerful men in the world and yet he journaled"</em><br>
-      <span class="analytics">492 views &nbsp;·&nbsp; 11 likes &nbsp;·&nbsp; 7 saves</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-4" checked>
-      <label for="s-4"><strong>Video 5</strong> &mdash; Bookmark Vol. I physical creation<br>
-      <em>"how I design bookmarks for my Etsy shop"</em><br>
-      <span class="analytics">387 views &nbsp;·&nbsp; 20 likes &nbsp;·&nbsp; 4 saves</span></label>
-    </div>
-    <div class="pin repost">
-      <input type="checkbox" id="s-5">
-      <label for="s-5"><strong>Video 6 &mdash; STILL NEEDS REPOST</strong> &mdash; Scholar's Morning Pages Journal <span class="badge-repost">REPOST</span><br>
-      <em>"this is what structured morning reflection actually looks like"</em><br>
-      <span class="analytics">0 views both attempts &mdash; try: strip all hashtags, change hook text overlay, re-export fresh file</span><br>
-      Try caption: "90 days of this changed my mornings"</label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-6" checked>
-      <label for="s-6"><strong>Video 7</strong> &mdash; Thomas Jefferson &mdash; Commonplace Book <span class="badge-slide">SLIDE</span> <span class="badge-hot">&#11088; BEST 780 views</span><br>
-      <em>"the Declaration of Independence grew from a habit he started at age 15"</em><br>
-      <span class="analytics">28 likes &nbsp;·&nbsp; 10 saves &mdash; strongest video to date &mdash; pinned #2</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-7" checked>
-      <label for="s-7"><strong>Video 8</strong> &mdash; Scholar's Reading Challenge digital<br>
-      <em>"a reading challenge tracker designed for serious readers"</em><br>
-      <span class="analytics">140 views</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-8" checked>
-      <label for="s-8"><strong>Video 9</strong> &mdash; Autumn Reading Journal physical<br>
-      <em>"Books, Fall &amp; Latin = my love language"</em><br>
-      <span class="analytics">239 views</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-9" checked>
-      <label for="s-9"><strong>Video 10</strong> &mdash; C.S. Lewis &mdash; Inspiration for Morning Journaling <span class="badge-slide">SLIDE</span><br>
-      <em>"he wrote one of the most honest books about grief ever published"</em><br>
-      <span class="analytics">410 views &nbsp;·&nbsp; scholar history confirmed strong</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-10" checked>
-      <label for="s-10"><strong>Video 11</strong> &mdash; Free Reading Log pinned post <span class="badge-slide">PINNED #1</span><br>
-      <em>"free scholar's reading log &mdash; grab it at curatorsdesk.com"</em><br>
-      <span class="analytics">472 views &nbsp;·&nbsp; 12 likes &nbsp;·&nbsp; 3 saves</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-11" checked>
-      <label for="s-11"><strong>Video 12</strong> &mdash; Blaise Pascal scholars slide <span class="badge-slide">SLIDE</span><br>
-      <em>"he built a calculating machine at 19 — but that's not the most interesting thing about him"</em><br>
-      <span class="analytics">187 views &mdash; lower due to name recognition &mdash; stick to household names going forward</span></label>
-    </div>
-    <div class="pin posted">
-      <input type="checkbox" id="s-12" checked>
-      <label for="s-12"><strong>Video 13</strong> &mdash; Bookmark Vol. II physical creation<br>
-      <em>"Vol. II is here"</em><br>
-      <span class="analytics">views pending</span></label>
-    </div>
-  </div>
-
-  <!-- FROM TODAY -->
-  <div class="board" style="border-left-color: var(--gold);">
-    <h2>Jul 24 &ndash; Aug 3 &mdash; From Today</h2>
-    <div class="sub">Apostle Paul next &mdash; then back to alternating rhythm</div>
-
-    <div class="pin slide">
-      <input type="checkbox" id="s-13">
-      <label for="s-13"><strong>Jul 26</strong> &mdash; Apostle Paul scholars slide <span class="badge-slide">SLIDE</span><br>
-      <em>"he wrote letters from prison that 2.4 billion people still read today"</em><br>
-      <span class="analytics">6 slides &mdash; mockup built &mdash; use caption option 1</span><br>
-      #darkacademia #apostlepaul #scholaraesthetic #studytok #ancienthistory</label>
-    </div>
-    <div class="pin repost">
-      <input type="checkbox" id="s-14">
-      <label for="s-14"><strong>Jul 28</strong> &mdash; Morning Pages Journal REPOST <span class="badge-repost">REPOST</span><br>
-      <em>"90 days of this changed my mornings"</em><br>
-      <span class="analytics">Strip ALL hashtags &mdash; re-export fresh file &mdash; post with one line caption only</span></label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-15">
-      <label for="s-15"><strong>Jul 30</strong> &mdash; Reading Log digital page-flip<br>
-      <em>"every book you've ever read &mdash; tracked in one place"</em><br>
-      #darkacademia #readinglog #booktok #scholaraesthetic #journalwithme</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-16">
-      <label for="s-16"><strong>Aug 1</strong> &mdash; Autumn Scholar season opener <span class="badge-slide">SEASONAL</span><br>
-      <em>"Autumn Scholar season is here"</em><br>
-      <span class="analytics">Desk setup video &mdash; warm light &mdash; candle &mdash; autumn palette products &mdash; marks the seasonal tradition</span><br>
-      #darkacademia #autumnreading #scholaraesthetic #booktok #autumnaesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-17">
-      <label for="s-17"><strong>Aug 3</strong> &mdash; Bookmark Vol. III creation behind the scenes<br>
-      <em>"designing the autumn scholar bookmark set &mdash; Vol. III"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #autumnaesthetic #scholaraesthetic</label>
-    </div>
-  </div>
-
-  <div class="board" style="border-left-color: var(--sepia);">
-    <h2>Aug 5 &ndash; Aug 17</h2>
-    <div class="sub">Francis Bacon + digital products + Carpe Diem</div>
-
-    <div class="pin slide">
-      <input type="checkbox" id="s-18">
-      <label for="s-18"><strong>Aug 5</strong> &mdash; Francis Bacon scholars slide <span class="badge-slide">SLIDE</span><br>
-      <em>"Francis Bacon said reading makes a full man. he spent his life proving it."</em><br>
-      #darkacademia #francisbacon #scholaraesthetic #studytok</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-19">
-      <label for="s-19"><strong>Aug 7</strong> &mdash; Autumn TBR Journal physical flip-through<br>
-      <em>"every book on your TBR deserves this sound"</em><br>
-      #darkacademia #journalasmr #tbrjournal #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-20">
-      <label for="s-20"><strong>Aug 9</strong> &mdash; Carpe Diem Latin word slide <span class="badge-slide">SLIDE</span> <span class="badge">IMPROVE HOOK</span><br>
-      <em>"carpe diem doesn't mean what you think it means"</em><br>
-      <span class="analytics">Strengthen hook slide before posting &mdash; lesson from Festina Lente</span><br>
-      #darkacademia #latinwords #carpediem #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-21">
-      <label for="s-21"><strong>Aug 11</strong> &mdash; Sticker Vol. I adding to journal<br>
-      <em>"scholar stickers designed for digital journals &mdash; this is Vol. I"</em><br>
-      #darkacademia #journaldecorating #stickers #studyaesthetic #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-22">
-      <label for="s-22"><strong>Aug 13</strong> &mdash; Sapere Aude Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"the two Latin words that started the Enlightenment"</em><br>
-      #darkacademia #latinwords #sapereAude #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-23">
-      <label for="s-23"><strong>Aug 15</strong> &mdash; Morning Reflection Journal physical flip-through<br>
-      <em>"the sound of a new morning habit &#128214;"</em><br>
-      #darkacademia #journalasmr #morningroutine #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-24">
-      <label for="s-24"><strong>Aug 17</strong> &mdash; John Milton scholars slide <span class="badge-slide">SLIDE</span><br>
-      <em>"John Milton went blind and still dictated Paradise Lost every morning."</em><br>
-      #darkacademia #johnmilton #scholaraesthetic #studytok</label>
-    </div>
-  </div>
-
-  <div class="board" style="border-left-color: var(--forest);">
-    <h2>Aug 19 &ndash; Sep 1</h2>
-    <div class="sub">Bookmark Vol. IV + Boethius + reading journals</div>
-
-    <div class="pin">
-      <input type="checkbox" id="s-25">
-      <label for="s-25"><strong>Aug 19</strong> &mdash; Bookmark Vol. IV creation behind the scenes<br>
-      <em>"designing the winter scholar bookmark set &mdash; Vol. IV"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #winteraesthetic #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-26">
-      <label for="s-26"><strong>Aug 21</strong> &mdash; Dum Spiro Spero Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"the Latin phrase I come back to every hard season"</em><br>
-      #darkacademia #latinwords #dumspirospero #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-27">
-      <label for="s-27"><strong>Aug 23</strong> &mdash; Reading Challenge physical flip-through<br>
-      <em>"the sound of a fresh journal &#128214; &mdash; 50 books this year starts here"</em><br>
-      #darkacademia #journalasmr #readingchallenge #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-28">
-      <label for="s-28"><strong>Aug 25</strong> &mdash; Boethius scholars slide <span class="badge-slide">SLIDE</span><br>
-      <em>"he wrote his greatest work while awaiting execution. we call it the Consolation of Philosophy."</em><br>
-      #darkacademia #boethius #scholaraesthetic #studytok</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-29">
-      <label for="s-29"><strong>Aug 27</strong> &mdash; Sticker Vol. II adding to journal<br>
-      <em>"Vol. II &mdash; more literary stickers for your digital journal"</em><br>
-      #darkacademia #journaldecorating #stickers #bookishaesthetic #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-30">
-      <label for="s-30"><strong>Aug 29</strong> &mdash; In Silentio Et Spe Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"the phrase from Isaiah that scholars have carried for two thousand years"</em><br>
-      #darkacademia #latinwords #christianfaith #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-31">
-      <label for="s-31"><strong>Sep 1</strong> &mdash; Sticker Sheet Bundle (Vol. I + II)<br>
-      <em>"everything in the scholar sticker collection &mdash; Vol. I &amp; II together"</em><br>
-      #darkacademia #journaldecorating #stickers #scholaraesthetic #studyaesthetic</label>
-    </div>
-  </div>
-
-  <div class="board" style="border-left-color: var(--gold);">
-    <h2>Sep 3 &ndash; Sep 20</h2>
-    <div class="sub">Augustine + Classicist's Reading Journal + Commonplace Book</div>
-
-    <div class="pin slide">
-      <input type="checkbox" id="s-32">
-      <label for="s-32"><strong>Sep 3</strong> &mdash; Augustine of Hippo scholars slide <span class="badge-slide">SLIDE</span><br>
-      <em>"Augustine wrote his Confessions as a direct conversation with God. it became one of the most read books in history."</em><br>
-      #darkacademia #augustineofhippo #scholaraesthetic #studytok</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-33">
-      <label for="s-33"><strong>Sep 5</strong> &mdash; Weekly Planner physical flip-through<br>
-      <em>"planning sounds better on paper"</em><br>
-      #darkacademia #journalasmr #planwithme #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-34">
-      <label for="s-34"><strong>Sep 7</strong> &mdash; Nosce Te Ipsum Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"the question every scholar has to start with"</em><br>
-      #darkacademia #latinwords #nosceteipsum #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-35">
-      <label for="s-35"><strong>Sep 9</strong> &mdash; Classicist's Reading Journal physical flip-through<br>
-      <em>"fresh pages for a fresh reading season &#128214;"</em><br>
-      #darkacademia #journalasmr #readingjournal #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-36">
-      <label for="s-36"><strong>Sep 11</strong> &mdash; Bookmark Vol. V creation behind the scenes<br>
-      <em>"designing the final scholar bookmark set &mdash; Vol. V"</em><br>
-      #darkacademia #etsyseller #bookmarkdesign #scholaraesthetic #stationerydesign</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-37">
-      <label for="s-37"><strong>Sep 13</strong> &mdash; Veritas Lux Mea Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"truth is my light &mdash; the phrase that has guided scholars and believers for centuries"</em><br>
-      #darkacademia #latinwords #veritasluxmea #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-38">
-      <label for="s-38"><strong>Sep 15</strong> &mdash; Commonplace Book physical flip-through<br>
-      <em>"centuries of scholars heard this same sound &#128214;"</em><br>
-      #darkacademia #journalasmr #commonplacebook #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-39">
-      <label for="s-39"><strong>Sep 17</strong> &mdash; Ars Longa Vita Brevis Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"art is long, life is short &mdash; the phrase every scholar lives by"</em><br>
-      #darkacademia #latinwords #arslongavitabrevis #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-40">
-      <label for="s-40"><strong>Sep 19</strong> &mdash; Reading Log physical flip-through<br>
-      <em>"the sound of a fresh reading log &#128214;"</em><br>
-      #darkacademia #journalasmr #readinglog #booktok #scholaraesthetic</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-41">
-      <label for="s-41"><strong>Sep 20</strong> &mdash; Commonplace Book informative slide <span class="badge-slide">SLIDE</span><br>
-      <em>"the Renaissance study habit making a comeback"</em><br>
-      #darkacademia #commonplacebook #studytok #bookishaesthetic</label>
-    </div>
-  </div>
-
-  <div class="board" style="border-left-color: var(--sepia);">
-    <h2>Sep 22 &ndash; Sep 28</h2>
-    <div class="sub">Digital wrap-up + Deus Providebit</div>
-
-    <div class="pin needs-filming">
-      <input type="checkbox" id="s-42">
-      <label for="s-42"><strong>Sep 22</strong> &mdash; Commonplace Book digital page-flip <span class="badge">FILM FIRST</span><br>
-      <em>"this is what a commonplace book looks like inside"</em><br>
-      #darkacademia #commonplacebook #journalwithme #bookishaesthetic #studytok</label>
-    </div>
-    <div class="pin slide">
-      <input type="checkbox" id="s-43">
-      <label for="s-43"><strong>Sep 24</strong> &mdash; Deus Providebit Latin word slide <span class="badge-slide">SLIDE</span><br>
-      <em>"God will provide &mdash; the phrase carried by scholars and believers through every uncertain season"</em><br>
-      #darkacademia #latinwords #deusprovidebit #christianfaith #scholaraesthetic</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-44">
-      <label for="s-44"><strong>Sep 26</strong> &mdash; Weekly Planner digital page-flip<br>
-      <em>"planning pages designed around focus, not productivity hacks"</em><br>
-      #darkacademia #planwithme #weeklyplanner #scholaraesthetic #studytok</label>
-    </div>
-    <div class="pin">
-      <input type="checkbox" id="s-45">
-      <label for="s-45"><strong>Sep 28</strong> &mdash; Morning Reflection Journal digital page-flip<br>
-      <em>"this is what structured morning reflection actually looks like"</em><br>
-      #darkacademia #morningroutine #journalwithme #scholarmindset #studytok</label>
-    </div>
-  </div>
-
-</main>
-
-<div class="reset-row">
-  <button id="resetBtn">Reset all progress</button>
-</div>
-
-</div><!-- end schedule panel -->
-
-<div class="tab-panel" id="panel-strategy">
-<main style="padding-bottom:40px;">
-
-
-  <div style="padding-top:8px;">
-
-  <div class="s-principles">
-    <h3>Core Marketing Principles</h3>
-    <ol>
-      <li><strong>TikTok drives curiosity.</strong> Pinterest builds trust. Etsy/Shopify converts. Every decision serves that flow.</li>
-      <li><strong>Educate first, sell second.</strong> Scholar history slides outperform product videos. The product appears naturally at the end.</li>
-      <li><strong>Test before scaling.</strong> One product, one content type at a time. Double down on what data shows working.</li>
-      <li><strong>Seasonal content leads by 4-6 weeks.</strong> Q4 content starts mid-September. Pinterest seasonal pins start October for December buyers.</li>
-      <li><strong>Every product launch = TikTok + Pinterest + Email.</strong> All three fire together.</li>
-    </ol>
-  </div>
-
-  <!-- PHASE 1 -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">Phase 1</span>
-    <h2>Foundation &amp; First Sales</h2>
-    <span class="phase-dates">Weeks 1-8 &nbsp;&middot;&nbsp; Jul 8 &ndash; Sep 6</span>
-  </div>
-
-  <div class="s-card gold">
-    <div class="s-card-header">
-      <div class="s-card-title">Current Live Products &mdash; Physical + Digital</div>
-      <span class="s-badge wk">Weeks 1-8</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>Scholar history slides every other video</li>
-          <li>Physical journal ASMR page flips</li>
-          <li>Bookmark creation every 2 weeks</li>
-          <li>Latin word slides with stronger hooks</li>
-          <li>Post every 2-3 days without exception</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>12 digital listings pinning daily &mdash; running</li>
-          <li>Add 5 pins per physical product</li>
-          <li>Week 4 refresh: double best-saving pins</li>
-          <li>Dark academia account boards active</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Klaviyo welcome series live by Jul 12</li>
-          <li>Abandoned checkout flow live</li>
-          <li>First newsletter at 25+ subscribers</li>
-          <li>Subject: "What a scholar's desk looks like"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card">
-    <div class="s-card-header">
-      <div class="s-card-title">Sticker Sheet Vol. III &mdash; journaling-functional stickers</div>
-      <span class="s-badge wk">Weeks 3-4</span>
-      <span class="s-badge new">New</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>Behind the scenes design process</li>
-          <li>Show stickers used as journal answers</li>
-          <li>"functional stickers for your scholar journal"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins styled on journal pages</li>
-          <li>"mood tracker stickers for digital journals"</li>
-          <li>Add to Scholar's Stationery board</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Mention in next newsletter</li>
-          <li>Include in new arrivals section</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card">
-    <div class="s-card-header">
-      <div class="s-card-title">Bookmark Sets Vol. II&ndash;V</div>
-      <span class="s-badge wk">Weeks 2-10</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>One creation video per set, every 2 weeks</li>
-          <li>306 views, 10 likes on Vol. I &mdash; proven format</li>
-          <li>Show laminating, cutting, final result</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins per set on Scholar's Stationery board</li>
-          <li>Styled flatlay per palette</li>
-          <li>"dark academia bookmarks handmade"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Bundle all 5 sets in one newsletter</li>
-          <li>Send when Vol. V goes live</li>
-          <li>"The complete bookmark collection is here"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card">
-    <div class="s-card-header">
-      <div class="s-card-title">Reflection-Style Journal &mdash; pairs with sticker sheets</div>
-      <span class="s-badge wk">Weeks 5-6</span>
-      <span class="s-badge new">New</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>Show stickers used as visual answers</li>
-          <li>"this is how the stickers and journal work together"</li>
-          <li>ASMR page flip with sticker placement</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins styled with Vol. III stickers in use</li>
-          <li>"what is a reflection journal?"</li>
-          <li>Add to Reading Trackers &amp; Journals board</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Dedicated launch email</li>
-          <li>Subject: "The journal that works with your stickers"</li>
-          <li>Feature the bundle option prominently</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-metrics">
-    <div class="s-metric"><div class="mp">By Week 4</div><div class="mt">First sale</div><div class="md">Etsy or Shopify</div></div>
-    <div class="s-metric"><div class="mp">By Week 8</div><div class="mt">2-5 sales</div><div class="md">TikTok driving visits</div></div>
-    <div class="s-metric"><div class="mp">By Week 8</div><div class="mt">25+ saves</div><div class="md">TikTok total</div></div>
-    <div class="s-metric"><div class="mp">By Week 8</div><div class="mt">20+ emails</div><div class="md">Klaviyo list</div></div>
-  </div>
-
-  <div class="ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-
-  <!-- PHASE 2 -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">Phase 2</span>
-    <h2>Q4 Seasonal Push</h2>
-    <span class="phase-dates">Weeks 9-16 &nbsp;&middot;&nbsp; Sep 7 &ndash; Nov 1</span>
-  </div>
-
-  <div class="q4-box">
-    <h3>Q4 is your highest-revenue window &mdash; prepare 4-6 weeks early</h3>
-    <p>Dark academia peaks in autumn. Cozy reading season, gift buying, and new year planning converge Oct&ndash;Dec.</p>
-    <ul>
-      <li>Switch Shopify hero to Autumn Scholar palette by October 1</li>
-      <li>All autumn-palette products featured front and centre</li>
-      <li>Gift bundle strategy: journal + bookmark set + sticker sheet</li>
-      <li>Seasonal TikTok content starts September 15</li>
-      <li>Pinterest seasonal pins live by mid-September for December buyers</li>
-    </ul>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">Scholar's Desk Calendar &mdash; 12-month wall calendar, spiral 11&times;8.5"</div>
-      <span class="s-badge wk">Weeks 9-10</span>
-      <span class="s-badge q4">Q4</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>Flip-through each month's Latin quote</li>
-          <li>ASMR page turn for spiral calendar</li>
-          <li>"plan your reading year like a scholar"</li>
-          <li>Post 2 weeks before October 1 launch</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins per month featured &mdash; 12 total rollout</li>
-          <li>"2027 wall calendar dark academia"</li>
-          <li>Gift guide pin: "for the reader in your life"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Dedicated launch email</li>
-          <li>Subject: "Plan your reading year, one Latin quote at a time"</li>
-          <li>Calendar + Reading Challenge bundle</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">Self-Reflection Journal &mdash; November / New Year launch</div>
-      <span class="s-badge wk">Weeks 14-15</span>
-      <span class="s-badge q4">Q4</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>ASMR page flip &mdash; Nosce Te Ipsum cover reveal</li>
-          <li>Scholar history slide timed with launch</li>
-          <li>"end of year reflection journal for the serious thinker"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins &mdash; new year reflection aesthetic</li>
-          <li>"self-reflection journal for 2027"</li>
-          <li>Start pinning October 15 for December gift buyers</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Pre-launch teaser: "something new is coming"</li>
-          <li>Launch email: "start 2027 with intention"</li>
-          <li>New Year bundle: Self-Reflection + Annual Planner</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">Annual Reading Planner + New Year Intentions + 2027 Goals</div>
-      <span class="s-badge wk">Weeks 14-16</span>
-      <span class="s-badge q4">Q4</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>3 separate videos &mdash; one per product</li>
-          <li>Post between Nov 15 and Dec 1</li>
-          <li>Peak new year planning period</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins each &mdash; 15 new pins total</li>
-          <li>"2027 reading planner printable"</li>
-          <li>Pin from Oct 15 &mdash; 6 weeks before December peak</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Bundle all three in one "New Year Scholar" email</li>
-          <li>Send December 1 &mdash; peak gift + planning season</li>
-          <li>Subject: "Your 2027 reading life starts here"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">Year in Letters &mdash; 12 sealed monthly letters, Navy/Silver</div>
-      <span class="s-badge wk">Weeks 15-16</span>
-      <span class="s-badge q4">Q4</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>"you open one letter on the first of every month"</li>
-          <li>Show sealed envelope aesthetic</li>
-          <li>Highest viral potential in the entire lineup</li>
-          <li>Post December 1 &mdash; perfect Christmas gift timing</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>5 pins &mdash; navy/silver winter aesthetic</li>
-          <li>"unique Christmas gift for book lovers"</li>
-          <li>High gift-search volume in December</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Standalone launch email</li>
-          <li>Subject: "12 letters. one per month. open on New Year's Day."</li>
-          <li>Most giftable product in the line</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-metrics">
-    <div class="s-metric"><div class="mp">By Week 12</div><div class="mt">10-20 sales</div><div class="md">Cumulative all products</div></div>
-    <div class="s-metric"><div class="mp">By Week 12</div><div class="mt">500+ followers</div><div class="md">TikTok</div></div>
-    <div class="s-metric"><div class="mp">By Week 16</div><div class="mt">50+ emails</div><div class="md">Klaviyo list</div></div>
-    <div class="s-metric"><div class="mp">By Week 16</div><div class="mt">Pinterest clicks</div><div class="md">First consistent Etsy traffic</div></div>
-  </div>
-
-  <div class="ornament">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-
-  <!-- PHASE 3 -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">Phase 3</span>
-    <h2>Language Collections Launch</h2>
-    <span class="phase-dates">Weeks 17-25 &nbsp;&middot;&nbsp; Nov 2 &ndash; Jan 2027</span>
-  </div>
-
-  <div class="s-card navy">
-    <div class="s-card-header">
-      <div class="s-card-title">Biblical Hebrew, Koine Greek, Old English Collections</div>
-      <span class="s-badge wk">Weeks 17-20</span>
-      <span class="s-badge lang">Language</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>Scholar slide per language before launch</li>
-          <li>Hebrew: King David, Solomon (Psalms, Proverbs)</li>
-          <li>Greek: Apostle Paul, early church fathers</li>
-          <li>Old English: Beowulf, Anglo-Saxon manuscripts</li>
-          <li>Position as scholarly/historical art, not devotional</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>New board per language collection</li>
-          <li>"Biblical Hebrew art print"</li>
-          <li>"Koine Greek journal"</li>
-          <li>5 pins per product &mdash; 15+ pins per language</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>One email per language collection</li>
-          <li>Lead with the historical story, not the product</li>
-          <li>Subject (Hebrew): "The language the Psalms were written in"</li>
-          <li>Subject (Greek): "The language of the New Testament"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card navy">
-    <div class="s-card-header">
-      <div class="s-card-title">Ancient Scholar Gift Bundle &mdash; Q4 2027 prep begins here</div>
-      <span class="s-badge wk">Weeks 22-25</span>
-      <span class="s-badge lang">Language</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>"the complete ancient scholar bundle"</li>
-          <li>Show all three language collections together</li>
-          <li>Highest-value content moment of the year</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"ancient languages gift set"</li>
-          <li>"unique gift for history lovers"</li>
-          <li>All three journals styled together</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>"The Ancient Scholar Collection is complete"</li>
-          <li>Feature full bundle with gift pricing</li>
-          <li>Most important email of Q4 2027</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-metrics">
-    <div class="s-metric"><div class="mp">By Week 20</div><div class="mt">Profitability</div><div class="md">First month covering costs</div></div>
-    <div class="s-metric"><div class="mp">By Week 25</div><div class="mt">3 languages live</div><div class="md">Hebrew, Greek, Old English</div></div>
-    <div class="s-metric"><div class="mp">By Week 25</div><div class="mt">100+ emails</div><div class="md">Klaviyo list for Q4 2027</div></div>
-    <div class="s-metric"><div class="mp">By Week 25</div><div class="mt">1,000+ TikTok</div><div class="md">Followers &mdash; unlock link in bio</div></div>
-  </div>
-
-  <div class="s-principles" style="margin-top:24px;">
-    <h3>The Three Biggest Levers</h3>
-    <ol>
-      <li><strong>Year in Letters is your breakout product.</strong> The concept &mdash; 12 sealed letters, one opened per month &mdash; is visual, emotional, instantly understood. Film it well and post December 1.</li>
-      <li><strong>Language collections are your long-term moat.</strong> No other stationery brand in the dark academia niche is doing Biblical Hebrew or Koine Greek journals. This differentiation builds a loyal audience no competitor can easily copy.</li>
-      <li><strong>Scholar history slides built your audience.</strong> Every new product launch should be preceded by a scholar slide that connects thematically to that product. Educate first, sell second &mdash; always.</li>
-    </ol>
-  </div>
-
-  </div>
-
-
-</main>
-</div><!-- end strategy panel -->
-<div class="tab-panel" id="panel-brainstorm">
-<main style="padding-bottom:40px;">
-
-  <div class="s-principles" style="margin-top:16px;">
-    <h3>Expanded Brand Identity</h3>
-    <ol>
-      <li><strong>The Reader</strong> &mdash; book lovers, reading trackers, BookTok community, intentional readers</li>
-      <li><strong>The Writer</strong> &mdash; journalers, morning pages practitioners, creative writers, idea collectors</li>
-      <li><strong>The Learner</strong> &mdash; language students, ancient history fans, academics, course-takers</li>
-    </ol>
-  </div>
-
-  <!-- LANGUAGE SERIES -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">New Series</span>
-    <h2>Language Journals &mdash; Ancient Scholar</h2>
-    <span class="phase-dates">Launch Oct 1&ndash;15</span>
-  </div>
-
-  <div class="s-card navy">
-    <div class="s-card-header">
-      <div class="s-card-title">Biblical Hebrew Reflection Journal</div>
-      <span class="s-badge lang">Language</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok Videos</div>
-        <ul>
-          <li>"what does Shalom actually mean?" &mdash; informative slide</li>
-          <li>"the oldest alphabet still in use" &mdash; educational slide</li>
-          <li>"romanticizing learning Biblical Hebrew" &mdash; journal flip</li>
-          <li>"I'm learning one Hebrew word a day" &mdash; journal setup</li>
-          <li>"the Hebrew word the Psalms open with" &mdash; Baruch / Ashrei</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"Biblical Hebrew art print" &mdash; notecard pins</li>
-          <li>"gift for theology student"</li>
-          <li>"Hebrew language journal daily"</li>
-          <li>5 pins per product, new board</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Subject: "The language the Psalms were written in"</li>
-          <li>Lead with story of Hebrew, not the product</li>
-          <li>Gift angle: perfect for language students</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card navy">
-    <div class="s-card-header">
-      <div class="s-card-title">Koine Greek Reflection Journal</div>
-      <span class="s-badge lang">Language</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok Videos</div>
-        <ul>
-          <li>"there are actually 4 Greek words for love" &mdash; Agape/Eros/Philia/Storge slide</li>
-          <li>"what Logos actually means" &mdash; most misunderstood word in Western thought</li>
-          <li>"romanticizing learning Koine Greek" &mdash; journal flip</li>
-          <li>"the language Aristotle wrote in" &mdash; scholar history slide</li>
-          <li>"learning the language of the New Testament &mdash; day 1"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"Koine Greek journal daily word"</li>
-          <li>"gift for classics lover"</li>
-          <li>"New Testament Greek study"</li>
-          <li>5 pins, separate board</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Subject: "The language of the New Testament"</li>
-          <li>Lead with Apostle Paul connection</li>
-          <li>Gift: theology students, classics lovers</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card navy">
-    <div class="s-card-header">
-      <div class="s-card-title">Old English Reflection Journal</div>
-      <span class="s-badge lang">Language</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok Videos</div>
-        <ul>
-          <li>"the word Tolkien borrowed from Beowulf" &mdash; highest viral ceiling in the lineup</li>
-          <li>"what Old English actually looks like written down" &mdash; Beowulf line + translation</li>
-          <li>"romanticizing learning Old English" &mdash; journal flip</li>
-          <li>"why Beowulf matters" &mdash; 5-slide scholar history series</li>
-          <li>"the language spoken in England 1,000 years ago"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"Old English literature journal"</li>
-          <li>"Tolkien Beowulf gift"</li>
-          <li>"Anglo-Saxon manuscript aesthetic"</li>
-          <li>5 pins, dark academia board</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Subject: "The oldest English ever written"</li>
-          <li>Lead with Beowulf + Tolkien connection</li>
-          <li>Gift: "for the person who gave you Beowulf for Christmas"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- WRITER SERIES -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">New Series</span>
-    <h2>The Writer &mdash; New Products</h2>
-    <span class="phase-dates">Weeks 8&ndash;9</span>
-  </div>
-
-  <div class="s-card gold">
-    <div class="s-card-header">
-      <div class="s-card-title">Scholar's Writing Companion Journal</div>
-      <span class="s-badge new">Writer</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok Videos</div>
-        <ul>
-          <li>"my morning pages routine" &mdash; hands writing, coffee in frame</li>
-          <li>"the word that unlocked today's writing" &mdash; show daily prompt + filled page</li>
-          <li>"what a writing prompt journal actually looks like inside" &mdash; page flip</li>
-          <li>Same ASMR page sound format as physical journals</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"morning pages journal for writers"</li>
-          <li>"daily writing prompt journal classical"</li>
-          <li>5 pins &mdash; Scholar's Stationery board</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Introduce Writer audience in newsletter</li>
-          <li>"for the writer at your desk"</li>
-          <li>Bundle with Idea Capture Notebook</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card gold">
-    <div class="s-card-header">
-      <div class="s-card-title">Scholar's Idea Capture Notebook + Study Companion</div>
-      <span class="s-badge new">Writer + Learner</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok Videos</div>
-        <ul>
-          <li>"where I capture ideas before they disappear" &mdash; quick handwritten note</li>
-          <li>"the note-taking system that changed how I study" &mdash; Study Companion layout</li>
-          <li>"what I write after every chapter" &mdash; Study Companion + physical book</li>
-          <li>Bridge content: appeals to both Writer and Learner audiences</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"study notes journal for books"</li>
-          <li>"idea capture notebook slim"</li>
-          <li>"how to retain what you read"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Introduce Learner audience</li>
-          <li>"for the person who reads to learn, not just to finish"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- AUTUMN SCHOLAR -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">Seasonal</span>
-    <h2>Autumn Scholar Content Plan</h2>
-    <span class="phase-dates">August &mdash; October</span>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">August 1&ndash;15 &mdash; Plant the Seeds</div>
-      <span class="s-badge q4">Autumn</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>"setting up my autumn reading journal" &mdash; Autumn Reading Journal first page</li>
-          <li>"my autumn TBR" &mdash; Autumn TBR Journal being filled</li>
-          <li>"the sound of a fresh journal for autumn" &mdash; ASMR page flip</li>
-          <li>Francis Bacon slide: "reading maketh a full man" &mdash; perfect autumn scholar content</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>All autumn-palette pins live by August 1</li>
-          <li>New board: "Autumn Reading Life"</li>
-          <li>"autumn reading journal aesthetic"</li>
-          <li>"cozy reading season setup"</li>
-          <li>"dark academia autumn desk"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>"Autumn Scholar season is here"</li>
-          <li>Not a promotion &mdash; a seasonal moment</li>
-          <li>Feature autumn-palette products naturally</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">August 15&ndash;31 &mdash; Lean Fully Into the Season</div>
-      <span class="s-badge q4">Autumn</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>"Autumn Scholar season is here" &mdash; desk setup, warm light, candle</li>
-          <li>"romanticizing the autumn reading life" &mdash; multiple products in frame</li>
-          <li>"what I'm reading this autumn" &mdash; Reading Challenge with autumn picks</li>
-          <li>"the Writing Companion is perfect for autumn mornings" &mdash; Writer intro</li>
-          <li>Advent Calendar teaser if built &mdash; "something is coming in December"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>Switch Shopify hero to Autumn Scholar palette</li>
-          <li>Double down on best-performing autumn pins</li>
-          <li>Start "Gifts for Readers" board &mdash; 6 weeks before Q4</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Second autumn email: "what's on the scholar's desk this season"</li>
-          <li>Feature new Writer + Learner products alongside Reader ones</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEASONAL TRADITION -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">Brand Building</span>
-    <h2>Building the Seasonal Tradition</h2>
-  </div>
-
-  <div class="s-card">
-    <div class="s-card-header">
-      <div class="s-card-title">How to Make People Come Back Every Season</div>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok</div>
-        <ul>
-          <li>Season opener video every 3 months &mdash; "Autumn Scholar season starts now"</li>
-          <li>Season closing video &mdash; final reading log entry, last journal page</li>
-          <li>Tease next season 2-3 weeks early: "Winter Scholar is coming"</li>
-          <li>Use "Autumn Scholar" consistently &mdash; make it a named TCD term</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>Seasonal board per palette &mdash; rotate throughout year</li>
-          <li>Each season gets its own aesthetic treatment</li>
-          <li>Pins compound year over year &mdash; 2027 autumn traffic starts now</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Seasonal transition email &mdash; not a promotion, a ritual</li>
-          <li>"Autumn Scholar season is here. Here's what's on my desk."</li>
-          <li>Use "collection" not "new products" &mdash; implies curation + return</li>
-          <li>Subscribers should look forward to this email every season</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- GIFT MARKETING -->
-  <div class="phase-header">
-    <span class="phase-eyebrow">Q4</span>
-    <h2>Gift Marketing &mdash; Language Journals</h2>
-    <span class="phase-dates">November &mdash; December</span>
-  </div>
-
-  <div class="s-card burg">
-    <div class="s-card-header">
-      <div class="s-card-title">Gift Marketing Angles &mdash; Language Collection</div>
-      <span class="s-badge q4">Q4 Gift</span>
-    </div>
-    <div class="s-grid">
-      <div class="s-channel">
-        <div class="s-ch-label tt">TikTok Captions</div>
-        <ul>
-          <li>"a gift for the person who gave you Beowulf for Christmas"</li>
-          <li>"if you know someone learning Biblical Hebrew, this is for them"</li>
-          <li>"gifts for the person who reads things nobody else has heard of"</li>
-          <li>"what to get a theology student for Christmas"</li>
-          <li>"the gift for the classics lover who has everything"</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label pt">Pinterest</div>
-        <ul>
-          <li>"unique gift for language student"</li>
-          <li>"gift for Classics lover"</li>
-          <li>"Biblical Hebrew gift"</li>
-          <li>"gift for theology student"</li>
-          <li>"Old English literature gift"</li>
-          <li>Low-competition, high-intent search terms</li>
-        </ul>
-      </div>
-      <div class="s-channel">
-        <div class="s-ch-label em">Email</div>
-        <ul>
-          <li>Nov 15: "gifts for the person who loves language"</li>
-          <li>Dec 1: "last chance for Christmas delivery"</li>
-          <li>Lead with language story, not product</li>
-          <li>"The Hebrew alphabet is 3,000 years old. This journal teaches you one word a day."</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- KEY PRINCIPLES -->
-  <div class="s-principles" style="margin-top:24px;">
-    <h3>Content Principles &mdash; Non-Negotiable</h3>
-    <ol>
-      <li><strong>No talking on camera.</strong> Hands only, products, pages, process.</li>
-      <li><strong>Educate, inspire, or show &mdash; never sell directly.</strong> The product appears naturally at the end.</li>
-      <li><strong>Language series = scholarly/historical art, not devotional content.</strong> Appeals to anyone curious about ancient languages.</li>
-      <li><strong>Writer content uses the same aesthetic as Reader content.</strong> Never label a video "for writers" &mdash; let the product speak.</li>
-      <li><strong>Frame language videos as "the language that ___" not "learn a new language."</strong> The former is history. The latter sounds like Duolingo.</li>
-      <li><strong>Three immediate priorities:</strong> Film Tolkien/Beowulf video first &mdash; highest viral ceiling. Post "Autumn Scholar season is here" August 1. Add "for anyone who takes their inner life seriously" to TikTok bio.</li>
-    </ol>
-  </div>
-
-  <!-- Q4 TARGETS -->
-  <div class="s-metrics" style="margin-top:16px;">
-    <div class="s-metric"><div class="mp">By Oct 1</div><div class="mt">5-10 reviews</div><div class="md">Written, via DM outreach</div></div>
-    <div class="s-metric"><div class="mp">By Aug 31</div><div class="mt">50 emails</div><div class="md">Klaviyo subscribers</div></div>
-    <div class="s-metric"><div class="mp">Ongoing</div><div class="mt">3 videos/week</div><div class="md">No gap weeks on TikTok</div></div>
-    <div class="s-metric"><div class="mp">By Sep 30</div><div class="mt">First sales</div><div class="md">Any platform</div></div>
-    <div class="s-metric"><div class="mp">Oct 1-15</div><div class="mt">Language launch</div><div class="md">All 3 collections live</div></div>
-  </div>
-
-</main>
-</div><!-- end brainstorm panel -->
-
-
-
-<script>
-
-  function switchTab(tab) {
-    if (!document.getElementById('panel-' + tab)) return;
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('panel-' + tab).classList.add('active');
-    event.target.classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  const STORAGE_KEY = 'tcd_tiktok_schedule_v3';
-
-  function loadState() {
-    try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : {}; }
-    catch(e) { return {}; }
-  }
-
-  function saveState(state) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
-  }
-
-  let state = loadState();
-
-  // Auto-check already posted videos on first load
-  const alreadyPosted = ['s-0','s-1','s-2','s-3','s-4'];
-
-  document.querySelectorAll('[id^="s-"]').forEach(cb => {
-    if (alreadyPosted.includes(cb.id) && state[cb.id] === undefined) {
-      state[cb.id] = true;
-    }
-    cb.checked = !!state[cb.id];
-    if (cb.checked) cb.closest('.pin').classList.add('done');
-    cb.addEventListener('change', () => {
-      state[cb.id] = cb.checked;
-      cb.closest('.pin').classList.toggle('done', cb.checked);
-      saveState(state);
-      updateProgress();
+import { useState, useEffect, useRef, useCallback } from "react";
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
+
+const COLORS = {
+  forest: "#2D4A3E",
+  forestDeep: "#1A2E24",
+  gold: "#C9A84C",
+  goldLight: "#E2C97A",
+  parchment: "#F5E6C8",
+  parchmentMid: "#EDD9A8",
+  sepia: "#6B4C2A",
+  sepiaLight: "#8B6840",
+  ink: "#1E1510",
+  cream: "#FAF3E4",
+  muted: "#9B8060",
+  bg: "#0A0806",
+  card: "#1a1208",
+  cardBorder: "#2a2010",
+};
+
+const TYPE_COLORS = {
+  face: "#7B5EA7",
+  slide: "#2D4A3E",
+  scholar: "#8B6840",
+  latin: "#C9A84C",
+  product: "#4A6B8B",
+  seasonal: "#8B3A3A",
+  other: "#555",
+};
+
+const TYPE_LABELS = {
+  face: "Face Video",
+  slide: "Info Slide",
+  scholar: "Scholar Slide",
+  latin: "Latin Slide",
+  product: "Product Showcase",
+  seasonal: "Seasonal",
+  other: "Other",
+};
+
+const INITIAL_POSTS = [
+  { id: "p1", date: "2024-06-26", title: "Stickers on Companion iPad", type: "product", status: "posted", views: 191, likes: 12, saves: 5, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "" },
+  { id: "p2", date: "2024-06-30", title: "Latin word stickers iPad", type: "product", status: "posted", views: 164, likes: 5, saves: 1, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "" },
+  { id: "p3", date: "2024-07-01", title: "Festina Lente slides", type: "latin", status: "posted", views: 108, likes: 3, saves: 0, caption: "", hashtags: "#darkacademia #latinwords", notes: "Hook too weak" },
+  { id: "p4", date: "2024-07-03", title: "Reasons to Journal slides", type: "slide", status: "posted", views: 496, likes: 12, saves: 8, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "" },
+  { id: "p5", date: "2024-07-06", title: "Bookmarks Vol. I creation", type: "product", status: "posted", views: 407, likes: 20, saves: 4, caption: "", hashtags: "#darkacademia #etsyseller", notes: "1 purchase-intent comment" },
+  { id: "p6", date: "2024-07-10", title: "Thomas Jefferson slides", type: "scholar", status: "posted", views: 906, likes: 40, saves: 12, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "⭐ #2 all time" },
+  { id: "p7", date: "2024-07-12", title: "Autumn Reading Journal", type: "product", status: "posted", views: 253, likes: 8, saves: 2, caption: "", hashtags: "#darkacademia #autumnreading", notes: "" },
+  { id: "p8", date: "2024-07-14", title: "C.S. Lewis slides", type: "scholar", status: "posted", views: 454, likes: 11, saves: 1, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "" },
+  { id: "p9", date: "2024-07-17", title: "Reading Challenge iPad digital", type: "product", status: "posted", views: 164, likes: 5, saves: 0, caption: "", hashtags: "#darkacademia #readingchallenge", notes: "iPad format low — discontinued" },
+  { id: "p10", date: "2024-07-18", title: "Free Reading Log slides", type: "slide", status: "posted", views: 595, likes: 15, saves: 6, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "Pinned #1" },
+  { id: "p11", date: "2024-07-22", title: "Blaise Pascal slides", type: "scholar", status: "posted", views: 302, likes: 5, saves: 0, caption: "", hashtags: "#darkacademia #scholaraesthetic", notes: "Name recognition issue" },
+  { id: "p12", date: "2024-07-30", title: "Francis Bacon slides", type: "scholar", status: "posted", views: 548, likes: 28, saves: 8, caption: "", hashtags: "#darkacademia #francisbacon", notes: "148% above account average" },
+  { id: "p13", date: "2024-08-01", title: "Bookmarks Vol. II slides", type: "product", status: "posted", views: 204, likes: 8, saves: 1, caption: "", hashtags: "#darkacademia #etsyseller", notes: "" },
+  { id: "p14", date: "2024-08-03", title: "Commonplace Educational slides", type: "slide", status: "posted", views: 655, likes: 31, saves: 19, caption: "", hashtags: "#darkacademia #commonplacebook", notes: "" },
+  { id: "p15", date: "2024-08-05", title: "Reading Journal picture slides", type: "product", status: "posted", views: 168, likes: 4, saves: 0, caption: "", hashtags: "#darkacademia #readingjournal", notes: "Product showcase underperforms" },
+  { id: "p16", date: "2024-08-07", title: "Carpe Diem slides", type: "latin", status: "posted", views: 197, likes: 5, saves: 0, caption: "", hashtags: "#darkacademia #latinwords", notes: "Hook needs strengthening" },
+  { id: "p17", date: "2024-08-11", title: "Commonplace Not a Diary slides", type: "slide", status: "posted", views: 922, likes: 43, saves: 38, caption: "", hashtags: "#darkacademia #commonplacebook", notes: "⭐ BEST EVER — 38 saves" },
+  { id: "p18", date: "2024-08-13", title: "Commonplace showcase voiceover", type: "product", status: "posted", views: 142, likes: 4, saves: 1, caption: "", hashtags: "#darkacademia #commonplacebook", notes: "Voiceover without face underperforms" },
+  { id: "p19", date: "2024-08-15", title: "Before Google Commonplace slides", type: "slide", status: "posted", views: 202, likes: 6, saves: 5, caption: "", hashtags: "#darkacademia #commonplacebook", notes: "" },
+  { id: "p20", date: "2024-08-17", title: "Commonplace page flip video", type: "product", status: "posted", views: 171, likes: 3, saves: 0, caption: "", hashtags: "#darkacademia #commonplacebook", notes: "Posted 7 hours ago" },
+  { id: "p21", date: "2024-08-19", title: "Brand Introduction face video", type: "face", status: "scheduled", views: 0, likes: 0, saves: 0, caption: "literary goods for the reader who takes their inner life seriously — let me show you what we make", hashtags: "#darkacademia #scholaraesthetic #thecuratorsdesk #booktok #stationery", notes: "PIN IMMEDIATELY after posting" },
+  { id: "p22", date: "2024-08-21", title: "Classicist's Companion face video", type: "face", status: "scheduled", views: 0, likes: 0, saves: 0, caption: "the journal built for the reader who thinks seriously — not just reads", hashtags: "#darkacademia #scholaraesthetic #journalwithme #booktok #stationery", notes: "" },
+  { id: "p23", date: "2024-08-23", title: "Sapere Aude Latin slide", type: "latin", status: "scheduled", views: 0, likes: 0, saves: 0, caption: "Kant called these two Latin words the motto of the Enlightenment — they still are", hashtags: "#darkacademia #latinwords #sapereAude #scholaraesthetic #studytok", notes: "" },
+  { id: "p24", date: "2024-08-25", title: "Classicist's Reading Journal face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "reading without writing is half the work — this is the other half", hashtags: "#darkacademia #readingjournal #booktok #scholaraesthetic #journalwithme", notes: "Back from vacation" },
+  { id: "p25", date: "2024-08-27", title: "Boethius scholar slide", type: "scholar", status: "planned", views: 0, likes: 0, saves: 0, caption: "he wrote his greatest work while awaiting execution", hashtags: "#darkacademia #boethius #scholaraesthetic #studytok #ancienthistory", notes: "" },
+  { id: "p26", date: "2024-08-29", title: "Scholar's Commonplace Book face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "Jefferson kept one. Darwin kept one — this is yours", hashtags: "#darkacademia #commonplacebook #scholaraesthetic #booktok #journalwithme", notes: "Most important face video" },
+  { id: "p27", date: "2024-08-31", title: "Dum Spiro Spero Latin slide", type: "latin", status: "planned", views: 0, likes: 0, saves: 0, caption: "the Latin phrase that ties hope to breathing — not to circumstances", hashtags: "#darkacademia #latinwords #dumspirospero #scholaraesthetic #christianfaith", notes: "" },
+  { id: "p28", date: "2024-09-02", title: "Autumn Reading Journal face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "a reading journal built for the season when you want to read more intentionally", hashtags: "#darkacademia #autumnreading #readingjournal #scholaraesthetic #booktok", notes: "" },
+  { id: "p29", date: "2024-09-04", title: "John Milton scholar slide", type: "scholar", status: "planned", views: 0, likes: 0, saves: 0, caption: "he went blind and wrote 10,565 lines from memory", hashtags: "#darkacademia #johnmilton #paradiselost #scholaraesthetic #studytok", notes: "" },
+  { id: "p30", date: "2024-09-06", title: "Scholar's Reading Challenge face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "50 books. one year. writing the goal down changes everything", hashtags: "#darkacademia #readingchallenge #booktok #scholaraesthetic #readinggoals", notes: "" },
+  { id: "p31", date: "2024-09-08", title: "Augustine of Hippo scholar slide", type: "scholar", status: "planned", views: 0, likes: 0, saves: 0, caption: "he wrote the world's first autobiography — addressed directly to God", hashtags: "#darkacademia #augustine #scholaraesthetic #studytok #ancienthistory", notes: "" },
+  { id: "p32", date: "2024-09-10", title: "Morning Reflection Journal face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "the scholars who journaled in the mornings said it sharpened everything else", hashtags: "#darkacademia #morningroutine #journalwithme #scholaraesthetic #studytok", notes: "" },
+  { id: "p33", date: "2024-09-12", title: "In Silentio Et Spe Latin slide", type: "latin", status: "planned", views: 0, likes: 0, saves: 0, caption: "the phrase from Isaiah that scholars have carried for 2,700 years", hashtags: "#darkacademia #latinwords #insilentioetspe #christianfaith #scholaraesthetic", notes: "" },
+  { id: "p34", date: "2024-09-14", title: "Scholar's Weekly Planner face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "a planner that feels like stationery — not a spreadsheet", hashtags: "#darkacademia #planwithme #weeklyplanner #scholaraesthetic #studytok", notes: "" },
+  { id: "p35", date: "2024-09-16", title: "Nosce Te Ipsum Latin slide", type: "latin", status: "planned", views: 0, likes: 0, saves: 0, caption: "it was carved above the entrance to the most powerful oracle in the ancient world", hashtags: "#darkacademia #latinwords #nosceteipsum #scholaraesthetic #studytok", notes: "" },
+  { id: "p36", date: "2024-09-18", title: "Autumn TBR Journal face video", type: "face", status: "planned", views: 0, likes: 0, saves: 0, caption: "a home for the reading list that never gets read — no shame, just organisation", hashtags: "#darkacademia #tbrjournal #autumnreading #booktok #scholaraesthetic", notes: "" },
+  { id: "p37", date: "2024-09-20", title: "Commonplace How To Start slide", type: "slide", status: "planned", views: 0, likes: 0, saves: 0, caption: "how to start a commonplace book today — the scholar's 5-step method", hashtags: "#darkacademia #commonplacebook #journalwithme #scholaraesthetic #studytok", notes: "Most conversion-focused slide" },
+  { id: "p38", date: "2024-09-22", title: "Sticker Vol. I journal demo", type: "product", status: "planned", views: 0, likes: 0, saves: 0, caption: "scholar stickers designed for digital journals — this is Vol. I", hashtags: "#darkacademia #journaldecorating #stickers #studyaesthetic #scholaraesthetic", notes: "" },
+  { id: "p39", date: "2024-09-24", title: "Bookmark Vol. III creation", type: "product", status: "planned", views: 0, likes: 0, saves: 0, caption: "designing the autumn scholar bookmark set — Vol. III", hashtags: "#darkacademia #etsyseller #bookmarkdesign #autumnaesthetic #scholaraesthetic", notes: "After vacation — film first" },
+  { id: "p40", date: "2024-09-26", title: "Reading Log slide showcase", type: "slide", status: "planned", views: 0, likes: 0, saves: 0, caption: "every book you've ever read — tracked in one place", hashtags: "#darkacademia #readinglog #booktok #scholaraesthetic #journalwithme", notes: "" },
+  { id: "p41", date: "2024-09-28", title: "Sticker Vol. II journal demo", type: "product", status: "planned", views: 0, likes: 0, saves: 0, caption: "Vol. II — more literary stickers for your digital journal", hashtags: "#darkacademia #journaldecorating #stickers #bookishaesthetic #scholaraesthetic", notes: "" },
+];
+
+const INITIAL_ACCOUNT = {
+  followers: 18,
+  totalViews: 0,
+  emailSubscribers: 2,
+  pinterestViews: 1400,
+  etsyViews: 0,
+};
+
+const statusColors = { posted: COLORS.forest, scheduled: "#4A6B8B", planned: "#555", deleted: "#8B3A3A" };
+const statusLabels = { posted: "Posted", scheduled: "Scheduled", planned: "Planned", deleted: "Deleted" };
+
+export default function TCDPlanner() {
+  const [posts, setPosts] = useState(INITIAL_POSTS);
+  const [account, setAccount] = useState(INITIAL_ACCOUNT);
+  const [activeTab, setActiveTab] = useState("content");
+  const [editingPost, setEditingPost] = useState(null);
+  const [editingAccount, setEditingAccount] = useState(false);
+  const [addingPost, setAddingPost] = useState(false);
+  const [dragId, setDragId] = useState(null);
+  const [dragOver, setDragOver] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [filterType, setFilterType] = useState("all");
+  const [expandedPost, setExpandedPost] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+
+  const newPostTemplate = {
+    id: "", date: "", title: "", type: "face", status: "planned",
+    views: 0, likes: 0, saves: 0, caption: "", hashtags: "", notes: ""
+  };
+  const [newPost, setNewPost] = useState({ ...newPostTemplate });
+
+  // Load from storage
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const postsResult = await window.storage.get("tcd_posts");
+        const accountResult = await window.storage.get("tcd_account");
+        if (postsResult?.value) setPosts(JSON.parse(postsResult.value));
+        if (accountResult?.value) setAccount(JSON.parse(accountResult.value));
+      } catch (e) { /* use defaults */ }
+      setLoaded(true);
+    };
+    loadData();
+  }, []);
+
+  // Save to storage
+  useEffect(() => {
+    if (!loaded) return;
+    const save = async () => {
+      try {
+        await window.storage.set("tcd_posts", JSON.stringify(posts));
+        await window.storage.set("tcd_account", JSON.stringify(account));
+      } catch (e) {}
+    };
+    save();
+  }, [posts, account, loaded]);
+
+  const postedPosts = posts.filter(p => p.status === "posted");
+  const totalViews = postedPosts.reduce((s, p) => s + p.views, 0);
+  const totalLikes = postedPosts.reduce((s, p) => s + p.likes, 0);
+  const totalSaves = postedPosts.reduce((s, p) => s + p.saves, 0);
+  const bestVideo = postedPosts.reduce((best, p) => p.views > (best?.views || 0) ? p : best, null);
+  const avgViews = postedPosts.length ? Math.round(totalViews / postedPosts.length) : 0;
+  const avgLikes = postedPosts.length ? (totalLikes / postedPosts.length).toFixed(1) : 0;
+  const avgSaves = postedPosts.length ? (totalSaves / postedPosts.length).toFixed(1) : 0;
+
+  // Per-type averages for strategy
+  const typeStats = Object.keys(TYPE_LABELS).map(type => {
+    const typePosts = postedPosts.filter(p => p.type === type);
+    return {
+      type, label: TYPE_LABELS[type],
+      count: typePosts.length,
+      avgViews: typePosts.length ? Math.round(typePosts.reduce((s, p) => s + p.views, 0) / typePosts.length) : 0,
+      avgSaves: typePosts.length ? (typePosts.reduce((s, p) => s + p.saves, 0) / typePosts.length).toFixed(1) : 0,
+    };
+  }).filter(t => t.count > 0).sort((a, b) => b.avgViews - a.avgViews);
+
+  // Chart data
+  const barData = postedPosts.slice(-12).map(p => ({
+    name: p.title.length > 16 ? p.title.slice(0, 16) + "…" : p.title,
+    Views: p.views, Likes: p.likes, Saves: p.saves,
+  }));
+
+  const lineData = postedPosts.map((p, i) => ({
+    name: p.date.slice(5),
+    Views: p.views,
+    "Cumulative Views": postedPosts.slice(0, i + 1).reduce((s, x) => s + x.views, 0),
+  }));
+
+  // Drag and drop
+  const handleDragStart = (id) => setDragId(id);
+  const handleDragOver = (e, id) => { e.preventDefault(); setDragOver(id); };
+  const handleDrop = (e, targetId) => {
+    e.preventDefault();
+    if (!dragId || dragId === targetId) { setDragId(null); setDragOver(null); return; }
+    setPosts(prev => {
+      const arr = [...prev];
+      const fromIdx = arr.findIndex(p => p.id === dragId);
+      const toIdx = arr.findIndex(p => p.id === targetId);
+      const [moved] = arr.splice(fromIdx, 1);
+      arr.splice(toIdx, 0, moved);
+      return arr;
     });
+    setDragId(null); setDragOver(null);
+  };
+
+  const movePost = (id, dir) => {
+    setPosts(prev => {
+      const arr = [...prev];
+      const idx = arr.findIndex(p => p.id === id);
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= arr.length) return arr;
+      [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+      return arr;
+    });
+  };
+
+  const saveEdit = () => {
+    setPosts(prev => prev.map(p => p.id === editingPost.id ? editingPost : p));
+    setEditingPost(null);
+  };
+
+  const addPost = () => {
+    const id = "p" + Date.now();
+    setPosts(prev => [...prev, { ...newPost, id }]);
+    setNewPost({ ...newPostTemplate });
+    setAddingPost(false);
+  };
+
+  const deletePost = (id) => {
+    setPosts(prev => prev.map(p => p.id === id ? { ...p, status: "deleted" } : p));
+  };
+
+  const filteredPosts = posts.filter(p => {
+    if (filterStatus !== "all" && p.status !== filterStatus) return false;
+    if (filterType !== "all" && p.type !== filterType) return false;
+    return true;
   });
 
-  saveState(state);
+  const fonts = `@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');`;
 
-  function updateProgress() {
-    const all = document.querySelectorAll('[id^="s-"]');
-    let done = 0;
-    all.forEach(cb => { if (cb.checked) done++; });
-    document.getElementById('scheduleProgress').textContent =
-      done + ' of ' + all.length + ' videos posted';
-  }
+  return (
+    <div style={{ background: COLORS.bg, minHeight: "100vh", fontFamily: "'Cormorant Garamond', Georgia, serif", color: COLORS.parchment }}>
+      <style>{`
+        ${fonts}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #111; } ::-webkit-scrollbar-thumb { background: ${COLORS.cardBorder}; border-radius: 3px; }
+        input, textarea, select { font-family: inherit; }
+        .drag-over { outline: 2px dashed ${COLORS.gold}; outline-offset: 2px; border-radius: 6px; }
+      `}</style>
 
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    if (confirm('Reset all posting progress?')) {
-      localStorage.removeItem(STORAGE_KEY);
-      location.reload();
-    }
-  });
+      {/* Header */}
+      <div style={{ background: COLORS.forestDeep, borderBottom: `2px solid ${COLORS.gold}`, padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+        <div>
+          <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.2em", color: COLORS.gold, opacity: 0.7, textTransform: "uppercase", marginBottom: 4 }}>TheCuratorsDesk</div>
+          <div style={{ fontFamily: "Cinzel, serif", fontSize: "1.1rem", color: "#fff", letterSpacing: "0.05em" }}>Content Planner</div>
+        </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          {[["content", "✦ Content"], ["analytics", "↗ Analytics"], ["strategy", "◈ Strategy"]].map(([tab, label]) => (
+            <button key={tab} onClick={() => setActiveTab(tab)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "8px 14px", border: `1px solid ${activeTab === tab ? COLORS.gold : COLORS.cardBorder}`, background: activeTab === tab ? COLORS.gold : "transparent", color: activeTab === tab ? COLORS.ink : COLORS.parchment, borderRadius: 4, cursor: "pointer", textTransform: "uppercase" }}>
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-  updateProgress();
-</script>
-</body>
-</html>
+      {/* Account stats bar */}
+      <div style={{ background: COLORS.card, borderBottom: `1px solid ${COLORS.cardBorder}`, padding: "10px 20px", display: "flex", gap: 20, flexWrap: "wrap", alignItems: "center" }}>
+        {[
+          ["Followers", account.followers],
+          ["Email Subs", account.emailSubscribers],
+          ["Pinterest Views", account.pinterestViews.toLocaleString()],
+          ["Total TikTok Views", totalViews.toLocaleString()],
+          ["Posts", postedPosts.length + " posted"],
+        ].map(([label, val]) => (
+          <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <span style={{ fontFamily: "Cinzel, serif", fontSize: "0.9rem", color: COLORS.gold }}>{val}</span>
+            <span style={{ fontSize: "0.62rem", color: COLORS.muted, letterSpacing: "0.08em", textTransform: "uppercase" }}>{label}</span>
+          </div>
+        ))}
+        <button onClick={() => setEditingAccount(true)} style={{ marginLeft: "auto", fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.1em", padding: "5px 10px", border: `1px solid ${COLORS.cardBorder}`, background: "transparent", color: COLORS.muted, borderRadius: 3, cursor: "pointer" }}>
+          Edit Stats
+        </button>
+      </div>
+
+      <div style={{ padding: "20px 16px", maxWidth: 1100, margin: "0 auto" }}>
+
+        {/* ═══════════════ CONTENT TAB ═══════════════ */}
+        {activeTab === "content" && (
+          <div>
+            {/* Filters + Add */}
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16, alignItems: "center" }}>
+              <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.08em", padding: "6px 10px", background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 4 }}>
+                <option value="all">All Status</option>
+                {Object.entries(statusLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+              </select>
+              <select value={filterType} onChange={e => setFilterType(e.target.value)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.08em", padding: "6px 10px", background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 4 }}>
+                <option value="all">All Types</option>
+                {Object.entries(TYPE_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+              </select>
+              <span style={{ fontSize: "0.72rem", color: COLORS.muted, fontStyle: "italic" }}>{filteredPosts.length} posts</span>
+              <button onClick={() => setAddingPost(true)} style={{ marginLeft: "auto", fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "7px 14px", background: COLORS.forest, border: `1px solid ${COLORS.gold}`, color: COLORS.parchment, borderRadius: 4, cursor: "pointer" }}>
+                + Add Post
+              </button>
+            </div>
+
+            {/* Add post form */}
+            {addingPost && (
+              <div style={{ background: COLORS.card, border: `1px solid ${COLORS.gold}`, borderRadius: 6, padding: 16, marginBottom: 16 }}>
+                <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.16em", color: COLORS.gold, marginBottom: 12, textTransform: "uppercase" }}>New Post</div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  {[["title", "Title", "text"], ["date", "Date", "date"]].map(([k, l, t]) => (
+                    <div key={k}>
+                      <label style={{ fontSize: "0.6rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>{l}</label>
+                      <input type={t} value={newPost[k]} onChange={e => setNewPost(p => ({ ...p, [k]: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+                    </div>
+                  ))}
+                  <div>
+                    <label style={{ fontSize: "0.6rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Type</label>
+                    <select value={newPost.type} onChange={e => setNewPost(p => ({ ...p, type: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }}>
+                      {Object.entries(TYPE_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ fontSize: "0.6rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Status</label>
+                    <select value={newPost.status} onChange={e => setNewPost(p => ({ ...p, status: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }}>
+                      {Object.entries(statusLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div style={{ marginTop: 10 }}>
+                  <label style={{ fontSize: "0.6rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Caption</label>
+                  <textarea value={newPost.caption} onChange={e => setNewPost(p => ({ ...p, caption: e.target.value }))} rows={2} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem", resize: "vertical" }} />
+                </div>
+                <div style={{ marginTop: 10 }}>
+                  <label style={{ fontSize: "0.6rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Hashtags</label>
+                  <input value={newPost.hashtags} onChange={e => setNewPost(p => ({ ...p, hashtags: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+                </div>
+                <div style={{ marginTop: 10 }}>
+                  <label style={{ fontSize: "0.6rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Notes</label>
+                  <input value={newPost.notes} onChange={e => setNewPost(p => ({ ...p, notes: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+                </div>
+                <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                  <button onClick={addPost} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "7px 16px", background: COLORS.forest, border: `1px solid ${COLORS.gold}`, color: COLORS.parchment, borderRadius: 4, cursor: "pointer" }}>Add Post</button>
+                  <button onClick={() => setAddingPost(false)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "7px 16px", background: "transparent", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.muted, borderRadius: 4, cursor: "pointer" }}>Cancel</button>
+                </div>
+              </div>
+            )}
+
+            {/* Post list */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {filteredPosts.map((post, idx) => (
+                <div key={post.id} draggable onDragStart={() => handleDragStart(post.id)} onDragOver={e => handleDragOver(e, post.id)} onDrop={e => handleDrop(e, post.id)} onDragEnd={() => { setDragId(null); setDragOver(null); }} className={dragOver === post.id ? "drag-over" : ""} style={{ background: COLORS.card, border: `1px solid ${dragId === post.id ? COLORS.gold : COLORS.cardBorder}`, borderLeft: `3px solid ${TYPE_COLORS[post.type] || COLORS.muted}`, borderRadius: 6, cursor: "grab", transition: "opacity 0.15s", opacity: dragId === post.id ? 0.5 : 1 }}>
+                  {/* Post header */}
+                  <div style={{ padding: "12px 14px", display: "flex", alignItems: "center", gap: 10 }}>
+                    {/* Move buttons */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 2, flexShrink: 0 }}>
+                      <button onClick={() => movePost(post.id, -1)} style={{ background: "transparent", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.muted, borderRadius: 2, cursor: "pointer", fontSize: "0.6rem", padding: "1px 4px", lineHeight: 1 }}>▲</button>
+                      <button onClick={() => movePost(post.id, 1)} style={{ background: "transparent", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.muted, borderRadius: 2, cursor: "pointer", fontSize: "0.6rem", padding: "1px 4px", lineHeight: 1 }}>▼</button>
+                    </div>
+
+                    {/* Date */}
+                    <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.55rem", color: COLORS.gold, opacity: 0.7, minWidth: 52, letterSpacing: "0.06em" }}>{post.date.slice(5)}</div>
+
+                    {/* Type badge */}
+                    <div style={{ fontSize: "0.5rem", fontFamily: "Cinzel, serif", letterSpacing: "0.08em", padding: "2px 6px", background: TYPE_COLORS[post.type] || COLORS.muted, color: "#fff", borderRadius: 2, flexShrink: 0, opacity: 0.85 }}>{TYPE_LABELS[post.type]}</div>
+
+                    {/* Title */}
+                    <div style={{ flex: 1, fontSize: "0.9rem", color: COLORS.parchment, lineHeight: 1.3, cursor: "pointer" }} onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}>
+                      {post.title}
+                      {post.notes && <span style={{ fontSize: "0.65rem", color: COLORS.gold, marginLeft: 8, fontStyle: "italic" }}>{post.notes}</span>}
+                    </div>
+
+                    {/* Status */}
+                    <div style={{ fontSize: "0.5rem", fontFamily: "Cinzel, serif", letterSpacing: "0.08em", padding: "2px 7px", border: `1px solid ${statusColors[post.status]}`, color: statusColors[post.status], borderRadius: 10, flexShrink: 0 }}>{statusLabels[post.status]}</div>
+
+                    {/* Stats inline */}
+                    {post.status === "posted" && (
+                      <div style={{ display: "flex", gap: 10, fontSize: "0.75rem", color: COLORS.muted, flexShrink: 0 }}>
+                        <span style={{ color: COLORS.parchment }}>{post.views.toLocaleString()}<span style={{ color: COLORS.muted, fontSize: "0.55rem", marginLeft: 2 }}>views</span></span>
+                        <span>{post.likes}<span style={{ color: COLORS.muted, fontSize: "0.55rem", marginLeft: 2 }}>likes</span></span>
+                        <span style={{ color: post.saves >= 10 ? COLORS.gold : "inherit" }}>{post.saves}<span style={{ color: COLORS.muted, fontSize: "0.55rem", marginLeft: 2 }}>saves</span></span>
+                      </div>
+                    )}
+
+                    {/* Actions */}
+                    <div style={{ display: "flex", gap: 5, flexShrink: 0 }}>
+                      <button onClick={() => setEditingPost({ ...post })} style={{ fontFamily: "Cinzel, serif", fontSize: "0.48rem", letterSpacing: "0.08em", padding: "4px 8px", background: "transparent", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.muted, borderRadius: 3, cursor: "pointer" }}>Edit</button>
+                      {post.status !== "deleted" && <button onClick={() => deletePost(post.id)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.48rem", letterSpacing: "0.08em", padding: "4px 8px", background: "transparent", border: "1px solid #8B3A3A", color: "#8B3A3A", borderRadius: 3, cursor: "pointer" }}>✕</button>}
+                    </div>
+                  </div>
+
+                  {/* Expanded detail */}
+                  {expandedPost === post.id && (
+                    <div style={{ padding: "0 14px 12px 60px", borderTop: `1px solid ${COLORS.cardBorder}`, paddingTop: 10 }}>
+                      {post.caption && <div style={{ fontSize: "0.8rem", color: COLORS.sepiaLight, fontStyle: "italic", marginBottom: 5 }}>"{post.caption}"</div>}
+                      {post.hashtags && <div style={{ fontSize: "0.68rem", color: "#555", marginBottom: 4 }}>{post.hashtags}</div>}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ═══════════════ ANALYTICS TAB ═══════════════ */}
+        {activeTab === "analytics" && (
+          <div>
+            {/* Summary cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 10, marginBottom: 24 }}>
+              {[
+                ["Total Views", totalViews.toLocaleString(), COLORS.gold],
+                ["Total Likes", totalLikes.toLocaleString(), "#7B8BC9"],
+                ["Total Saves", totalSaves.toLocaleString(), "#5A9A7A"],
+                ["Avg Views", avgViews.toLocaleString(), COLORS.gold],
+                ["Avg Saves", avgSaves, "#5A9A7A"],
+                ["Videos Posted", postedPosts.length, COLORS.muted],
+              ].map(([label, val, color]) => (
+                <div key={label} style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderTop: `2px solid ${color}`, borderRadius: 5, padding: "12px 14px", textAlign: "center" }}>
+                  <div style={{ fontFamily: "Cinzel, serif", fontSize: "1.2rem", color }}>{val}</div>
+                  <div style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 3 }}>{label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Best video */}
+            {bestVideo && (
+              <div style={{ background: COLORS.card, border: `1px solid ${COLORS.gold}`, borderRadius: 6, padding: "12px 16px", marginBottom: 20, display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
+                <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.5rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase" }}>⭐ Best Video</div>
+                <div style={{ flex: 1, fontSize: "0.9rem", color: "#fff" }}>{bestVideo.title}</div>
+                <div style={{ display: "flex", gap: 14, fontSize: "0.85rem" }}>
+                  <span style={{ color: COLORS.gold }}>{bestVideo.views.toLocaleString()} views</span>
+                  <span style={{ color: "#7B8BC9" }}>{bestVideo.likes} likes</span>
+                  <span style={{ color: "#5A9A7A" }}>{bestVideo.saves} saves</span>
+                </div>
+              </div>
+            )}
+
+            {/* Bar chart */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 6, padding: "16px 14px", marginBottom: 20 }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 14, opacity: 0.8 }}>Per-Video Performance — Last 12 Posts</div>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={barData} margin={{ top: 4, right: 10, left: 0, bottom: 40 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2a2010" />
+                  <XAxis dataKey="name" tick={{ fontSize: 9, fill: COLORS.muted, fontFamily: "Cormorant Garamond" }} angle={-35} textAnchor="end" interval={0} />
+                  <YAxis tick={{ fontSize: 9, fill: COLORS.muted }} />
+                  <Tooltip contentStyle={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, fontSize: 11, fontFamily: "Cormorant Garamond" }} />
+                  <Legend wrapperStyle={{ fontSize: 10, fontFamily: "Cormorant Garamond", paddingTop: 8 }} />
+                  <Bar dataKey="Views" fill={COLORS.gold} radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="Likes" fill="#7B8BC9" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="Saves" fill="#5A9A7A" radius={[2, 2, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Line chart */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 6, padding: "16px 14px", marginBottom: 20 }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 14, opacity: 0.8 }}>Views Growth Over Time</div>
+              <ResponsiveContainer width="100%" height={200}>
+                <LineChart data={lineData} margin={{ top: 4, right: 10, left: 0, bottom: 40 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2a2010" />
+                  <XAxis dataKey="name" tick={{ fontSize: 9, fill: COLORS.muted }} angle={-35} textAnchor="end" interval={2} />
+                  <YAxis tick={{ fontSize: 9, fill: COLORS.muted }} />
+                  <Tooltip contentStyle={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, fontSize: 11, fontFamily: "Cormorant Garamond" }} />
+                  <Legend wrapperStyle={{ fontSize: 10, fontFamily: "Cormorant Garamond", paddingTop: 8 }} />
+                  <Line type="monotone" dataKey="Views" stroke={COLORS.gold} strokeWidth={2} dot={{ r: 3, fill: COLORS.gold }} />
+                  <Line type="monotone" dataKey="Cumulative Views" stroke="#5A9A7A" strokeWidth={1.5} strokeDasharray="4 2" dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Per-type breakdown */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 6, padding: "16px 14px" }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 14, opacity: 0.8 }}>Average Performance by Content Type</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {typeStats.map((t, i) => (
+                  <div key={t.type} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{ width: 4, height: 32, background: TYPE_COLORS[t.type], borderRadius: 2, flexShrink: 0 }} />
+                    <div style={{ minWidth: 120, fontSize: "0.8rem", color: COLORS.parchment }}>{t.label}</div>
+                    <div style={{ flex: 1, background: "#0E0A06", borderRadius: 2, height: 6, overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${Math.min(100, (t.avgViews / (typeStats[0]?.avgViews || 1)) * 100)}%`, background: TYPE_COLORS[t.type], borderRadius: 2, transition: "width 0.3s" }} />
+                    </div>
+                    <div style={{ fontSize: "0.78rem", color: COLORS.gold, minWidth: 70, textAlign: "right" }}>{t.avgViews} avg views</div>
+                    <div style={{ fontSize: "0.72rem", color: "#5A9A7A", minWidth: 60, textAlign: "right" }}>{t.avgSaves} avg saves</div>
+                    <div style={{ fontSize: "0.6rem", color: COLORS.muted, minWidth: 50, textAlign: "right" }}>{t.count} posts</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ═══════════════ STRATEGY TAB ═══════════════ */}
+        {activeTab === "strategy" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+
+            {/* Auto-generated insights */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderTop: `2px solid ${COLORS.gold}`, borderRadius: 6, padding: "16px 18px" }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 14, opacity: 0.8 }}>Live Insights — Updated from Your Data</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {/* Best format */}
+                {typeStats[0] && (
+                  <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.gold, marginTop: 6, flexShrink: 0 }} />
+                    <div style={{ fontSize: "0.88rem", color: COLORS.parchment, lineHeight: 1.6 }}>
+                      <strong style={{ color: COLORS.gold, fontFamily: "Cinzel, serif", fontSize: "0.72rem", letterSpacing: "0.06em" }}>Best format: {typeStats[0].label}</strong> — averaging {typeStats[0].avgViews} views and {typeStats[0].avgSaves} saves. Make this your primary format.
+                    </div>
+                  </div>
+                )}
+                {/* Worst format */}
+                {typeStats.length > 1 && (
+                  <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#8B3A3A", marginTop: 6, flexShrink: 0 }} />
+                    <div style={{ fontSize: "0.88rem", color: COLORS.parchment, lineHeight: 1.6 }}>
+                      <strong style={{ color: "#8B6060", fontFamily: "Cinzel, serif", fontSize: "0.72rem", letterSpacing: "0.06em" }}>Lowest format: {typeStats[typeStats.length - 1].label}</strong> — averaging {typeStats[typeStats.length - 1].avgViews} views. Limit to 15% of your schedule.
+                    </div>
+                  </div>
+                )}
+                {/* Save rate */}
+                <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#5A9A7A", marginTop: 6, flexShrink: 0 }} />
+                  <div style={{ fontSize: "0.88rem", color: COLORS.parchment, lineHeight: 1.6 }}>
+                    <strong style={{ color: "#5A9A7A", fontFamily: "Cinzel, serif", fontSize: "0.72rem", letterSpacing: "0.06em" }}>Total saves: {totalSaves}</strong> — saves are TikTok's strongest ranking signal. Your save rate is {postedPosts.length ? (totalSaves / totalViews * 100).toFixed(2) : 0}% of views. Industry average is ~1%. You are {((totalSaves / totalViews * 100) / 1).toFixed(1)}x the average.
+                  </div>
+                </div>
+                {/* Email */}
+                <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#7B8BC9", marginTop: 6, flexShrink: 0 }} />
+                  <div style={{ fontSize: "0.88rem", color: COLORS.parchment, lineHeight: 1.6 }}>
+                    <strong style={{ color: "#7B8BC9", fontFamily: "Cinzel, serif", fontSize: "0.72rem", letterSpacing: "0.06em" }}>Email list: {account.emailSubscribers} subscribers</strong> — funnel is proven. Each new subscriber has a direct path to purchase via your Klaviyo welcome series. Priority: grow this list.
+                  </div>
+                </div>
+                {/* Pinterest */}
+                <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.sepiaLight, marginTop: 6, flexShrink: 0 }} />
+                  <div style={{ fontSize: "0.88rem", color: COLORS.parchment, lineHeight: 1.6 }}>
+                    <strong style={{ color: COLORS.sepiaLight, fontFamily: "Cinzel, serif", fontSize: "0.72rem", letterSpacing: "0.06em" }}>Pinterest: {account.pinterestViews.toLocaleString()} monthly views</strong> — {account.pinterestViews >= 2000 ? "✦ Outbound clicks should be appearing now. Check Pinterest analytics for link clicks." : `${2000 - account.pinterestViews} views from the 2,000 threshold where outbound clicks begin. Keep posting daily.`}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content ratio */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 6, padding: "16px 18px" }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 12, opacity: 0.8 }}>Target Content Ratio</div>
+              {[
+                ["60%", "Educational", "Scholar history, Latin words, Commonplace Book informative — your highest-performing category", COLORS.forest],
+                ["25%", "Lead Magnet & Face Videos", "Free reading log, journal face videos — builds trust and email list", "#4A6B8B"],
+                ["15%", "Product Showcase", "Journal slides, stickers, bookmarks — introduce products to warm audience", COLORS.sepia],
+              ].map(([pct, label, desc, color]) => (
+                <div key={label} style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10, paddingBottom: 10, borderBottom: `1px solid ${COLORS.cardBorder}` }}>
+                  <div style={{ fontFamily: "Cinzel, serif", fontSize: "1.1rem", color, minWidth: 44 }}>{pct}</div>
+                  <div>
+                    <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", color, letterSpacing: "0.06em", marginBottom: 2 }}>{label}</div>
+                    <div style={{ fontSize: "0.8rem", color: COLORS.muted, lineHeight: 1.5, fontStyle: "italic" }}>{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Revenue milestone tracker */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 6, padding: "16px 18px" }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 12, opacity: 0.8 }}>Revenue Milestones — Target $3,000/mo by Jun 2027</div>
+              {[
+                ["Sep 2026", "$100–300", "First sales, first Etsy reviews"],
+                ["Oct 2026", "$300–600", "Autumn season, Pinterest clicks begin"],
+                ["Nov 2026", "$500–900", "Holiday gifting window opens"],
+                ["Dec 2026", "$800–1,500", "Christmas gifting peak"],
+                ["Jan 2027", "$400–700", "New Year journaling surge + new builds"],
+                ["Feb 2027", "$500–900", "Valentine's + Spring Reading Journal launch"],
+                ["Mar 2027", "$700–1,200", "Spring season, email list maturing"],
+                ["Apr 2027", "$1,000–1,800", "Full funnel mature, expanded catalogue"],
+                ["May 2027", "$1,500–2,500", "New builds live, audience established"],
+                ["Jun 2027", "$2,500–3,500", "✦ Target month"],
+              ].map(([month, target, driver]) => (
+                <div key={month} style={{ display: "flex", gap: 10, alignItems: "center", padding: "6px 0", borderBottom: `1px solid #1a1208` }}>
+                  <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.62rem", color: COLORS.gold, minWidth: 72, opacity: 0.8 }}>{month}</div>
+                  <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.72rem", color: COLORS.parchment, minWidth: 90 }}>{target}</div>
+                  <div style={{ fontSize: "0.75rem", color: COLORS.muted, fontStyle: "italic" }}>{driver}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Key unlock milestones */}
+            <div style={{ background: COLORS.card, border: `1px solid ${COLORS.cardBorder}`, borderRadius: 6, padding: "16px 18px" }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.6rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 12, opacity: 0.8 }}>Key Unlocks — What Changes Everything</div>
+              {[
+                [account.followers >= 1000 ? "✦ Done" : `${account.followers}/1,000`, "TikTok Bio Link", "Clickable link removes manual URL friction — expected to 5-10x email signups overnight", account.followers >= 1000],
+                [account.emailSubscribers >= 50 ? "✦ Done" : `${account.emailSubscribers}/50`, "50 Email Subscribers", "Email as a reliable revenue driver — each email to 50 engaged subscribers should generate 2-5 sales", account.emailSubscribers >= 50],
+                ["Check Etsy", "First Etsy Review", "One review changes Etsy's algorithm trust score — dramatically improves organic search visibility", false],
+                [account.pinterestViews >= 2000 ? "✦ Reached" : `${account.pinterestViews}/2,000`, "Pinterest 2,000 Monthly Views", "First outbound clicks to curatorsdesk.com — converts better than TikTok because users can click directly", account.pinterestViews >= 2000],
+              ].map(([progress, label, desc, done]) => (
+                <div key={label} style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10, paddingBottom: 10, borderBottom: `1px solid ${COLORS.cardBorder}` }}>
+                  <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.72rem", color: done ? "#5A9A7A" : COLORS.gold, minWidth: 60, textAlign: "center", paddingTop: 2 }}>{progress}</div>
+                  <div>
+                    <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.7rem", color: done ? "#5A9A7A" : COLORS.parchment, letterSpacing: "0.04em", marginBottom: 3 }}>{done ? "✦ " : ""}{label}</div>
+                    <div style={{ fontSize: "0.78rem", color: COLORS.muted, fontStyle: "italic", lineHeight: 1.5 }}>{desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        )}
+      </div>
+
+      {/* Edit post modal */}
+      {editingPost && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, padding: 16 }}>
+          <div style={{ background: COLORS.card, border: `1px solid ${COLORS.gold}`, borderRadius: 8, padding: 20, width: "100%", maxWidth: 520, maxHeight: "90vh", overflowY: "auto" }}>
+            <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.62rem", letterSpacing: "0.16em", color: COLORS.gold, marginBottom: 14, textTransform: "uppercase" }}>Edit Post</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              {[["title", "Title", "text"], ["date", "Date", "date"]].map(([k, l, t]) => (
+                <div key={k}>
+                  <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>{l}</label>
+                  <input type={t} value={editingPost[k]} onChange={e => setEditingPost(p => ({ ...p, [k]: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+                </div>
+              ))}
+              <div>
+                <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Type</label>
+                <select value={editingPost.type} onChange={e => setEditingPost(p => ({ ...p, type: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }}>
+                  {Object.entries(TYPE_LABELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                </select>
+              </div>
+              <div>
+                <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Status</label>
+                <select value={editingPost.status} onChange={e => setEditingPost(p => ({ ...p, status: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }}>
+                  {Object.entries(statusLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                </select>
+              </div>
+            </div>
+            {/* Analytics fields */}
+            <div style={{ marginTop: 10 }}>
+              <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.52rem", letterSpacing: "0.14em", color: COLORS.gold, textTransform: "uppercase", marginBottom: 8, opacity: 0.7 }}>Analytics</div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+                {[["views", "Views"], ["likes", "Likes"], ["saves", "Saves"]].map(([k, l]) => (
+                  <div key={k}>
+                    <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>{l}</label>
+                    <input type="number" min="0" value={editingPost[k]} onChange={e => setEditingPost(p => ({ ...p, [k]: parseInt(e.target.value) || 0 }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Caption</label>
+              <textarea value={editingPost.caption} onChange={e => setEditingPost(p => ({ ...p, caption: e.target.value }))} rows={2} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem", resize: "vertical" }} />
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Hashtags</label>
+              <input value={editingPost.hashtags} onChange={e => setEditingPost(p => ({ ...p, hashtags: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+            </div>
+            <div style={{ marginTop: 10 }}>
+              <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>Notes</label>
+              <input value={editingPost.notes} onChange={e => setEditingPost(p => ({ ...p, notes: e.target.value }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+            </div>
+            <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+              <button onClick={saveEdit} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "8px 18px", background: COLORS.forest, border: `1px solid ${COLORS.gold}`, color: COLORS.parchment, borderRadius: 4, cursor: "pointer" }}>Save Changes</button>
+              <button onClick={() => setEditingPost(null)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "8px 18px", background: "transparent", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.muted, borderRadius: 4, cursor: "pointer" }}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit account modal */}
+      {editingAccount && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, padding: 16 }}>
+          <div style={{ background: COLORS.card, border: `1px solid ${COLORS.gold}`, borderRadius: 8, padding: 20, width: "100%", maxWidth: 380 }}>
+            <div style={{ fontFamily: "Cinzel, serif", fontSize: "0.62rem", letterSpacing: "0.16em", color: COLORS.gold, marginBottom: 14, textTransform: "uppercase" }}>Update Account Stats</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[["followers", "TikTok Followers"], ["emailSubscribers", "Email Subscribers"], ["pinterestViews", "Pinterest Monthly Views"], ["etsyViews", "Etsy Daily Views"]].map(([k, l]) => (
+                <div key={k}>
+                  <label style={{ fontSize: "0.58rem", color: COLORS.muted, letterSpacing: "0.1em", textTransform: "uppercase", display: "block", marginBottom: 4 }}>{l}</label>
+                  <input type="number" min="0" value={account[k]} onChange={e => setAccount(a => ({ ...a, [k]: parseInt(e.target.value) || 0 }))} style={{ width: "100%", padding: "7px 10px", background: "#0E0A06", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.parchment, borderRadius: 3, fontSize: "0.88rem" }} />
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+              <button onClick={() => setEditingAccount(false)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "8px 18px", background: COLORS.forest, border: `1px solid ${COLORS.gold}`, color: COLORS.parchment, borderRadius: 4, cursor: "pointer" }}>Save</button>
+              <button onClick={() => setEditingAccount(false)} style={{ fontFamily: "Cinzel, serif", fontSize: "0.58rem", letterSpacing: "0.1em", padding: "8px 18px", background: "transparent", border: `1px solid ${COLORS.cardBorder}`, color: COLORS.muted, borderRadius: 4, cursor: "pointer" }}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
