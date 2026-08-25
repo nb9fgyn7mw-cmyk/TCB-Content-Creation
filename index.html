@@ -110,6 +110,13 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
 .rp{font-family:'Cinzel',serif;font-size:0.9rem;min-width:38px;}
 .rl{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:.03em;margin-bottom:2px;}
 .rd2{font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.4;}
+.sh-card{background:transparent;border:none;border-left:2px solid var(--gold);border-radius:0;margin-bottom:5px;display:flex;align-items:center;gap:8px;padding:6px 10px;}
+.sh-input{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.16em;color:var(--gold);text-transform:uppercase;opacity:0.8;background:transparent;border:none;outline:none;width:100%;cursor:text;}
+.sh-input:focus{opacity:1;background:rgba(201,168,76,0.05);border-radius:2px;padding:2px 4px;}
+.sh-del{background:transparent;border:none;color:var(--cb);cursor:pointer;font-size:0.6rem;flex-shrink:0;padding:2px 4px;}
+.sh-del:hover{color:var(--red);}
+.add-sh-btn{font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.1em;padding:5px 10px;background:transparent;border:1px dashed var(--cb);color:var(--muted);border-radius:3px;cursor:pointer;margin-bottom:12px;display:block;width:100%;text-align:center;}
+.add-sh-btn:hover{border-color:var(--gold);color:var(--gold);}
 </style>
 </head>
 <body>
@@ -186,6 +193,7 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
         <button class="cnb" onclick="closeAdd()">Cancel</button>
       </div>
     </div>
+    <button class="add-sh-btn" onclick="addSectionHeader()">+ Add Section Header</button>
     <div id="post-list"></div>
   </div>
 
@@ -305,7 +313,7 @@ var DP = [
   makePost('p19','2024-08-15','Before Google Commonplace slides','educational','posted',202,6,5,'','#darkacademia #commonplacebook',''),
   makePost('p20','2024-08-17','Commonplace page flip video','product','posted',171,3,0,'','#darkacademia #commonplacebook',''),
   makePost('p21','2024-08-19','Brand Introduction face video','face','scheduled',0,0,0,'literary goods for the reader who takes their inner life seriously','#darkacademia #scholaraesthetic #thecuratorsdesk #booktok','PIN IMMEDIATELY after posting'),
-  makePost('p22','2024-08-21',"Classicist's Companion face video",'face','scheduled',0,0,0,'the journal built for the reader who thinks seriously','#darkacademia #scholaraesthetic #journalwithme #booktok',''),
+  makePost('p22','2024-08-21','Classicist Companion showcase slides','product','scheduled',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic #journalwithme #booktok','Replaced face video - face video is in wk1c Aug 29'),
   makePost('p23','2024-08-23','Sapere Aude Latin slide','latin','scheduled',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords #sapereAude #scholaraesthetic',''),
   makePost('wk1a','2024-08-25',"What is the Classicist's Companion - Educational",'educational','planned',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic #journalwithme #studytok','Week: Classicists Companion'),
   makePost('wk1b','2024-08-27','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #boethius #scholaraesthetic #studytok','Week: Classicists Companion'),
@@ -326,13 +334,14 @@ var DP = [
   makePost('wk6a','2024-09-25','Reading seasonally - the Autumn Scholar tradition - Educational','educational','planned',0,0,0,'there is a season made for reading - and the scholars who lived by it read more','#darkacademia #autumnreading #scholaraesthetic #booktok','Week: Autumn Reading Journal'),
   makePost('wk6b','2024-09-27','Autumn Scholar season opener','seasonal','planned',0,0,0,'Autumn Scholar season is here - the reading list gets longer and the light gets better','#darkacademia #autumnreading #scholaraesthetic #autumnaesthetic','Desk setup - candle, warm light'),
   makePost('wk6c','2024-09-29','Autumn Reading Journal face video','face','planned',0,0,0,'a reading journal built for the season when you want to read more intentionally','#darkacademia #autumnreading #readingjournal #scholaraesthetic','Week: Autumn Reading Journal'),
-  makePost('wk7a','2024-10-02','How scholars planned their weeks - Educational','educational','planned',0,0,0,'the difference between a productive week and an intentional one','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
-  makePost('wk7b','2024-10-04','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin #scholaraesthetic #studytok','Week: Weekly Planner - perfect scholar match'),
-  makePost('wk7c','2024-10-06',"Scholar's Weekly Planner face video",'face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
+  makePost('adv1','2024-10-02','What is Advent and why scholars kept it - Educational','educational','planned',0,0,0,'Advent was never meant to be busy — 1500 years of scholars kept it intentionally and here is how','#darkacademia #advent #christianfaith #scholaraesthetic #journalwithme','Advent edu slide — moved early so gifting season buyers discover it in time'),
+  makePost('wk7a','2024-10-04','How scholars planned their weeks - Educational','educational','planned',0,0,0,'the difference between a productive week and an intentional one','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
+  makePost('wk7b','2024-10-06','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin #scholaraesthetic #studytok','Week: Weekly Planner - perfect scholar match'),
+  makePost('wk7c','2024-10-08',"Scholar's Weekly Planner face video",'face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
   makePost('wk8a','2024-10-09','The TBR list that never gets read - Educational','educational','planned',0,0,0,'why serious readers keep a dedicated TBR - and how it changes what you actually read','#darkacademia #tbrjournal #booktok #scholaraesthetic','Week: Autumn TBR Journal'),
   makePost('wk8b','2024-10-11','Virginia Woolf scholar slide','scholar','planned',0,0,0,'she kept reading lists journals and diaries her entire life - and published 9 novels','#darkacademia #virginiawoolf #scholaraesthetic #booktok','Week: Autumn TBR - prolific reader and writer'),
   makePost('wk8c','2024-10-13','Autumn TBR Journal face video','face','planned',0,0,0,'a home for the reading list that never gets read - no shame just organisation','#darkacademia #tbrjournal #autumnreading #booktok','Week: Autumn TBR Journal'),
-  makePost('intro1','2024-10-08','New Arrivals - All Language Journals plus Omnibus unboxing','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #scholaraesthetic #booktok #stationery','Event moment - film Aug 24 on arrival day. Hint Vol I-VIII is coming.'),
+  makePost('intro1','2024-09-05','New Arrivals - All Language Journals plus Omnibus unboxing','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #scholaraesthetic #booktok #stationery','Event moment - film Aug 24 on arrival day. Hint Vol I-VIII is coming.'),
   makePost('wk9a','2024-10-16','Why Koine Greek matters to scholars - Educational','educational','planned',0,0,0,'the language the New Testament was written in - and why learning it changes how you read scripture','#darkacademia #koinGreek #languagelearning #scholaraesthetic #christianfaith','Week: Koine Greek Journal'),
   makePost('wk9b','2024-10-18','Erasmus scholar slide','scholar','planned',0,0,0,'he spent 20 years learning Greek so he could read the New Testament in its original language','#darkacademia #erasmus #scholaraesthetic #studytok','Week: Koine Greek - perfect scholar match'),
   makePost('wk9c','2024-10-20','Koine Greek Language Journal face video','face','planned',0,0,0,'90 days of studying the language of the New Testament - one word at a time','#darkacademia #koinGreek #languagejournal #scholaraesthetic #christianfaith','Week: Koine Greek - new Lulu product'),
@@ -397,6 +406,7 @@ function switchTab(t){
 function getWeekLabel(post){
   var id = post.id;
   if(id === 'intro1') return 'New Arrivals Introduction';
+  if(id === 'adv1') return 'Week: Advent Calendar — Early Intro';
   if(id.indexOf('gift') === 0) return 'Gift Bundle Videos - Gifting Season';
   if(id.indexOf('lat') === 0) return 'Latin Palette Cleanser';
   if(id.indexOf('wk12') === 0) return 'Week: Curiosity Journal Omnibus';
@@ -420,13 +430,30 @@ function getWeekLabel(post){
 }
 
 function updateSB(){
-  var posted = posts.filter(function(p){ return p.status === 'posted'; });
+  var posted = posts.filter(function(p){ return p.status === 'posted' && p.type !== '__header__'; });
   var tv = posted.reduce(function(s,p){ return s+p.views; }, 0);
   document.getElementById('sb-f').textContent = acc.followers.toLocaleString();
   document.getElementById('sb-e').textContent = acc.email;
   document.getElementById('sb-p').textContent = acc.pinterest.toLocaleString();
   document.getElementById('sb-v').textContent = tv.toLocaleString();
   document.getElementById('sb-n').textContent = posted.length + ' posted';
+}
+
+
+function addSectionHeader(){
+  var sh = {id:'sh'+Date.now(),type:'__header__',title:'Section Label',date:'',status:'',views:0,likes:0,saves:0,caption:'',hashtags:'',notes:''};
+  posts.unshift(sh);
+  save(); render();
+}
+
+function deleteSectionHeader(id){
+  posts = posts.filter(function(p){ return p.id !== id; });
+  save(); render();
+}
+
+function updateHeaderTitle(id, val){
+  posts = posts.map(function(p){ return p.id === id ? Object.assign({},p,{title:val}) : p; });
+  save();
 }
 
 function render(){
@@ -443,9 +470,18 @@ function render(){
   var lastWeek = '';
 
   filtered.forEach(function(post){
-    var wl = getWeekLabel(post);
+    // Section header items
+    if(post.type === '__header__'){
+      html += '<div class="sh-card" id="card-'+post.id+'">' +
+        '<input class="sh-input" value="'+post.title+'" onchange="updateHeaderTitle(''+post.id+'',this.value)" onblur="updateHeaderTitle(''+post.id+'',this.value)" title="Click to edit section label" />' +
+        '<button class="sh-del" onclick="deleteSectionHeader(''+post.id+'')" title="Remove section header">&#215;</button>' +
+        '</div>';
+      return;
+    }
+    // Auto week label for non-header posts
+    var wl = getDefaultLabel(post);
     if(wl && wl !== lastWeek){
-      html += '<div class="wh">' + wl + '</div>';
+      html += '<div class="wh" style="opacity:0.4;font-size:0.44rem">'+wl+'</div>';
       lastWeek = wl;
     }
     var bl = '3px solid ' + (TC[post.type] || '#555');
@@ -524,7 +560,11 @@ function mv(id, dir){
   save(); render();
 }
 
-function dStart(id){ dragId = id; setTimeout(function(){ render(); }, 0); }
+function dStart(id){
+  var p = posts.find(function(x){ return x.id === id; });
+  if(p && p.type === '__header__') return;
+  dragId = id; setTimeout(function(){ render(); }, 0);
+}
 function dOver(e, id){
   e.preventDefault();
   document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over'); });
@@ -534,7 +574,8 @@ function dOver(e, id){
 function dDrop(e, tid){
   e.preventDefault();
   document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over'); });
-  if(!dragId || dragId === tid){ dragId = null; render(); return; }
+  var dragPost = posts.find(function(p){ return p.id === dragId; });
+  if(!dragId || dragId === tid || (dragPost && dragPost.type === '__header__')){ dragId = null; render(); return; }
   var fi = posts.findIndex(function(p){ return p.id === dragId; });
   var ti2 = posts.findIndex(function(p){ return p.id === tid; });
   var m = posts.splice(fi,1)[0];
@@ -600,7 +641,7 @@ function saveAcc(){
 }
 
 function renderAnalytics(){
-  var posted = posts.filter(function(p){ return p.status === 'posted'; });
+  var posted = posts.filter(function(p){ return p.status === 'posted' && p.type !== '__header__'; });
   var tv = posted.reduce(function(s,p){ return s+p.views; },0);
   var tl = posted.reduce(function(s,p){ return s+p.likes; },0);
   var ts = posted.reduce(function(s,p){ return s+p.saves; },0);
