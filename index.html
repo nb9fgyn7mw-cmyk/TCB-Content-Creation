@@ -6,167 +6,150 @@
 <title>TCD Content Planner</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
-:root{
-  --forest:#2D4A3E;--forest-deep:#1A2E24;--gold:#C9A84C;--parchment:#F5E6C8;
-  --sepia:#6B4C2A;--sepia-light:#8B6840;--ink:#1E1510;--muted:#9B8060;
-  --bg:#0A0806;--card:#1a1208;--cb:#2a2010;--red:#8B3A3A;--blue:#4A6B8B;
-  --purple:#7B5EA7;--green:#5A9A7A;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;overflow:hidden;}
-body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:var(--parchment);display:flex;flex-direction:column;}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:#111;}
-::-webkit-scrollbar-thumb{background:var(--cb);border-radius:2px;}
-.hdr{background:var(--forest-deep);border-bottom:2px solid var(--gold);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;flex-shrink:0;}
-.hdr-brand .ey{font-family:'Cinzel',serif;font-size:0.44rem;letter-spacing:0.2em;color:var(--gold);opacity:.7;text-transform:uppercase;display:block;margin-bottom:2px;}
-.hdr-brand h1{font-family:'Cinzel',serif;font-size:0.9rem;color:#fff;letter-spacing:.05em;font-weight:400;}
+body{background:#0A0806;font-family:'Cormorant Garamond',Georgia,serif;color:#F5E6C8;display:flex;flex-direction:column;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:#111;}::-webkit-scrollbar-thumb{background:#2a2010;border-radius:2px;}
+#hdr{background:#1A2E24;border-bottom:2px solid #C9A84C;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;flex-shrink:0;}
+.ey{font-family:'Cinzel',serif;font-size:.44rem;letter-spacing:.2em;color:#C9A84C;opacity:.7;text-transform:uppercase;display:block;margin-bottom:2px;}
+#hdr h1{font-family:'Cinzel',serif;font-size:.9rem;color:#fff;letter-spacing:.05em;font-weight:400;}
 .tabs{display:flex;gap:5px;}
-.tab{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 11px;border:1px solid var(--cb);background:transparent;color:var(--muted);border-radius:3px;cursor:pointer;text-transform:uppercase;}
-.tab.active{background:var(--gold);color:var(--ink);border-color:var(--gold);}
-.sb{background:var(--card);border-bottom:1px solid var(--cb);padding:7px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
-.si .sv{font-family:'Cinzel',serif;font-size:0.85rem;color:var(--gold);display:block;}
-.si .sl{font-size:0.5rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
-.esb{margin-left:auto;font-family:'Cinzel',serif;font-size:0.44rem;letter-spacing:.1em;padding:3px 8px;border:1px solid var(--cb);background:transparent;color:var(--muted);border-radius:3px;cursor:pointer;}
-.scroll{flex:1;overflow-y:auto;padding:14px;}
+.tab{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;padding:6px 11px;border:1px solid #2a2010;background:transparent;color:#9B8060;border-radius:3px;cursor:pointer;text-transform:uppercase;}
+.tab.active{background:#C9A84C;color:#1E1510;border-color:#C9A84C;}
+#sb{background:#1a1208;border-bottom:1px solid #2a2010;padding:7px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+.si .sv{font-family:'Cinzel',serif;font-size:.85rem;color:#C9A84C;display:block;}
+.si .sl{font-size:.5rem;color:#9B8060;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
+#esb{margin-left:auto;font-family:'Cinzel',serif;font-size:.44rem;letter-spacing:.1em;padding:3px 8px;border:1px solid #2a2010;background:transparent;color:#9B8060;border-radius:3px;cursor:pointer;}
+#scroll{flex:1;overflow-y:auto;padding:14px;}
 .tp{display:none;}.tp.active{display:block;}
-.fr{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
-.fr select{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.07em;padding:5px 8px;background:var(--card);border:1px solid var(--cb);color:var(--parchment);border-radius:3px;max-width:140px;}
-.cl{font-size:0.7rem;color:var(--muted);font-style:italic;}
-.ab{margin-left:auto;font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 11px;background:var(--forest);border:1px solid var(--gold);color:var(--parchment);border-radius:3px;cursor:pointer;}
-.wh{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;opacity:.7;margin:14px 0 5px;padding-left:4px;border-left:2px solid var(--gold);}
-.pc{background:var(--card);border:1px solid var(--cb);border-radius:4px;margin-bottom:5px;cursor:grab;}
-.pc:active{cursor:grabbing;}
-.pc.drag-over{outline:2px dashed var(--gold);outline-offset:2px;}
+.fr{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.fr select{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.07em;padding:5px 8px;background:#1a1208;border:1px solid #2a2010;color:#F5E6C8;border-radius:3px;}
+.cnt{font-size:.7rem;color:#9B8060;font-style:italic;}
+.abtn{margin-left:auto;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;padding:6px 11px;background:#2D4A3E;border:1px solid #C9A84C;color:#F5E6C8;border-radius:3px;cursor:pointer;}
+.shbtn{display:block;width:100%;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;padding:5px;background:transparent;border:1px dashed #2a2010;color:#9B8060;border-radius:3px;cursor:pointer;text-align:center;margin-bottom:10px;}
+.shbtn:hover{border-color:#C9A84C;color:#C9A84C;}
+.sh{background:transparent;border-left:2px solid #C9A84C;margin-bottom:5px;display:flex;align-items:center;gap:8px;padding:5px 10px;}
+.shi{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.16em;color:#C9A84C;text-transform:uppercase;background:transparent;border:none;outline:none;width:100%;cursor:text;}
+.shd{background:transparent;border:none;color:#2a2010;cursor:pointer;font-size:.7rem;flex-shrink:0;padding:2px 6px;}
+.shd:hover{color:#8B3A3A;}
+.pc{background:#1a1208;border:1px solid #2a2010;border-radius:4px;margin-bottom:5px;cursor:grab;}
 .pc.dragging{opacity:.4;}
+.pc.dov{outline:2px dashed #C9A84C;outline-offset:2px;}
 .pch{display:flex;align-items:center;gap:6px;padding:8px 10px;min-width:0;}
 .mbs{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
-.mb{background:transparent;border:1px solid var(--cb);color:var(--muted);border-radius:2px;cursor:pointer;font-size:0.48rem;padding:1px 3px;line-height:1;}
-.mb:hover{color:var(--gold);}
-.pd{font-family:'Cinzel',serif;font-size:0.48rem;color:var(--gold);opacity:.7;min-width:42px;flex-shrink:0;}
-.tb{font-size:0.42rem;font-family:'Cinzel',serif;letter-spacing:.06em;padding:2px 5px;color:#fff;border-radius:2px;flex-shrink:0;opacity:.85;white-space:nowrap;}
-.pt{flex:1;font-size:0.82rem;color:var(--parchment);line-height:1.2;cursor:pointer;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.pn{font-size:0.58rem;color:var(--gold);font-style:italic;margin-left:5px;}
-.stb{font-size:0.42rem;font-family:'Cinzel',serif;letter-spacing:.06em;padding:2px 6px;border-radius:8px;border:1px solid;flex-shrink:0;white-space:nowrap;}
-.ps{display:flex;gap:6px;font-size:0.7rem;flex-shrink:0;}
-.sv2{color:var(--parchment);}
-.sl2{color:var(--muted);font-size:0.5rem;margin-left:1px;}
-.sv2.hs{color:var(--gold);}
-.pa{display:flex;gap:3px;flex-shrink:0;}
-.eb,.db{font-family:'Cinzel',serif;font-size:0.42rem;letter-spacing:.06em;padding:3px 6px;border-radius:2px;cursor:pointer;background:transparent;}
-.eb{border:1px solid var(--cb);color:var(--muted);}
-.db{border:1px solid var(--red);color:var(--red);}
-.pe{padding:0 10px 8px 58px;border-top:1px solid var(--cb);padding-top:7px;display:none;}
-.pe.open{display:block;}
-.pe-cap{font-size:0.76rem;color:var(--sepia-light);font-style:italic;margin-bottom:3px;line-height:1.4;word-break:break-word;}
-.pe-ht{font-size:0.62rem;color:#555;word-break:break-word;}
-.fc{background:var(--card);border:1px solid var(--gold);border-radius:4px;padding:12px;margin-bottom:12px;}
-.fh{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.mbt{background:transparent;border:1px solid #2a2010;color:#9B8060;border-radius:2px;cursor:pointer;font-size:.48rem;padding:1px 3px;line-height:1;}
+.mbt:hover{color:#C9A84C;}
+.pdat{font-family:'Cinzel',serif;font-size:.48rem;color:#C9A84C;opacity:.7;min-width:42px;flex-shrink:0;}
+.tbg{font-size:.42rem;font-family:'Cinzel',serif;letter-spacing:.06em;padding:2px 5px;color:#fff;border-radius:2px;flex-shrink:0;white-space:nowrap;}
+.ptit{flex:1;font-size:.82rem;color:#F5E6C8;line-height:1.2;cursor:pointer;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pno{font-size:.58rem;color:#C9A84C;font-style:italic;margin-left:5px;}
+.stbg{font-size:.42rem;font-family:'Cinzel',serif;letter-spacing:.06em;padding:2px 6px;border-radius:8px;border:1px solid;flex-shrink:0;}
+.pst{display:flex;gap:6px;font-size:.7rem;flex-shrink:0;}
+.psv{color:#F5E6C8;}.psl{color:#9B8060;font-size:.5rem;margin-left:1px;}
+.psv.hs{color:#C9A84C;}
+.pact{display:flex;gap:3px;flex-shrink:0;}
+.ebt{font-family:'Cinzel',serif;font-size:.42rem;padding:3px 6px;border-radius:2px;cursor:pointer;background:transparent;border:1px solid #2a2010;color:#9B8060;}
+.dbt{font-family:'Cinzel',serif;font-size:.42rem;padding:3px 6px;border-radius:2px;cursor:pointer;background:transparent;border:1px solid #8B3A3A;color:#8B3A3A;}
+.pex{padding:6px 10px 8px 58px;border-top:1px solid #2a2010;display:none;}
+.pex.open{display:block;}
+.pexc{font-size:.76rem;color:#8B6840;font-style:italic;margin-bottom:3px;line-height:1.4;word-break:break-word;}
+.pexh{font-size:.62rem;color:#555;word-break:break-word;}
+.fc{background:#1a1208;border:1px solid #C9A84C;border-radius:4px;padding:12px;margin-bottom:12px;}
+.fh{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.14em;color:#C9A84C;text-transform:uppercase;margin-bottom:10px;}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
 .fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;}
 .fg{display:flex;flex-direction:column;gap:3px;}
-.fl{font-size:0.5rem;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;}
-.fi,.fsl,.fta{width:100%;padding:6px 8px;background:#0E0A06;border:1px solid var(--cb);color:var(--parchment);border-radius:3px;font-size:0.82rem;font-family:'Cormorant Garamond',Georgia,serif;}
+.fl{font-size:.5rem;color:#9B8060;letter-spacing:.09em;text-transform:uppercase;}
+.fi,.fsl,.fta{width:100%;padding:6px 8px;background:#0E0A06;border:1px solid #2a2010;color:#F5E6C8;border-radius:3px;font-size:.82rem;font-family:'Cormorant Garamond',Georgia,serif;}
 .fta{resize:vertical;}
-.fsh{font-family:'Cinzel',serif;font-size:0.46rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin:8px 0 5px;opacity:.7;}
+.fsh{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.14em;color:#C9A84C;text-transform:uppercase;margin:8px 0 5px;opacity:.7;}
 .fa{display:flex;gap:6px;margin-top:10px;}
-.svb{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 13px;background:var(--forest);border:1px solid var(--gold);color:var(--parchment);border-radius:3px;cursor:pointer;}
-.cnb{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.1em;padding:6px 13px;background:transparent;border:1px solid var(--cb);color:var(--muted);border-radius:3px;cursor:pointer;}
+.svb{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;padding:6px 13px;background:#2D4A3E;border:1px solid #C9A84C;color:#F5E6C8;border-radius:3px;cursor:pointer;}
+.cnb{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;padding:6px 13px;background:transparent;border:1px solid #2a2010;color:#9B8060;border-radius:3px;cursor:pointer;}
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:100;padding:12px;}
 .mo.open{display:flex;}
-.mb2{background:var(--card);border:1px solid var(--gold);border-radius:6px;padding:16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;}
+.mb{background:#1a1208;border:1px solid #C9A84C;border-radius:6px;padding:16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:7px;margin-bottom:14px;}
-.sc{background:var(--card);border:1px solid var(--cb);border-radius:3px;padding:9px 10px;text-align:center;}
-.sc .sv3{font-family:'Cinzel',serif;font-size:1.0rem;display:block;margin-bottom:2px;}
-.sc .sl3{font-size:0.48rem;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;}
-.bvc{background:var(--card);border:1px solid var(--gold);border-radius:4px;padding:9px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.cc{background:var(--card);border:1px solid var(--cb);border-radius:4px;padding:12px;margin-bottom:12px;}
-.clbl{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;opacity:.8;margin-bottom:10px;display:block;}
+.sc{background:#1a1208;border:1px solid #2a2010;border-radius:3px;padding:9px 10px;text-align:center;}
+.sc .sv2{font-family:'Cinzel',serif;font-size:1rem;display:block;margin-bottom:2px;}
+.sc .sl2{font-size:.48rem;color:#9B8060;letter-spacing:.07em;text-transform:uppercase;}
+.bv{background:#1a1208;border:1px solid #C9A84C;border-radius:4px;padding:9px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;}
+.cc{background:#1a1208;border:1px solid #2a2010;border-radius:4px;padding:12px;margin-bottom:12px;}
+.cl2{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.14em;color:#C9A84C;text-transform:uppercase;opacity:.8;margin-bottom:10px;display:block;}
 .tr{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #1a1208;}
 .tr:last-child{border-bottom:none;}
 .tbb{flex:1;background:#0E0A06;border-radius:2px;height:4px;overflow:hidden;}
-.tbf{height:100%;border-radius:2px;transition:width .4s;}
-.stc{background:var(--card);border:1px solid var(--cb);border-radius:4px;padding:12px 14px;margin-bottom:10px;}
-.stc.gt{border-top:2px solid var(--gold);}
-.stc.ft{border-top:2px solid var(--forest);}
-.sth{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;opacity:.8;margin-bottom:10px;display:block;}
-.ii{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--cb);font-size:0.82rem;color:var(--parchment);line-height:1.5;}
+.tbf{height:100%;border-radius:2px;}
+.stc{background:#1a1208;border:1px solid #2a2010;border-radius:4px;padding:12px 14px;margin-bottom:10px;}
+.stc.gt{border-top:2px solid #C9A84C;}
+.stc.ft{border-top:2px solid #2D4A3E;}
+.sth{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.16em;color:#C9A84C;text-transform:uppercase;opacity:.8;margin-bottom:10px;display:block;}
+.ii{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #2a2010;font-size:.82rem;color:#F5E6C8;line-height:1.5;}
 .ii:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.id2{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px;}
-.is{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:.04em;display:block;margin-bottom:1px;}
-.mr{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #1a1208;font-size:0.78rem;}
+.idot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.is{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.04em;display:block;margin-bottom:1px;}
+.mr{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #1a1208;font-size:.78rem;}
 .mr:last-child{border-bottom:none;}
-.mp{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--gold);min-width:55px;}
-.ml{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--parchment);min-width:140px;flex-shrink:0;}
-.md{font-size:0.7rem;color:var(--muted);font-style:italic;line-height:1.35;}
+.mp{font-family:'Cinzel',serif;font-size:.6rem;color:#C9A84C;min-width:55px;}
+.mlb{font-family:'Cinzel',serif;font-size:.6rem;color:#F5E6C8;min-width:140px;flex-shrink:0;}
+.md{font-size:.7rem;color:#9B8060;font-style:italic;line-height:1.35;}
 .rr{display:flex;gap:8px;align-items:center;padding:4px 0;border-bottom:1px solid #1a1208;}
 .rr:last-child{border-bottom:none;}
-.rm{font-family:'Cinzel',serif;font-size:0.56rem;color:var(--gold);opacity:.8;min-width:66px;flex-shrink:0;}
-.rt{font-family:'Cinzel',serif;font-size:0.65rem;color:var(--parchment);min-width:80px;flex-shrink:0;}
-.rd{font-size:0.7rem;color:var(--muted);font-style:italic;}
-.ri{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--cb);}
+.rm{font-family:'Cinzel',serif;font-size:.56rem;color:#C9A84C;opacity:.8;min-width:66px;flex-shrink:0;}
+.rt{font-family:'Cinzel',serif;font-size:.65rem;color:#F5E6C8;min-width:80px;flex-shrink:0;}
+.rd{font-size:.7rem;color:#9B8060;font-style:italic;}
+.ri{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #2a2010;}
 .ri:last-child{border-bottom:none;}
-.rp{font-family:'Cinzel',serif;font-size:0.9rem;min-width:38px;}
-.rl{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:.03em;margin-bottom:2px;}
-.rd2{font-size:0.72rem;color:var(--muted);font-style:italic;line-height:1.4;}
-.sh-card{background:transparent;border:none;border-left:2px solid var(--gold);border-radius:0;margin-bottom:5px;display:flex;align-items:center;gap:8px;padding:6px 10px;}
-.sh-input{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.16em;color:var(--gold);text-transform:uppercase;opacity:0.8;background:transparent;border:none;outline:none;width:100%;cursor:text;}
-.sh-input:focus{opacity:1;background:rgba(201,168,76,0.05);border-radius:2px;padding:2px 4px;}
-.sh-del{background:transparent;border:none;color:var(--cb);cursor:pointer;font-size:0.6rem;flex-shrink:0;padding:2px 4px;}
-.sh-del:hover{color:var(--red);}
-.add-sh-btn{font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.1em;padding:5px 10px;background:transparent;border:1px dashed var(--cb);color:var(--muted);border-radius:3px;cursor:pointer;margin-bottom:12px;display:block;width:100%;text-align:center;}
-.add-sh-btn:hover{border-color:var(--gold);color:var(--gold);}
+.rp{font-family:'Cinzel',serif;font-size:.9rem;min-width:38px;}
+.rl{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.03em;margin-bottom:2px;}
+.rd2{font-size:.72rem;color:#9B8060;font-style:italic;line-height:1.4;}
 </style>
 </head>
 <body>
 
-<div class="hdr">
-  <div class="hdr-brand">
-    <span class="ey">TheCuratorsDesk</span>
-    <h1>Content Planner</h1>
-  </div>
+<div id="hdr">
+  <div><span class="ey">TheCuratorsDesk</span><h1>Content Planner</h1></div>
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('content')">&#10022; Content</button>
-    <button class="tab" onclick="switchTab('analytics')">&#8599; Analytics</button>
-    <button class="tab" onclick="switchTab('strategy')">&#9672; Strategy</button>
+    <button class="tab active" id="tab-content" onclick="showTab('content')">Content</button>
+    <button class="tab" id="tab-analytics" onclick="showTab('analytics')">Analytics</button>
+    <button class="tab" id="tab-strategy" onclick="showTab('strategy')">Strategy</button>
   </div>
 </div>
 
-<div class="sb">
-  <div class="si"><span class="sv" id="sb-f">22</span><span class="sl">Followers</span></div>
-  <div class="si"><span class="sv" id="sb-e">2</span><span class="sl">Email Subs</span></div>
-  <div class="si"><span class="sv" id="sb-p">1,400</span><span class="sl">Pinterest</span></div>
-  <div class="si"><span class="sv" id="sb-v">-</span><span class="sl">Total Views</span></div>
-  <div class="si"><span class="sv" id="sb-n">-</span><span class="sl">Posted</span></div>
-  <button class="esb" onclick="openAcc()">Edit Stats</button>
+<div id="sb">
+  <div class="si"><span class="sv" id="sbf">45</span><span class="sl">Followers</span></div>
+  <div class="si"><span class="sv" id="sbe">3</span><span class="sl">Email Subs</span></div>
+  <div class="si"><span class="sv" id="sbp">1,400</span><span class="sl">Pinterest</span></div>
+  <div class="si"><span class="sv" id="sbv">-</span><span class="sl">Total Views</span></div>
+  <div class="si"><span class="sv" id="sbn">-</span><span class="sl">Posted</span></div>
+  <button id="esb" onclick="openAcc()">Edit Stats</button>
 </div>
 
-<div class="scroll">
-
-  <!-- CONTENT TAB -->
+<div id="scroll">
   <div class="tp active" id="tp-content">
     <div class="fr">
-      <select id="fs" onchange="render()">
+      <select id="fst" onchange="renderPosts()">
         <option value="all">All Status</option>
         <option value="posted">Posted</option>
         <option value="scheduled">Scheduled</option>
         <option value="planned">Planned</option>
         <option value="deleted">Deleted</option>
       </select>
-      <select id="ft" onchange="render()">
+      <select id="fty" onchange="renderPosts()">
         <option value="all">All Types</option>
         <option value="face">Face Video</option>
-        <option value="educational">Educational Slide</option>
+        <option value="educational">Educational</option>
         <option value="scholar">Scholar Slide</option>
         <option value="latin">Latin Slide</option>
         <option value="product">Product Showcase</option>
         <option value="seasonal">Seasonal</option>
         <option value="other">Other</option>
       </select>
-      <span class="cl" id="pc2"></span>
-      <button class="ab" onclick="openAdd()">+ Add Post</button>
+      <span class="cnt" id="pcnt"></span>
+      <button class="abtn" onclick="openAdd()">+ Add Post</button>
     </div>
+    <button class="shbtn" onclick="addHeader()">+ Add Section Header</button>
     <div class="fc" id="add-form" style="display:none">
       <div class="fh">New Post</div>
       <div class="fg2">
@@ -174,79 +157,66 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
         <div class="fg"><label class="fl">Date</label><input class="fi" id="nf-da" type="date"></div>
         <div class="fg"><label class="fl">Type</label>
           <select class="fsl" id="nf-ty">
-            <option value="face">Face Video</option><option value="educational">Educational Slide</option>
+            <option value="face">Face Video</option><option value="educational">Educational</option>
             <option value="scholar">Scholar Slide</option><option value="latin">Latin Slide</option>
             <option value="product">Product Showcase</option><option value="seasonal">Seasonal</option><option value="other">Other</option>
-          </select>
-        </div>
+          </select></div>
         <div class="fg"><label class="fl">Status</label>
           <select class="fsl" id="nf-st">
             <option value="planned">Planned</option><option value="scheduled">Scheduled</option><option value="posted">Posted</option>
-          </select>
-        </div>
+          </select></div>
       </div>
       <div class="fg" style="margin-top:7px"><label class="fl">Caption</label><textarea class="fta" id="nf-ca" rows="2"></textarea></div>
-      <div class="fg" style="margin-top:7px"><label class="fl">Hashtags</label><input class="fi" id="nf-ha" type="text"></div>
-      <div class="fg" style="margin-top:7px"><label class="fl">Notes</label><input class="fi" id="nf-no" type="text"></div>
-      <div class="fa">
-        <button class="svb" onclick="addPost()">Add Post</button>
-        <button class="cnb" onclick="closeAdd()">Cancel</button>
-      </div>
+      <div class="fg" style="margin-top:7px"><label class="fl">Hashtags</label><input class="fi" id="nf-ha"></div>
+      <div class="fg" style="margin-top:7px"><label class="fl">Notes</label><input class="fi" id="nf-no"></div>
+      <div class="fa"><button class="svb" onclick="addPost()">Add Post</button><button class="cnb" onclick="closeAdd()">Cancel</button></div>
     </div>
-    <button class="add-sh-btn" onclick="addSectionHeader()">+ Add Section Header</button>
     <div id="post-list"></div>
   </div>
 
-  <!-- ANALYTICS TAB -->
   <div class="tp" id="tp-analytics">
-    <div class="sg" id="sum-grid"></div>
-    <div class="bvc" id="best-v"></div>
-    <div class="cc"><span class="clbl">Per-Video Performance - Last 12 Posted</span><canvas id="bar-c" height="110"></canvas></div>
-    <div class="cc"><span class="clbl">Views Growth Over Time</span><canvas id="line-c" height="90"></canvas></div>
-    <div class="cc"><span class="clbl">Average Performance by Content Type</span><div id="type-bd"></div></div>
+    <div class="sg" id="sg"></div>
+    <div class="bv" id="bv"></div>
+    <div class="cc"><span class="cl2">Per-Video Performance - Last 12 Posted</span><canvas id="bar-c" height="110"></canvas></div>
+    <div class="cc"><span class="cl2">Views Growth Over Time</span><canvas id="line-c" height="90"></canvas></div>
+    <div class="cc"><span class="cl2">Average by Content Type</span><div id="tbd"></div></div>
   </div>
 
-  <!-- STRATEGY TAB -->
   <div class="tp" id="tp-strategy">
-    <div class="stc gt"><span class="sth">Live Insights - Auto-updated from your data</span><div id="insights"></div></div>
+    <div class="stc gt"><span class="sth">Live Insights</span><div id="ins"></div></div>
     <div class="stc">
       <span class="sth">Weekly Theme Template</span>
-      <div class="ii"><div class="id2" style="background:var(--forest)"></div><div><span class="is" style="color:var(--forest)">Post 1 - Educational Slide</span>What is this product, why scholars use it, the history or practice behind it. Targets search and gets saves.</div></div>
-      <div class="ii"><div class="id2" style="background:var(--sepia-light)"></div><div><span class="is" style="color:var(--sepia-light)">Post 2 - Scholar Slide</span>A scholar linked to that week's product theme. Gives the week credibility and broader reach.</div></div>
-      <div class="ii"><div class="id2" style="background:var(--purple)"></div><div><span class="is" style="color:var(--purple)">Post 3 - Face Video Showcase</span>Audience is warm and educated. The face video converts that warm audience into buyers.</div></div>
+      <div class="ii"><div class="idot" style="background:#2D4A3E"></div><div><span class="is" style="color:#2D4A3E">Post 1 - Educational Slide</span>What the product is, why scholars use it, the practice behind it. Targets search, generates saves.</div></div>
+      <div class="ii"><div class="idot" style="background:#8B6840"></div><div><span class="is" style="color:#8B6840">Post 2 - Scholar Slide</span>A scholar linked to that week product theme. Gives the week credibility and broader reach.</div></div>
+      <div class="ii"><div class="idot" style="background:#7B5EA7"></div><div><span class="is" style="color:#7B5EA7">Post 3 - Face Video</span>Audience is warm and educated. The face video converts that warm audience into buyers.</div></div>
     </div>
-    <div class="stc">
-      <span class="sth">Target Content Ratio</span>
-      <div class="ri"><div class="rp" style="color:var(--forest)">60%</div><div><div class="rl" style="color:var(--forest)">Educational</div><div class="rd2">Scholar history, educational product slides, commonplace book content - your highest-performing category.</div></div></div>
-      <div class="ri"><div class="rp" style="color:var(--blue)">25%</div><div><div class="rl" style="color:var(--blue)">Lead Magnet and Face Videos</div><div class="rd2">Free reading log, journal face videos - builds trust and grows email list.</div></div></div>
-      <div class="ri"><div class="rp" style="color:var(--sepia)">15%</div><div><div class="rl" style="color:var(--sepia)">Product Showcase</div><div class="rd2">Only after educational context is set. Never post a product showcase without an educational slide first.</div></div></div>
+    <div class="stc"><span class="sth">Content Ratio</span>
+      <div class="ri"><div class="rp" style="color:#2D4A3E">60%</div><div><div class="rl" style="color:#2D4A3E">Educational</div><div class="rd2">Scholar history, educational product slides - your highest performing category.</div></div></div>
+      <div class="ri"><div class="rp" style="color:#4A6B8B">25%</div><div><div class="rl" style="color:#4A6B8B">Face Videos and Lead Magnet</div><div class="rd2">Journal face videos, free reading log - builds trust and grows email list.</div></div></div>
+      <div class="ri"><div class="rp" style="color:#6B4C2A">15%</div><div><div class="rl" style="color:#6B4C2A">Product Showcase</div><div class="rd2">Only after educational context is set. Never post a product without an educational slide first.</div></div></div>
     </div>
-    <div class="stc ft"><span class="sth">Key Unlocks - What Changes Everything</span><div id="unlocks"></div></div>
-    <div class="stc"><span class="sth">Revenue Milestones - Target $3,000/mo by Jun 2027</span><div id="revenue"></div></div>
+    <div class="stc ft"><span class="sth">Key Unlocks</span><div id="unl"></div></div>
+    <div class="stc"><span class="sth">Revenue Milestones - Target 3000/mo by Jun 2027</span><div id="rev"></div></div>
   </div>
-
 </div>
 
-<!-- EDIT MODAL -->
 <div class="mo" id="edit-mo">
-  <div class="mb2">
+  <div class="mb">
     <div class="fh">Edit Post</div>
     <div class="fg2">
       <div class="fg"><label class="fl">Title</label><input class="fi" id="ef-ti" type="text"></div>
       <div class="fg"><label class="fl">Date</label><input class="fi" id="ef-da" type="date"></div>
       <div class="fg"><label class="fl">Type</label>
         <select class="fsl" id="ef-ty">
-          <option value="face">Face Video</option><option value="educational">Educational Slide</option>
+          <option value="face">Face Video</option><option value="educational">Educational</option>
           <option value="scholar">Scholar Slide</option><option value="latin">Latin Slide</option>
           <option value="product">Product Showcase</option><option value="seasonal">Seasonal</option><option value="other">Other</option>
-        </select>
-      </div>
+        </select></div>
       <div class="fg"><label class="fl">Status</label>
         <select class="fsl" id="ef-st">
           <option value="planned">Planned</option><option value="scheduled">Scheduled</option>
           <option value="posted">Posted</option><option value="deleted">Deleted</option>
-        </select>
-      </div>
+        </select></div>
     </div>
     <div class="fsh">Analytics</div>
     <div class="fg3">
@@ -255,18 +225,14 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
       <div class="fg"><label class="fl">Saves</label><input class="fi" id="ef-sa" type="number" min="0"></div>
     </div>
     <div class="fg" style="margin-top:7px"><label class="fl">Caption</label><textarea class="fta" id="ef-ca" rows="2"></textarea></div>
-    <div class="fg" style="margin-top:7px"><label class="fl">Hashtags</label><input class="fi" id="ef-ha" type="text"></div>
-    <div class="fg" style="margin-top:7px"><label class="fl">Notes</label><input class="fi" id="ef-no" type="text"></div>
-    <div class="fa">
-      <button class="svb" onclick="saveEdit()">Save Changes</button>
-      <button class="cnb" onclick="closeEdit()">Cancel</button>
-    </div>
+    <div class="fg" style="margin-top:7px"><label class="fl">Hashtags</label><input class="fi" id="ef-ha"></div>
+    <div class="fg" style="margin-top:7px"><label class="fl">Notes</label><input class="fi" id="ef-no"></div>
+    <div class="fa"><button class="svb" onclick="saveEdit()">Save Changes</button><button class="cnb" onclick="closeEdit()">Cancel</button></div>
   </div>
 </div>
 
-<!-- ACCOUNT MODAL -->
 <div class="mo" id="acc-mo">
-  <div class="mb2">
+  <div class="mb">
     <div class="fh">Update Account Stats</div>
     <div style="display:flex;flex-direction:column;gap:7px">
       <div class="fg"><label class="fl">TikTok Followers</label><input class="fi" id="am-f" type="number" min="0"></div>
@@ -274,490 +240,324 @@ body{background:var(--bg);font-family:'Cormorant Garamond',Georgia,serif;color:v
       <div class="fg"><label class="fl">Pinterest Monthly Views</label><input class="fi" id="am-p" type="number" min="0"></div>
       <div class="fg"><label class="fl">Etsy Daily Views</label><input class="fi" id="am-et" type="number" min="0"></div>
     </div>
-    <div class="fa">
-      <button class="svb" onclick="saveAcc()">Save</button>
-      <button class="cnb" onclick="closeAcc()">Cancel</button>
-    </div>
+    <div class="fa"><button class="svb" onclick="saveAcc()">Save</button><button class="cnb" onclick="closeAcc()">Cancel</button></div>
   </div>
 </div>
 
 <script>
-var TC = {face:'#7B5EA7',educational:'#2D4A3E',scholar:'#8B6840',latin:'#C9A84C',product:'#4A6B8B',seasonal:'#8B3A3A',other:'#555'};
-var TL = {face:'Face Video',educational:'Educational Slide',scholar:'Scholar Slide',latin:'Latin Slide',product:'Product Showcase',seasonal:'Seasonal',other:'Other'};
-var SC = {posted:'#2D4A3E',scheduled:'#4A6B8B',planned:'#555',deleted:'#8B3A3A'};
-var SL = {posted:'Posted',scheduled:'Scheduled',planned:'Planned',deleted:'Deleted'};
+var TC={face:'#7B5EA7',educational:'#2D4A3E',scholar:'#8B6840',latin:'#C9A84C',product:'#4A6B8B',seasonal:'#8B3A3A',other:'#555'};
+var TL={face:'Face Video',educational:'Educational Slide',scholar:'Scholar Slide',latin:'Latin Slide',product:'Product Showcase',seasonal:'Seasonal',other:'Other'};
+var SC={posted:'#2D4A3E',scheduled:'#4A6B8B',planned:'#555',deleted:'#8B3A3A'};
+var SL={posted:'Posted',scheduled:'Scheduled',planned:'Planned',deleted:'Deleted'};
 
-function makePost(id,date,title,type,status,views,likes,saves,caption,hashtags,notes){
+function mk(id,date,title,type,status,views,likes,saves,caption,hashtags,notes){
   return {id:id,date:date,title:title,type:type,status:status,views:views,likes:likes,saves:saves,caption:caption,hashtags:hashtags,notes:notes};
 }
+function hd(id,title){return mk(id,'',title,'__header__','',0,0,0,'','','');}
 
-var DP = [
-  makePost('p1','2024-06-26','Stickers on Companion iPad','product','posted',191,12,5,'','#darkacademia #scholaraesthetic','iPad format discontinued'),
-  makePost('p2','2024-06-30','Latin word stickers iPad','product','posted',164,5,1,'','#darkacademia #scholaraesthetic','iPad format discontinued'),
-  makePost('p3','2024-07-01','Festina Lente slides','latin','posted',108,3,0,'','#darkacademia #latinwords','Hook too weak'),
-  makePost('p4','2024-07-03','Reasons to Journal slides','educational','posted',496,12,8,'','#darkacademia #scholaraesthetic',''),
-  makePost('p5','2024-07-06','Bookmarks Vol. I creation','product','posted',407,20,4,'','#darkacademia #etsyseller','1 purchase-intent comment'),
-  makePost('p6','2024-07-10','Thomas Jefferson slides','scholar','posted',906,40,12,'the Declaration of Independence grew from a habit he started at 15','#darkacademia #scholaraesthetic','Best video #2 all time'),
-  makePost('p7','2024-07-12','Autumn Reading Journal','product','posted',253,8,2,'','#darkacademia #autumnreading',''),
-  makePost('p8','2024-07-14','C.S. Lewis slides','scholar','posted',454,11,1,'','#darkacademia #scholaraesthetic',''),
-  makePost('p9','2024-07-17','Reading Challenge iPad digital','product','posted',164,5,0,'','#darkacademia #readingchallenge','iPad format discontinued'),
-  makePost('p10','2024-07-18','Free Reading Log slides','educational','posted',595,15,6,'','#darkacademia #scholaraesthetic','Pinned #1'),
-  makePost('p11','2024-07-22','Blaise Pascal slides','scholar','posted',302,5,0,'','#darkacademia #scholaraesthetic','Name recognition issue'),
-  makePost('p12','2024-07-30','Francis Bacon slides','scholar','posted',548,28,8,'he wrote one sentence in 1597 that still describes why serious readers journal','#darkacademia #francisbacon','148% above account average'),
-  makePost('p13','2024-08-01','Bookmarks Vol. II slides','product','posted',204,8,1,'','#darkacademia #etsyseller',''),
-  makePost('p14','2024-08-03','Commonplace Educational slides','educational','posted',655,31,19,'','#darkacademia #commonplacebook',''),
-  makePost('p15','2024-08-05','Reading Journal picture slides','product','posted',168,4,0,'','#darkacademia #readingjournal','No edu context before - underperformed'),
-  makePost('p16','2024-08-07','Carpe Diem slides','latin','posted',197,5,0,'carpe diem doesnt mean seize the day','#darkacademia #latinwords','Hook needs strengthening'),
-  makePost('p17','2024-08-11','Commonplace Not a Diary slides','educational','posted',922,43,38,'most people journal their feelings - scholars journal their ideas','#darkacademia #commonplacebook','BEST EVER - 38 saves'),
-  makePost('p18','2024-08-13','Commonplace showcase voiceover','product','posted',142,4,1,'','#darkacademia #commonplacebook','Voiceover without face underperforms'),
-  makePost('p19','2024-08-15','Before Google Commonplace slides','educational','posted',202,6,5,'','#darkacademia #commonplacebook',''),
-  makePost('p20','2024-08-17','Commonplace page flip video','product','posted',171,3,0,'','#darkacademia #commonplacebook',''),
-  makePost('p21','2024-08-19','Brand Introduction face video','face','scheduled',0,0,0,'literary goods for the reader who takes their inner life seriously','#darkacademia #scholaraesthetic #thecuratorsdesk #booktok','PIN IMMEDIATELY after posting'),
-  makePost('p22','2024-08-21','Classicist Companion showcase slides','product','scheduled',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic #journalwithme #booktok','Replaced face video - face video is in wk1c Aug 29'),
-  makePost('p23','2024-08-23','Sapere Aude Latin slide','latin','scheduled',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords #sapereAude #scholaraesthetic',''),
-  makePost('wk1a','2024-08-25',"What is the Classicist's Companion - Educational",'educational','planned',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic #journalwithme #studytok','Week: Classicists Companion'),
-  makePost('wk1b','2024-08-27','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #boethius #scholaraesthetic #studytok','Week: Classicists Companion'),
-  makePost('wk1c','2024-08-29',"Classicist's Companion face video",'face','planned',0,0,0,'the journal built for the reader who thinks seriously - not just reads','#darkacademia #scholaraesthetic #journalwithme #booktok','Week: Classicists Companion'),
-  makePost('wk2a','2024-08-31','How to start a Commonplace Book - Educational','educational','planned',0,0,0,'how to start a commonplace book today - the scholars 5-step method','#darkacademia #commonplacebook #journalwithme #scholaraesthetic','Week: Commonplace Book'),
-  makePost('wk2b','2024-09-02','John Milton scholar slide','scholar','planned',0,0,0,'he went blind and wrote 10565 lines from memory','#darkacademia #johnmilton #paradiselost #scholaraesthetic','Week: Commonplace Book'),
-  makePost('wk2c','2024-09-04',"Scholar's Commonplace Book face video",'face','planned',0,0,0,'Jefferson kept one. Darwin kept one - this is yours','#darkacademia #commonplacebook #scholaraesthetic #booktok','Week: Commonplace Book - most important face video'),
-  makePost('wk3a','2024-09-06','Why serious readers track their books - Educational','educational','planned',0,0,0,'science says you forget 70% of what you read within 24 hours - unless you write it down','#darkacademia #readingchallenge #booktok #scholaraesthetic','Week: Reading Challenge'),
-  makePost('wk3b','2024-09-08','Augustine of Hippo scholar slide','scholar','planned',0,0,0,'he wrote the worlds first autobiography - addressed directly to God','#darkacademia #augustine #scholaraesthetic #studytok','Week: Reading Challenge'),
-  makePost('wk3c','2024-09-10',"Scholar's Reading Challenge face video",'face','planned',0,0,0,'50 books. one year. writing the goal down changes everything','#darkacademia #readingchallenge #booktok #scholaraesthetic','Week: Reading Challenge'),
-  makePost('lat1','2024-09-11','Dum Spiro Spero Latin slide','latin','planned',0,0,0,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords #dumspirospero #scholaraesthetic','Latin palette cleanser'),
-  makePost('wk4a','2024-09-13','Why scholars journaled every morning - Educational','educational','planned',0,0,0,'Marcus Aurelius wrote the Meditations before the demands of the day began','#darkacademia #morningroutine #journalwithme #scholaraesthetic','Week: Morning Reflection'),
-  makePost('wk4b','2024-09-15','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #insilentioetspe #christianfaith','Week: Morning Reflection - faith theme'),
-  makePost('wk4c','2024-09-17','Morning Reflection Journal face video','face','planned',0,0,0,'the scholars who journaled in the mornings said it sharpened everything else','#darkacademia #morningroutine #journalwithme #scholaraesthetic','Week: Morning Reflection'),
-  makePost('wk5a','2024-09-19','Why reading without writing is half the work - Educational','educational','planned',0,0,0,'you finish the book. a week later you remember almost none of it - here is the fix','#darkacademia #readingjournal #booktok #scholaraesthetic','Week: Classicists Reading Journal'),
-  makePost('wk5b','2024-09-21','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords #nosceteipsum #scholaraesthetic','Latin palette cleanser'),
-  makePost('wk5c','2024-09-23',"Classicist's Reading Journal face video",'face','planned',0,0,0,'reading without writing is half the work - this is the other half','#darkacademia #readingjournal #booktok #scholaraesthetic','Week: Classicists Reading Journal'),
-  makePost('wk6a','2024-09-25','Reading seasonally - the Autumn Scholar tradition - Educational','educational','planned',0,0,0,'there is a season made for reading - and the scholars who lived by it read more','#darkacademia #autumnreading #scholaraesthetic #booktok','Week: Autumn Reading Journal'),
-  makePost('wk6b','2024-09-27','Autumn Scholar season opener','seasonal','planned',0,0,0,'Autumn Scholar season is here - the reading list gets longer and the light gets better','#darkacademia #autumnreading #scholaraesthetic #autumnaesthetic','Desk setup - candle, warm light'),
-  makePost('wk6c','2024-09-29','Autumn Reading Journal face video','face','planned',0,0,0,'a reading journal built for the season when you want to read more intentionally','#darkacademia #autumnreading #readingjournal #scholaraesthetic','Week: Autumn Reading Journal'),
-  makePost('adv1','2024-10-02','What is Advent and why scholars kept it - Educational','educational','planned',0,0,0,'Advent was never meant to be busy — 1500 years of scholars kept it intentionally and here is how','#darkacademia #advent #christianfaith #scholaraesthetic #journalwithme','Advent edu slide — moved early so gifting season buyers discover it in time'),
-  makePost('wk7a','2024-10-04','How scholars planned their weeks - Educational','educational','planned',0,0,0,'the difference between a productive week and an intentional one','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
-  makePost('wk7b','2024-10-06','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin #scholaraesthetic #studytok','Week: Weekly Planner - perfect scholar match'),
-  makePost('wk7c','2024-10-08',"Scholar's Weekly Planner face video",'face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner #scholaraesthetic','Week: Weekly Planner'),
-  makePost('wk8a','2024-10-09','The TBR list that never gets read - Educational','educational','planned',0,0,0,'why serious readers keep a dedicated TBR - and how it changes what you actually read','#darkacademia #tbrjournal #booktok #scholaraesthetic','Week: Autumn TBR Journal'),
-  makePost('wk8b','2024-10-11','Virginia Woolf scholar slide','scholar','planned',0,0,0,'she kept reading lists journals and diaries her entire life - and published 9 novels','#darkacademia #virginiawoolf #scholaraesthetic #booktok','Week: Autumn TBR - prolific reader and writer'),
-  makePost('wk8c','2024-10-13','Autumn TBR Journal face video','face','planned',0,0,0,'a home for the reading list that never gets read - no shame just organisation','#darkacademia #tbrjournal #autumnreading #booktok','Week: Autumn TBR Journal'),
-  makePost('intro1','2024-09-05','New Arrivals - All Language Journals plus Omnibus unboxing','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #scholaraesthetic #booktok #stationery','Event moment - film Aug 24 on arrival day. Hint Vol I-VIII is coming.'),
-  makePost('wk9a','2024-10-16','Why Koine Greek matters to scholars - Educational','educational','planned',0,0,0,'the language the New Testament was written in - and why learning it changes how you read scripture','#darkacademia #koinGreek #languagelearning #scholaraesthetic #christianfaith','Week: Koine Greek Journal'),
-  makePost('wk9b','2024-10-18','Erasmus scholar slide','scholar','planned',0,0,0,'he spent 20 years learning Greek so he could read the New Testament in its original language','#darkacademia #erasmus #scholaraesthetic #studytok','Week: Koine Greek - perfect scholar match'),
-  makePost('wk9c','2024-10-20','Koine Greek Language Journal face video','face','planned',0,0,0,'90 days of studying the language of the New Testament - one word at a time','#darkacademia #koinGreek #languagejournal #scholaraesthetic #christianfaith','Week: Koine Greek - new Lulu product'),
-  makePost('wk10a','2024-10-23','Why Old English is the scholars hidden language - Educational','educational','planned',0,0,0,'the language of Beowulf and the Anglo-Saxon Chronicle - why serious scholars still study it','#darkacademia #oldEnglish #languagelearning #scholaraesthetic','Week: Old English Journal'),
-  makePost('wk10b','2024-10-25','J.R.R. Tolkien scholar slide','scholar','planned',0,0,0,'he was a professor of Old English at Oxford - and used it to build Middle Earth','#darkacademia #tolkien #scholaraesthetic #studytok','Week: Old English - huge name recognition'),
-  makePost('wk10c','2024-10-27','Old English Language Journal face video','face','planned',0,0,0,'90 days of the language that shaped the English we speak - one word at a time','#darkacademia #oldEnglish #languagejournal #scholaraesthetic','Week: Old English - new Lulu product'),
-  makePost('wk11a','2024-10-30','Why Biblical Hebrew is worth studying - Educational','educational','planned',0,0,0,'the language the Old Testament was written in - and what you gain when you study it','#darkacademia #biblicalHebrew #languagelearning #scholaraesthetic #christianfaith','Week: Hebrew Journal'),
-  makePost('wk11b','2024-11-01','C.S. Lewis scholar slide','scholar','planned',0,0,0,'he taught himself Hebrew in his 50s to read the Psalms in their original language','#darkacademia #cslewis #scholaraesthetic #christianfaith','Week: Hebrew - faith and scholarship angle'),
-  makePost('wk11c','2024-11-03','Hebrew Language Journal face video','face','planned',0,0,0,'90 days studying the language of the Old Testament - one word at a time','#darkacademia #biblicalHebrew #languagejournal #scholaraesthetic #christianfaith','Week: Hebrew - new Lulu product'),
-  makePost('wk12a','2024-11-06','What is a Curiosity Journal - Educational','educational','planned',0,0,0,'90 concepts across 5 disciplines - the journal built for the lifelong learner','#darkacademia #curiosityjournal #scholaraesthetic #studytok #lifelonglearning','Week: Curiosity Journal Omnibus'),
-  makePost('wk12b','2024-11-08','Leonardo da Vinci scholar slide','scholar','planned',0,0,0,'he kept notebooks on anatomy engineering art and philosophy - all at once. we call that curiosity.','#darkacademia #leonardodavinci #scholaraesthetic #studytok','Week: Omnibus - curiosity across disciplines'),
-  makePost('wk12c','2024-11-10','Curiosity Journal Omnibus face video','face','planned',0,0,0,'90 concepts. 5 disciplines. one journal built for the lifelong learner - and Vol I-VIII is coming.','#darkacademia #curiosityjournal #scholaraesthetic #booktok','Hint Vol I-VIII launches Jan 2027'),
-  makePost('gift1','2024-11-13',"Bundle 1 - The Reader's Bundle",'face','planned',0,0,0,'the perfect gift for the serious reader - the scholars reading bundle','#darkacademia #giftideas #booktok #scholaraesthetic #christmasgifts','Commonplace Book + Classicists Reading Journal + Bookmarks Vol. I'),
-  makePost('lat2','2024-11-15','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords #nosceteipsum #scholaraesthetic','Latin palette cleanser - gifting season'),
-  makePost('gift2','2024-11-17','Bundle 2 - The Morning Scholar Bundle','face','planned',0,0,0,'the gift for someone who wants to start their days more intentionally','#darkacademia #giftideas #journalwithme #scholaraesthetic #christmasgifts','Morning Reflection Journal + Weekly Planner'),
-  makePost('gift3','2024-11-21','Bundle 3 - The Language Scholar Bundle','face','planned',0,0,0,'for the student seminarian or classical scholar on your list','#darkacademia #giftideas #languagejournal #scholaraesthetic #christmasgifts','Language Journal plus Classicists Companion'),
-  makePost('gift4','2024-11-25','Bundle 4 - The Autumn Reading Bundle','face','planned',0,0,0,'for the reader who reads seasonally and loves the aesthetic','#darkacademia #giftideas #autumnreading #scholaraesthetic #christmasgifts','Autumn Reading Journal + Autumn TBR + Bookmarks'),
-  makePost('lat3','2024-11-29','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #insilentioetspe #christianfaith #scholaraesthetic','Latin cleanser - Advent season timing')
+var DEFAULTS=[
+  hd('h1','Posted History'),
+  mk('p1','2024-06-26','Stickers on Companion iPad','product','posted',191,12,5,'','#darkacademia','iPad format discontinued'),
+  mk('p2','2024-06-30','Latin word stickers iPad','product','posted',164,5,1,'','#darkacademia','iPad discontinued'),
+  mk('p3','2024-07-01','Festina Lente slides','latin','posted',108,3,0,'','#darkacademia #latinwords','Hook too weak'),
+  mk('p4','2024-07-03','Reasons to Journal slides','educational','posted',496,12,8,'','#darkacademia',''),
+  mk('p5','2024-07-06','Bookmarks Vol. I creation','product','posted',407,20,4,'','#darkacademia #etsyseller','Purchase-intent comment'),
+  mk('p6','2024-07-10','Thomas Jefferson slides','scholar','posted',906,40,12,'the Declaration of Independence grew from a habit he started at 15','#darkacademia','Best video #2'),
+  mk('p7','2024-07-12','Autumn Reading Journal showcase','product','posted',253,8,2,'','#darkacademia',''),
+  mk('p8','2024-07-14','C.S. Lewis slides','scholar','posted',454,11,1,'','#darkacademia',''),
+  mk('p9','2024-07-17','Reading Challenge iPad digital','product','posted',164,5,0,'','#darkacademia','iPad discontinued'),
+  mk('p10','2024-07-18','Free Reading Log slides','educational','posted',595,15,6,'','#darkacademia','Pinned #1'),
+  mk('p11','2024-07-22','Blaise Pascal slides','scholar','posted',302,5,0,'','#darkacademia','Name recognition issue'),
+  mk('p12','2024-07-30','Francis Bacon slides','scholar','posted',548,28,8,'he wrote one sentence in 1597 that still describes why serious readers journal','#darkacademia','148% above average'),
+  mk('p13','2024-08-01','Bookmarks Vol. II slides','product','posted',204,8,1,'','#darkacademia',''),
+  mk('p14','2024-08-03','Commonplace Educational slides','educational','posted',655,31,19,'','#darkacademia #commonplacebook',''),
+  mk('p15','2024-08-05','Reading Journal picture slides','product','posted',168,4,0,'','#darkacademia','No edu context - underperformed'),
+  mk('p16','2024-08-07','Carpe Diem slides','latin','posted',197,5,0,'','#darkacademia #latinwords',''),
+  mk('p17','2024-08-11','Commonplace Not a Diary slides','educational','posted',922,43,38,'most people journal their feelings - scholars journal their ideas','#darkacademia #commonplacebook','BEST EVER 38 saves'),
+  mk('p18','2024-08-13','Commonplace showcase voiceover','product','posted',142,4,1,'','#darkacademia','Voiceover without face underperforms'),
+  mk('p19','2024-08-15','Before Google Commonplace slides','educational','posted',202,6,5,'','#darkacademia #commonplacebook',''),
+  mk('p20','2024-08-17','Commonplace page flip video','product','posted',171,3,0,'','#darkacademia',''),
+  mk('p21','2024-08-19','Brand Introduction face video','face','posted',342,23,3,'literary goods for the reader who takes their inner life seriously','#darkacademia #thecuratorsdesk','PIN. +14 followers'),
+  mk('p22','2024-08-21','Classicist Companion showcase slides','product','posted',173,1,0,'','#darkacademia','No edu context - 1 like 0 saves'),
+  mk('p23','2024-08-23','Sapere Aude Latin slide','latin','scheduled',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords',''),
+  hd('h2','Week: Classicists Companion'),
+  mk('wk1a','2024-08-25',"Classicist's Companion - Educational slide",'educational','planned',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic',''),
+  mk('wk1b','2024-08-27','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #boethius',''),
+  mk('wk1c','2024-08-29',"Classicist's Companion face video",'face','planned',0,0,0,'the journal built for the reader who thinks seriously - not just reads','#darkacademia #scholaraesthetic #booktok',''),
+  hd('h3','Week: Commonplace Book'),
+  mk('wk2a','2024-08-31','How to start a Commonplace Book - Educational','educational','planned',0,0,0,'how to start a commonplace book today - the scholars 5-step method','#darkacademia #commonplacebook',''),
+  mk('wk2b','2024-09-02','John Milton scholar slide','scholar','planned',0,0,0,'he went blind and wrote 10565 lines from memory','#darkacademia #johnmilton',''),
+  mk('wk2c','2024-09-04',"Scholar's Commonplace Book face video",'face','planned',0,0,0,'Jefferson kept one. Darwin kept one - this is yours','#darkacademia #commonplacebook #booktok','Most important face video'),
+  hd('h-lang','New Arrivals: Language Journals + Omnibus'),
+  mk('intro1','2024-09-05','New Arrivals - Language Journals plus Omnibus unboxing','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #booktok','Film Aug 24. Event moment. Hint Vol I-VIII coming.'),
+  hd('h4','Week: Reading Challenge'),
+  mk('wk3a','2024-09-06','Why serious readers track their books - Educational','educational','planned',0,0,0,'science says you forget 70% of what you read within 24 hours - unless you write it down','#darkacademia #readingchallenge',''),
+  mk('wk3b','2024-09-08','Augustine of Hippo scholar slide','scholar','planned',0,0,0,'he wrote the worlds first autobiography - addressed directly to God','#darkacademia #augustine',''),
+  mk('wk3c','2024-09-10',"Scholar's Reading Challenge face video",'face','planned',0,0,0,'50 books. one year. writing the goal down changes everything','#darkacademia #readingchallenge #booktok',''),
+  mk('lat1','2024-09-11','Dum Spiro Spero Latin slide','latin','planned',0,0,0,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords','Latin palette cleanser'),
+  hd('h5','Week: Morning Reflection Journal'),
+  mk('wk4a','2024-09-13','Why scholars journaled every morning - Educational','educational','planned',0,0,0,'Marcus Aurelius wrote the Meditations before the demands of the day began','#darkacademia #morningroutine',''),
+  mk('wk4b','2024-09-15','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #christianfaith','Faith theme'),
+  mk('wk4c','2024-09-17','Morning Reflection Journal face video','face','planned',0,0,0,'the scholars who journaled in the mornings said it sharpened everything else','#darkacademia #morningroutine #journalwithme',''),
+  hd('h6','Week: Classicists Reading Journal'),
+  mk('wk5a','2024-09-19','Why reading without writing is half the work - Educational','educational','planned',0,0,0,'you finish the book. a week later you remember almost none of it - here is the fix','#darkacademia #readingjournal #booktok',''),
+  mk('wk5b','2024-09-21','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords','Latin palette cleanser'),
+  mk('wk5c','2024-09-23',"Classicist's Reading Journal face video",'face','planned',0,0,0,'reading without writing is half the work - this is the other half','#darkacademia #readingjournal #booktok',''),
+  hd('h7','Week: Autumn Reading Journal'),
+  mk('wk6a','2024-09-25','Reading seasonally - the Autumn Scholar tradition - Educational','educational','planned',0,0,0,'there is a season made for reading - and the scholars who lived by it read more','#darkacademia #autumnreading #booktok',''),
+  mk('wk6b','2024-09-27','Autumn Scholar season opener','seasonal','planned',0,0,0,'Autumn Scholar season is here - the reading list gets longer','#darkacademia #autumnreading','Desk setup candle warm light'),
+  mk('wk6c','2024-09-29','Autumn Reading Journal face video','face','planned',0,0,0,'a reading journal built for the season when you want to read more intentionally','#darkacademia #autumnreading #readingjournal',''),
+  hd('h-adv','Advent Calendar - Early Intro'),
+  mk('adv1','2024-10-02','What is Advent and why scholars kept it - Educational','educational','planned',0,0,0,'Advent was never meant to be busy - 1500 years of scholars kept it intentionally','#darkacademia #advent #christianfaith','Early so gifting buyers discover in time'),
+  hd('h8','Week: Weekly Planner'),
+  mk('wk7a','2024-10-04','How scholars planned their weeks - Educational','educational','planned',0,0,0,'the difference between a productive week and an intentional one','#darkacademia #planwithme #weeklyplanner',''),
+  mk('wk7b','2024-10-06','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin','Perfect for planner week'),
+  mk('wk7c','2024-10-08',"Scholar's Weekly Planner face video",'face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner',''),
+  hd('h9','Week: Autumn TBR Journal'),
+  mk('wk8a','2024-10-09','The TBR list that never gets read - Educational','educational','planned',0,0,0,'why serious readers keep a dedicated TBR - and how it changes what you actually read','#darkacademia #tbrjournal #booktok',''),
+  mk('wk8b','2024-10-11','Virginia Woolf scholar slide','scholar','planned',0,0,0,'she kept reading lists journals and diaries her entire life - and published 9 novels','#darkacademia #virginiawoolf #booktok',''),
+  mk('wk8c','2024-10-13','Autumn TBR Journal face video','face','planned',0,0,0,'a home for the reading list that never gets read - no shame just organisation','#darkacademia #tbrjournal #booktok',''),
+  hd('h10','Week: Koine Greek Language Journal'),
+  mk('wk9a','2024-10-16','Why Koine Greek matters to scholars - Educational','educational','planned',0,0,0,'the language the New Testament was written in - and why learning it changes how you read scripture','#darkacademia #koinGreek #christianfaith',''),
+  mk('wk9b','2024-10-18','Erasmus scholar slide','scholar','planned',0,0,0,'he spent 20 years learning Greek so he could read the New Testament in its original language','#darkacademia #erasmus',''),
+  mk('wk9c','2024-10-20','Koine Greek Language Journal face video','face','planned',0,0,0,'90 days of studying the language of the New Testament - one word at a time','#darkacademia #koinGreek #christianfaith','New Lulu product'),
+  hd('h11','Week: Old English Language Journal'),
+  mk('wk10a','2024-10-23','Why Old English is the scholars hidden language - Educational','educational','planned',0,0,0,'the language of Beowulf - why serious scholars still study it','#darkacademia #oldEnglish',''),
+  mk('wk10b','2024-10-25','J.R.R. Tolkien scholar slide','scholar','planned',0,0,0,'he was a professor of Old English at Oxford - and used it to build Middle Earth','#darkacademia #tolkien','Huge name recognition'),
+  mk('wk10c','2024-10-27','Old English Language Journal face video','face','planned',0,0,0,'90 days of the language that shaped the English we speak','#darkacademia #oldEnglish','New Lulu product'),
+  hd('h12','Week: Hebrew Language Journal'),
+  mk('wk11a','2024-10-30','Why Biblical Hebrew is worth studying - Educational','educational','planned',0,0,0,'the language the Old Testament was written in - what you gain when you study it','#darkacademia #biblicalHebrew #christianfaith',''),
+  mk('wk11b','2024-11-01','C.S. Lewis scholar slide','scholar','planned',0,0,0,'he taught himself Hebrew in his 50s to read the Psalms in their original language','#darkacademia #cslewis #christianfaith',''),
+  mk('wk11c','2024-11-03','Hebrew Language Journal face video','face','planned',0,0,0,'90 days studying the language of the Old Testament - one word at a time','#darkacademia #biblicalHebrew #christianfaith','New Lulu product'),
+  hd('h13','Week: Curiosity Journal Omnibus'),
+  mk('wk12a','2024-11-06','What is a Curiosity Journal - Educational','educational','planned',0,0,0,'90 concepts across 5 disciplines - the journal built for the lifelong learner','#darkacademia #curiosityjournal',''),
+  mk('wk12b','2024-11-08','Leonardo da Vinci scholar slide','scholar','planned',0,0,0,'he kept notebooks on anatomy engineering art and philosophy all at once - we call that genius','#darkacademia #leonardodavinci',''),
+  mk('wk12c','2024-11-10','Curiosity Journal Omnibus face video','face','planned',0,0,0,'90 concepts. 5 disciplines. one journal - and Vol I-VIII is coming','#darkacademia #curiosityjournal #booktok','Hint Vol I-VIII Jan 2027'),
+  hd('h-gift','Gift Bundle Videos - Gifting Season'),
+  mk('gift1','2024-11-13',"Bundle 1 - The Reader's Bundle",'face','planned',0,0,0,'the perfect gift for the serious reader - the scholars reading bundle','#darkacademia #giftideas #booktok #christmasgifts','Commonplace Book + Classicists Reading Journal + Bookmarks'),
+  mk('lat2','2024-11-15','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords','Latin cleanser'),
+  mk('gift2','2024-11-17','Bundle 2 - The Morning Scholar Bundle','face','planned',0,0,0,'the gift for someone who wants to start their days more intentionally','#darkacademia #giftideas #christmasgifts','Morning Reflection + Weekly Planner'),
+  mk('gift3','2024-11-21','Bundle 3 - The Language Scholar Bundle','face','planned',0,0,0,'for the student seminarian or classical scholar on your list','#darkacademia #giftideas #christmasgifts','Language Journal + Classicists Companion'),
+  mk('gift4','2024-11-25','Bundle 4 - The Autumn Reading Bundle','face','planned',0,0,0,'for the reader who reads seasonally and loves the aesthetic','#darkacademia #giftideas #christmasgifts','Autumn Reading + Autumn TBR + Bookmarks'),
+  mk('lat3','2024-11-29','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #christianfaith','Advent season timing')
 ];
 
-var DA = {followers:22,email:2,pinterest:1400,etsy:0};
-var posts = [];
-var acc = {followers:22,email:2,pinterest:1400,etsy:0};
-var editId = null;
-var expId = null;
-var dragId = null;
-var barC = null;
-var lineC = null;
+var acc={followers:45,email:3,pinterest:1400,etsy:0};
+var posts=[];
+var editId=null,expId=null,dragId=null,barC=null,lineC=null;
+var PKEY='tcd_final_posts',AKEY='tcd_final_acc';
 
 function load(){
   try{
-    var sp = localStorage.getItem('tcd_posts_v3');
-    var sa = localStorage.getItem('tcd_acc_v2');
-    if(sp){ posts = JSON.parse(sp); } else { posts = JSON.parse(JSON.stringify(DP)); }
-    if(sa){ acc = JSON.parse(sa); } else { acc = {followers:22,email:2,pinterest:1400,etsy:0}; }
-  } catch(e){
-    posts = JSON.parse(JSON.stringify(DP));
-    acc = {followers:22,email:2,pinterest:1400,etsy:0};
-  }
+    var sp=localStorage.getItem(PKEY);
+    var sa=localStorage.getItem(AKEY);
+    posts=sp?JSON.parse(sp):JSON.parse(JSON.stringify(DEFAULTS));
+    if(sa) acc=JSON.parse(sa);
+  }catch(e){posts=JSON.parse(JSON.stringify(DEFAULTS));}
 }
 
 function save(){
-  try{
-    localStorage.setItem('tcd_posts_v3', JSON.stringify(posts));
-    localStorage.setItem('tcd_acc_v2', JSON.stringify(acc));
-  } catch(e){}
+  try{localStorage.setItem(PKEY,JSON.stringify(posts));localStorage.setItem(AKEY,JSON.stringify(acc));}catch(e){}
 }
 
-function switchTab(t){
-  document.querySelectorAll('.tp').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
-  document.getElementById('tp-'+t).classList.add('active');
-  document.querySelectorAll('.tab').forEach(function(b){
-    if(b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'"+t+"'") > -1){
-      b.classList.add('active');
-    }
+function showTab(t){
+  ['content','analytics','strategy'].forEach(function(x){
+    document.getElementById('tp-'+x).classList.toggle('active',x===t);
+    document.getElementById('tab-'+x).classList.toggle('active',x===t);
   });
-  if(t === 'analytics') renderAnalytics();
-  if(t === 'strategy') renderStrategy();
-}
-
-function getWeekLabel(post){
-  var id = post.id;
-  if(id === 'intro1') return 'New Arrivals Introduction';
-  if(id === 'adv1') return 'Week: Advent Calendar — Early Intro';
-  if(id.indexOf('gift') === 0) return 'Gift Bundle Videos - Gifting Season';
-  if(id.indexOf('lat') === 0) return 'Latin Palette Cleanser';
-  if(id.indexOf('wk12') === 0) return 'Week: Curiosity Journal Omnibus';
-  if(id.indexOf('wk11') === 0) return 'Week: Hebrew Language Journal';
-  if(id.indexOf('wk10') === 0) return 'Week: Old English Language Journal';
-  if(id.indexOf('wk9') === 0) return 'Week: Koine Greek Language Journal';
-  if(id.indexOf('wk8') === 0) return 'Week: Autumn TBR Journal';
-  if(id.indexOf('wk7') === 0) return 'Week: Weekly Planner';
-  if(id.indexOf('wk6') === 0) return 'Week: Autumn Reading Journal';
-  if(id.indexOf('wk5') === 0) return 'Week: Classicists Reading Journal';
-  if(id.indexOf('wk4') === 0) return 'Week: Morning Reflection Journal';
-  if(id.indexOf('wk3') === 0) return 'Week: Reading Challenge';
-  if(id.indexOf('wk2') === 0) return 'Week: Commonplace Book';
-  if(id.indexOf('wk1') === 0) return 'Week: Classicists Companion';
-  if(id.indexOf('p') === 0){
-    var num = parseInt(id.slice(1));
-    if(num <= 20) return 'Posted History';
-    return 'Scheduled - Vacation';
-  }
-  return '';
+  if(t==='analytics') buildAnalytics();
+  if(t==='strategy') buildStrategy();
 }
 
 function updateSB(){
-  var posted = posts.filter(function(p){ return p.status === 'posted' && p.type !== '__header__'; });
-  var tv = posted.reduce(function(s,p){ return s+p.views; }, 0);
-  document.getElementById('sb-f').textContent = acc.followers.toLocaleString();
-  document.getElementById('sb-e').textContent = acc.email;
-  document.getElementById('sb-p').textContent = acc.pinterest.toLocaleString();
-  document.getElementById('sb-v').textContent = tv.toLocaleString();
-  document.getElementById('sb-n').textContent = posted.length + ' posted';
+  var posted=posts.filter(function(x){return x.status==='posted'&&x.type!=='__header__';});
+  var tv=posted.reduce(function(s,x){return s+x.views;},0);
+  document.getElementById('sbf').textContent=acc.followers;
+  document.getElementById('sbe').textContent=acc.email;
+  document.getElementById('sbp').textContent=acc.pinterest.toLocaleString();
+  document.getElementById('sbv').textContent=tv.toLocaleString();
+  document.getElementById('sbn').textContent=posted.length+' posted';
 }
 
+function e(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
-function addSectionHeader(){
-  var sh = {id:'sh'+Date.now(),type:'__header__',title:'Section Label',date:'',status:'',views:0,likes:0,saves:0,caption:'',hashtags:'',notes:''};
-  posts.unshift(sh);
-  save(); render();
-}
-
-function deleteSectionHeader(id){
-  posts = posts.filter(function(p){ return p.id !== id; });
-  save(); render();
-}
-
-function updateHeaderTitle(id, val){
-  posts = posts.map(function(p){ return p.id === id ? Object.assign({},p,{title:val}) : p; });
-  save();
-}
-
-function render(){
-  var sf = document.getElementById('fs').value;
-  var tf = document.getElementById('ft').value;
-  var filtered = posts.filter(function(p){
-    if(sf !== 'all' && p.status !== sf) return false;
-    if(tf !== 'all' && p.type !== tf) return false;
+function renderPosts(){
+  var sf=document.getElementById('fst').value;
+  var tf=document.getElementById('fty').value;
+  var filtered=posts.filter(function(x){
+    if(x.type==='__header__') return true;
+    if(sf!=='all'&&x.status!==sf) return false;
+    if(tf!=='all'&&x.type!==tf) return false;
     return true;
   });
-  document.getElementById('pc2').textContent = filtered.length + ' posts';
-
-  var html = '';
-  var lastWeek = '';
-
+  document.getElementById('pcnt').textContent=filtered.filter(function(x){return x.type!=='__header__';}).length+' posts';
+  var html='';
   filtered.forEach(function(post){
-    // Section header items
-    if(post.type === '__header__'){
-      html += '<div class="sh-card" id="card-'+post.id+'">' +
-        '<input class="sh-input" value="'+post.title+'" onchange="updateHeaderTitle(''+post.id+'',this.value)" onblur="updateHeaderTitle(''+post.id+'',this.value)" title="Click to edit section label" />' +
-        '<button class="sh-del" onclick="deleteSectionHeader(''+post.id+'')" title="Remove section header">&#215;</button>' +
-        '</div>';
+    if(post.type==='__header__'){
+      html+='<div class="sh" id="card-'+post.id+'">'+
+        '<input class="shi" value="'+e(post.title)+'" onchange="updH(\''+post.id+'\',this.value)" onblur="updH(\''+post.id+'\',this.value)">'+
+        '<button class="shd" onclick="delH(\''+post.id+'\')">&#215;</button></div>';
       return;
     }
-    // Auto week label for non-header posts
-    var wl = getDefaultLabel(post);
-    if(wl && wl !== lastWeek){
-      html += '<div class="wh" style="opacity:0.4;font-size:0.44rem">'+wl+'</div>';
-      lastWeek = wl;
+    var bl='3px solid '+(TC[post.type]||'#555');
+    var sc2=SC[post.status]||'#555';
+    var st='';
+    if(post.status==='posted'){
+      st='<div class="pst">'+
+        '<span><span class="psv">'+post.views.toLocaleString()+'</span><span class="psl">v</span></span>'+
+        '<span><span class="psv">'+post.likes+'</span><span class="psl">l</span></span>'+
+        '<span><span class="psv'+(post.saves>=10?' hs':'')+'">'+post.saves+'</span><span class="psl">s</span></span></div>';
     }
-    var bl = '3px solid ' + (TC[post.type] || '#555');
-    var exp = expId === post.id;
-    var statsHtml = '';
-    if(post.status === 'posted'){
-      var hsClass = post.saves >= 10 ? ' hs' : '';
-      statsHtml = '<div class="ps">' +
-        '<span><span class="sv2">' + post.views.toLocaleString() + '</span><span class="sl2">v</span></span>' +
-        '<span><span class="sv2">' + post.likes + '</span><span class="sl2">l</span></span>' +
-        '<span><span class="sv2' + hsClass + '">' + post.saves + '</span><span class="sl2">s</span></span>' +
-        '</div>';
-    }
-    var noteHtml = post.notes ? '<span class="pn">' + post.notes + '</span>' : '';
-    var capHtml = post.caption ? '<div class="pe-cap">"' + post.caption + '"</div>' : '';
-    var htHtml = post.hashtags ? '<div class="pe-ht">' + post.hashtags + '</div>' : '';
-    var expClass = exp ? ' open' : '';
-
-    html += '<div class="pc' + (dragId === post.id ? ' dragging' : '') + '" id="card-' + post.id + '"' +
-      ' draggable="true"' +
-      ' ondragstart="dStart(\'' + post.id + '\')"' +
-      ' ondragover="dOver(event,\'' + post.id + '\')"' +
-      ' ondrop="dDrop(event,\'' + post.id + '\')"' +
-      ' ondragend="dEnd()"' +
-      ' style="border-left:' + bl + '">' +
-      '<div class="pch">' +
-      '<div class="mbs">' +
-      '<button class="mb" onclick="mv(\'' + post.id + '\',-1)">&#9650;</button>' +
-      '<button class="mb" onclick="mv(\'' + post.id + '\',1)">&#9660;</button>' +
-      '</div>' +
-      '<div class="pd">' + post.date.slice(5) + '</div>' +
-      '<div class="tb" style="background:' + (TC[post.type]||'#555') + '">' + (TL[post.type]||post.type) + '</div>' +
-      '<div class="pt" onclick="tog(\'' + post.id + '\')" title="' + post.title + '">' + post.title + noteHtml + '</div>' +
-      '<div class="stb" style="color:' + (SC[post.status]||'#555') + ';border-color:' + (SC[post.status]||'#555') + '">' + (SL[post.status]||post.status) + '</div>' +
-      statsHtml +
-      '<div class="pa">' +
-      '<button class="eb" onclick="openEdit(\'' + post.id + '\')">Edit</button>' +
-      '<button class="db" onclick="del(\'' + post.id + '\')">&#215;</button>' +
-      '</div>' +
-      '</div>' +
-      '<div class="pe' + expClass + '">' + capHtml + htHtml + '</div>' +
+    var exp=expId===post.id?' open':'';
+    html+='<div class="pc'+(dragId===post.id?' dragging':'')+'" id="card-'+post.id+'"'+
+      ' draggable="true"'+
+      ' ondragstart="dS(\''+post.id+'\')"'+
+      ' ondragover="dO(event,\''+post.id+'\')"'+
+      ' ondrop="dD(event,\''+post.id+'\')"'+
+      ' ondragend="dE()"'+
+      ' style="border-left:'+bl+'">'+
+      '<div class="pch">'+
+      '<div class="mbs"><button class="mbt" onclick="mv(\''+post.id+'\',-1)">&#9650;</button><button class="mbt" onclick="mv(\''+post.id+'\',1)">&#9660;</button></div>'+
+      '<div class="pdat">'+post.date.slice(5)+'</div>'+
+      '<div class="tbg" style="background:'+(TC[post.type]||'#555')+'">'+(TL[post.type]||post.type)+'</div>'+
+      '<div class="ptit" onclick="tog(\''+post.id+'\')" title="'+e(post.title)+'">'+e(post.title)+(post.notes?'<span class="pno">'+e(post.notes)+'</span>':'')+'</div>'+
+      '<div class="stbg" style="color:'+sc2+';border-color:'+sc2+'">'+(SL[post.status]||post.status)+'</div>'+
+      st+
+      '<div class="pact"><button class="ebt" onclick="openEdit(\''+post.id+'\')">Edit</button><button class="dbt" onclick="delP(\''+post.id+'\')">&#215;</button></div>'+
+      '</div>'+
+      '<div class="pex'+exp+'">'+(post.caption?'<div class="pexc">'+e(post.caption)+'</div>':'')+(post.hashtags?'<div class="pexh">'+e(post.hashtags)+'</div>':'')+'</div>'+
       '</div>';
   });
-
-  document.getElementById('post-list').innerHTML = html;
+  document.getElementById('post-list').innerHTML=html;
 }
 
-function tog(id){ expId = expId === id ? null : id; render(); }
-function openAdd(){ document.getElementById('add-form').style.display = 'block'; }
-function closeAdd(){
-  document.getElementById('add-form').style.display = 'none';
-  ['nf-ti','nf-da','nf-ca','nf-ha','nf-no'].forEach(function(i){ document.getElementById(i).value=''; });
-}
+function tog(id){expId=expId===id?null:id;renderPosts();}
+function openAdd(){document.getElementById('add-form').style.display='block';}
+function closeAdd(){document.getElementById('add-form').style.display='none';['nf-ti','nf-da','nf-ca','nf-ha','nf-no'].forEach(function(i){document.getElementById(i).value='';});}
 
 function addPost(){
-  var ti = document.getElementById('nf-ti').value.trim();
-  if(!ti) return;
-  var p = makePost('p'+Date.now(), document.getElementById('nf-da').value, ti,
-    document.getElementById('nf-ty').value, document.getElementById('nf-st').value,
-    0,0,0, document.getElementById('nf-ca').value,
-    document.getElementById('nf-ha').value, document.getElementById('nf-no').value);
-  posts.push(p);
-  save(); closeAdd(); render(); updateSB();
+  var ti=document.getElementById('nf-ti').value.trim();
+  if(!ti)return;
+  posts.push(mk('px'+Date.now(),document.getElementById('nf-da').value,ti,
+    document.getElementById('nf-ty').value,document.getElementById('nf-st').value,
+    0,0,0,document.getElementById('nf-ca').value,document.getElementById('nf-ha').value,document.getElementById('nf-no').value));
+  save();closeAdd();renderPosts();updateSB();
 }
 
-function del(id){
-  posts = posts.map(function(p){ return p.id === id ? Object.assign({},p,{status:'deleted'}) : p; });
-  save(); render(); updateSB();
-}
+function delP(id){posts=posts.map(function(x){return x.id===id?Object.assign({},x,{status:'deleted'}):x;});save();renderPosts();updateSB();}
 
-function mv(id, dir){
-  var i = posts.findIndex(function(p){ return p.id === id; });
-  var ni = i + dir;
-  if(ni < 0 || ni >= posts.length) return;
-  var tmp = posts[i]; posts[i] = posts[ni]; posts[ni] = tmp;
-  save(); render();
-}
-
-function dStart(id){
-  var p = posts.find(function(x){ return x.id === id; });
-  if(p && p.type === '__header__') return;
-  dragId = id; setTimeout(function(){ render(); }, 0);
-}
-function dOver(e, id){
-  e.preventDefault();
-  document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over'); });
-  var el = document.getElementById('card-'+id);
-  if(el) el.classList.add('drag-over');
-}
-function dDrop(e, tid){
-  e.preventDefault();
-  document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over'); });
-  var dragPost = posts.find(function(p){ return p.id === dragId; });
-  if(!dragId || dragId === tid || (dragPost && dragPost.type === '__header__')){ dragId = null; render(); return; }
-  var fi = posts.findIndex(function(p){ return p.id === dragId; });
-  var ti2 = posts.findIndex(function(p){ return p.id === tid; });
-  var m = posts.splice(fi,1)[0];
-  posts.splice(ti2,0,m);
-  dragId = null; save(); render();
-}
-function dEnd(){
-  dragId = null;
-  document.querySelectorAll('.pc').forEach(function(c){ c.classList.remove('drag-over','dragging'); });
+function mv(id,dir){
+  var i=posts.findIndex(function(x){return x.id===id;});
+  var ni=i+dir;if(ni<0||ni>=posts.length)return;
+  var t=posts[i];posts[i]=posts[ni];posts[ni]=t;
+  save();renderPosts();
 }
 
 function openEdit(id){
-  editId = id;
-  var p = posts.find(function(x){ return x.id === id; });
-  if(!p) return;
-  document.getElementById('ef-ti').value = p.title;
-  document.getElementById('ef-da').value = p.date;
-  document.getElementById('ef-ty').value = p.type;
-  document.getElementById('ef-st').value = p.status;
-  document.getElementById('ef-vi').value = p.views;
-  document.getElementById('ef-li').value = p.likes;
-  document.getElementById('ef-sa').value = p.saves;
-  document.getElementById('ef-ca').value = p.caption || '';
-  document.getElementById('ef-ha').value = p.hashtags || '';
-  document.getElementById('ef-no').value = p.notes || '';
+  editId=id;var x=posts.find(function(p){return p.id===id;});if(!x)return;
+  document.getElementById('ef-ti').value=x.title||'';
+  document.getElementById('ef-da').value=x.date||'';
+  document.getElementById('ef-ty').value=x.type||'face';
+  document.getElementById('ef-st').value=x.status||'planned';
+  document.getElementById('ef-vi').value=x.views||0;
+  document.getElementById('ef-li').value=x.likes||0;
+  document.getElementById('ef-sa').value=x.saves||0;
+  document.getElementById('ef-ca').value=x.caption||'';
+  document.getElementById('ef-ha').value=x.hashtags||'';
+  document.getElementById('ef-no').value=x.notes||'';
   document.getElementById('edit-mo').classList.add('open');
 }
-function closeEdit(){ document.getElementById('edit-mo').classList.remove('open'); editId = null; }
+function closeEdit(){document.getElementById('edit-mo').classList.remove('open');editId=null;}
 function saveEdit(){
-  if(!editId) return;
-  posts = posts.map(function(p){
-    if(p.id !== editId) return p;
-    return makePost(p.id,
-      document.getElementById('ef-da').value,
-      document.getElementById('ef-ti').value,
-      document.getElementById('ef-ty').value,
-      document.getElementById('ef-st').value,
+  if(!editId)return;
+  posts=posts.map(function(x){
+    if(x.id!==editId)return x;
+    return mk(x.id,document.getElementById('ef-da').value,document.getElementById('ef-ti').value,
+      document.getElementById('ef-ty').value,document.getElementById('ef-st').value,
       parseInt(document.getElementById('ef-vi').value)||0,
       parseInt(document.getElementById('ef-li').value)||0,
       parseInt(document.getElementById('ef-sa').value)||0,
-      document.getElementById('ef-ca').value,
-      document.getElementById('ef-ha').value,
-      document.getElementById('ef-no').value);
+      document.getElementById('ef-ca').value,document.getElementById('ef-ha').value,document.getElementById('ef-no').value);
   });
-  save(); closeEdit(); render(); updateSB();
+  save();closeEdit();renderPosts();updateSB();
 }
+
+function addHeader(){var h=hd('sh'+Date.now(),'New Section');posts.unshift(h);save();renderPosts();}
+function delH(id){posts=posts.filter(function(x){return x.id!==id;});save();renderPosts();}
+function updH(id,val){posts=posts.map(function(x){return x.id===id?Object.assign({},x,{title:val}):x;});save();}
+
+function dS(id){var p=posts.find(function(x){return x.id===id;});if(p&&p.type==='__header__')return;dragId=id;setTimeout(function(){renderPosts();},0);}
+function dO(e2,id){e2.preventDefault();document.querySelectorAll('.pc,.sh').forEach(function(c){c.classList.remove('dov');});var el=document.getElementById('card-'+id);if(el)el.classList.add('dov');}
+function dD(e2,tid){
+  e2.preventDefault();document.querySelectorAll('.pc,.sh').forEach(function(c){c.classList.remove('dov');});
+  if(!dragId||dragId===tid){dragId=null;renderPosts();return;}
+  var fi=posts.findIndex(function(x){return x.id===dragId;});
+  var ti=posts.findIndex(function(x){return x.id===tid;});
+  var m=posts.splice(fi,1)[0];posts.splice(ti,0,m);
+  dragId=null;save();renderPosts();
+}
+function dE(){dragId=null;document.querySelectorAll('.pc,.sh').forEach(function(c){c.classList.remove('dov','dragging');});}
 
 function openAcc(){
-  document.getElementById('am-f').value = acc.followers;
-  document.getElementById('am-e').value = acc.email;
-  document.getElementById('am-p').value = acc.pinterest;
-  document.getElementById('am-et').value = acc.etsy;
+  document.getElementById('am-f').value=acc.followers;document.getElementById('am-e').value=acc.email;
+  document.getElementById('am-p').value=acc.pinterest;document.getElementById('am-et').value=acc.etsy;
   document.getElementById('acc-mo').classList.add('open');
 }
-function closeAcc(){ document.getElementById('acc-mo').classList.remove('open'); }
+function closeAcc(){document.getElementById('acc-mo').classList.remove('open');}
 function saveAcc(){
-  acc.followers = parseInt(document.getElementById('am-f').value)||0;
-  acc.email = parseInt(document.getElementById('am-e').value)||0;
-  acc.pinterest = parseInt(document.getElementById('am-p').value)||0;
-  acc.etsy = parseInt(document.getElementById('am-et').value)||0;
-  save(); closeAcc(); updateSB();
-  if(document.getElementById('tp-strategy').classList.contains('active')) renderStrategy();
+  acc.followers=parseInt(document.getElementById('am-f').value)||0;
+  acc.email=parseInt(document.getElementById('am-e').value)||0;
+  acc.pinterest=parseInt(document.getElementById('am-p').value)||0;
+  acc.etsy=parseInt(document.getElementById('am-et').value)||0;
+  save();closeAcc();updateSB();
+  if(document.getElementById('tp-strategy').classList.contains('active'))buildStrategy();
 }
 
-function renderAnalytics(){
-  var posted = posts.filter(function(p){ return p.status === 'posted' && p.type !== '__header__'; });
-  var tv = posted.reduce(function(s,p){ return s+p.views; },0);
-  var tl = posted.reduce(function(s,p){ return s+p.likes; },0);
-  var ts = posted.reduce(function(s,p){ return s+p.saves; },0);
-  var av = posted.length ? Math.round(tv/posted.length) : 0;
-  var als = posted.length ? (tl/posted.length).toFixed(1) : 0;
-  var ass = posted.length ? (ts/posted.length).toFixed(1) : 0;
-  var best = posted.reduce(function(b,p){ return p.views>(b?b.views:0)?p:b; }, null);
-
-  document.getElementById('sum-grid').innerHTML = [
-    ['Total Views',tv.toLocaleString(),'var(--gold)'],
-    ['Total Likes',tl.toLocaleString(),'#7B8BC9'],
-    ['Total Saves',ts.toLocaleString(),'var(--green)'],
-    ['Avg Views',av.toLocaleString(),'var(--gold)'],
-    ['Avg Saves',ass,'var(--green)'],
-    ['Posted',posted.length,'var(--muted)']
-  ].map(function(x){
-    return '<div class="sc" style="border-top:2px solid '+x[2]+'"><span class="sv3" style="color:'+x[2]+'">'+x[1]+'</span><span class="sl3">'+x[0]+'</span></div>';
-  }).join('');
-
-  document.getElementById('best-v').innerHTML = best ?
-    '<div style="font-family:\'Cinzel\',serif;font-size:0.46rem;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;flex-shrink:0">Best Video</div>' +
-    '<div style="flex:1;font-size:0.82rem;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+best.title+'</div>' +
-    '<div style="display:flex;gap:10px;font-size:0.78rem;flex-shrink:0">' +
-    '<span style="color:var(--gold)">'+best.views.toLocaleString()+'v</span>' +
-    '<span style="color:#7B8BC9">'+best.likes+'l</span>' +
-    '<span style="color:var(--green)">'+best.saves+'s</span></div>' : '';
-
-  var l12 = posted.slice(-12);
-  if(barC) barC.destroy();
-  barC = new Chart(document.getElementById('bar-c').getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: l12.map(function(p){ return p.title.length>13?p.title.slice(0,13)+'...':p.title; }),
-      datasets: [
-        {label:'Views',data:l12.map(function(p){return p.views;}),backgroundColor:'rgba(201,168,76,0.7)',borderRadius:2},
-        {label:'Likes',data:l12.map(function(p){return p.likes;}),backgroundColor:'rgba(123,91,167,0.7)',borderRadius:2},
-        {label:'Saves',data:l12.map(function(p){return p.saves;}),backgroundColor:'rgba(90,154,122,0.7)',borderRadius:2}
-      ]
-    },
-    options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{family:'Cormorant Garamond',size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}
-  });
-
-  if(lineC) lineC.destroy();
-  var cum = 0;
-  lineC = new Chart(document.getElementById('line-c').getContext('2d'), {
-    type: 'line',
-    data: {
-      labels: posted.map(function(p){ return p.date.slice(5); }),
-      datasets: [
-        {label:'Per-video',data:posted.map(function(p){return p.views;}),borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,0.08)',tension:.3,pointRadius:2,fill:true},
-        {label:'Cumulative',data:posted.map(function(p){cum+=p.views;return cum;}),borderColor:'#5A9A7A',borderDash:[4,2],tension:.3,pointRadius:0}
-      ]
-    },
-    options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{family:'Cormorant Garamond',size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35,maxTicksLimit:10},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}
-  });
-
-  var types = Object.keys(TL);
-  var ts2 = types.map(function(type){
-    var tp = posted.filter(function(p){ return p.type===type; });
-    return {type:type,label:TL[type],count:tp.length,
-      avgV:tp.length?Math.round(tp.reduce(function(s,p){return s+p.views;},0)/tp.length):0,
-      avgS:tp.length?(tp.reduce(function(s,p){return s+p.saves;},0)/tp.length).toFixed(1):0};
-  }).filter(function(t){ return t.count>0; }).sort(function(a,b){ return b.avgV-a.avgV; });
-
-  var mx = ts2.length ? ts2[0].avgV : 1;
-  document.getElementById('type-bd').innerHTML = ts2.map(function(t){
-    return '<div class="tr">' +
-      '<div style="width:3px;height:24px;background:'+TC[t.type]+';border-radius:2px;flex-shrink:0"></div>' +
-      '<div style="min-width:100px;font-size:0.76rem;color:var(--parchment)">'+t.label+'</div>' +
-      '<div class="tbb"><div class="tbf" style="width:'+Math.round((t.avgV/mx)*100)+'%;background:'+TC[t.type]+'"></div></div>' +
-      '<div style="font-size:0.7rem;color:var(--gold);min-width:70px;text-align:right">'+t.avgV+' avg views</div>' +
-      '<div style="font-size:0.66rem;color:var(--green);min-width:56px;text-align:right">'+t.avgS+' avg saves</div>' +
-      '<div style="font-size:0.56rem;color:var(--muted);min-width:40px;text-align:right">'+t.count+' posts</div>' +
-      '</div>';
-  }).join('');
+function buildAnalytics(){
+  var posted=posts.filter(function(x){return x.status==='posted'&&x.type!=='__header__';});
+  var tv=posted.reduce(function(s,x){return s+x.views;},0);
+  var tl=posted.reduce(function(s,x){return s+x.likes;},0);
+  var ts=posted.reduce(function(s,x){return s+x.saves;},0);
+  var av=posted.length?Math.round(tv/posted.length):0;
+  var as2=posted.length?(ts/posted.length).toFixed(1):0;
+  var best=posted.reduce(function(b,x){return x.views>(b?b.views:0)?x:b;},null);
+  document.getElementById('sg').innerHTML=[
+    ['Total Views',tv.toLocaleString(),'#C9A84C'],['Total Likes',tl.toLocaleString(),'#7B8BC9'],
+    ['Total Saves',ts.toLocaleString(),'#5A9A7A'],['Avg Views',av.toLocaleString(),'#C9A84C'],
+    ['Avg Saves',as2,'#5A9A7A'],['Posted',posted.length,'#9B8060']
+  ].map(function(x){return '<div class="sc" style="border-top:2px solid '+x[2]+'"><span class="sv2" style="color:'+x[2]+'">'+x[1]+'</span><span class="sl2">'+x[0]+'</span></div>';}).join('');
+  document.getElementById('bv').innerHTML=best?'<div style="font-family:Cinzel,serif;font-size:.46rem;color:#C9A84C;text-transform:uppercase;flex-shrink:0">Best Video</div><div style="flex:1;font-size:.82rem;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+e(best.title)+'</div><div style="display:flex;gap:10px;font-size:.78rem;flex-shrink:0"><span style="color:#C9A84C">'+best.views.toLocaleString()+'v</span><span style="color:#7B8BC9">'+best.likes+'l</span><span style="color:#5A9A7A">'+best.saves+'s</span></div>':'';
+  var l12=posted.slice(-12);
+  if(barC)barC.destroy();
+  barC=new Chart(document.getElementById('bar-c').getContext('2d'),{type:'bar',data:{labels:l12.map(function(x){return x.title.length>13?x.title.slice(0,13)+'...':x.title;}),datasets:[{label:'Views',data:l12.map(function(x){return x.views;}),backgroundColor:'rgba(201,168,76,.7)',borderRadius:2},{label:'Likes',data:l12.map(function(x){return x.likes;}),backgroundColor:'rgba(123,91,167,.7)',borderRadius:2},{label:'Saves',data:l12.map(function(x){return x.saves;}),backgroundColor:'rgba(90,154,122,.7)',borderRadius:2}]},options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}});
+  if(lineC)lineC.destroy();
+  var cum=0;
+  lineC=new Chart(document.getElementById('line-c').getContext('2d'),{type:'line',data:{labels:posted.map(function(x){return x.date.slice(5);}),datasets:[{label:'Per-video',data:posted.map(function(x){return x.views;}),borderColor:'#C9A84C',backgroundColor:'rgba(201,168,76,.08)',tension:.3,pointRadius:2,fill:true},{label:'Cumulative',data:posted.map(function(x){cum+=x.views;return cum;}),borderColor:'#5A9A7A',borderDash:[4,2],tension:.3,pointRadius:0}]},options:{responsive:true,plugins:{legend:{labels:{color:'#9B8060',font:{size:10}}}},scales:{x:{ticks:{color:'#9B8060',font:{size:8},maxRotation:35,maxTicksLimit:10},grid:{color:'#2a2010'}},y:{ticks:{color:'#9B8060',font:{size:8}},grid:{color:'#2a2010'}}}}});
+  var ts2=Object.keys(TL).map(function(t){var tp=posted.filter(function(x){return x.type===t;});return{type:t,label:TL[t],count:tp.length,avgV:tp.length?Math.round(tp.reduce(function(s,x){return s+x.views;},0)/tp.length):0,avgS:tp.length?(tp.reduce(function(s,x){return s+x.saves;},0)/tp.length).toFixed(1):0};}).filter(function(t){return t.count>0;}).sort(function(a,b){return b.avgV-a.avgV;});
+  var mx=ts2.length?ts2[0].avgV:1;
+  document.getElementById('tbd').innerHTML=ts2.map(function(t){return '<div class="tr"><div style="width:3px;height:24px;background:'+TC[t.type]+';border-radius:2px;flex-shrink:0"></div><div style="min-width:100px;font-size:.76rem;color:#F5E6C8">'+t.label+'</div><div class="tbb"><div class="tbf" style="width:'+Math.round((t.avgV/mx)*100)+'%;background:'+TC[t.type]+'"></div></div><div style="font-size:.7rem;color:#C9A84C;min-width:70px;text-align:right">'+t.avgV+' avg views</div><div style="font-size:.66rem;color:#5A9A7A;min-width:56px;text-align:right">'+t.avgS+' avg saves</div><div style="font-size:.56rem;color:#9B8060;min-width:40px;text-align:right">'+t.count+' posts</div></div>';}).join('');
 }
 
-function renderStrategy(){
-  var posted = posts.filter(function(p){ return p.status==='posted'; });
-  var tv = posted.reduce(function(s,p){ return s+p.views; },0);
-  var ts = posted.reduce(function(s,p){ return s+p.saves; },0);
-  var types = Object.keys(TL);
-  var ts2 = types.map(function(type){
-    var tp = posted.filter(function(p){ return p.type===type; });
-    return {type:type,label:TL[type],count:tp.length,
-      avgV:tp.length?Math.round(tp.reduce(function(s,p){return s+p.views;},0)/tp.length):0,
-      avgS:tp.length?(tp.reduce(function(s,p){return s+p.saves;},0)/tp.length).toFixed(1):0};
-  }).filter(function(t){ return t.count>0; }).sort(function(a,b){ return b.avgV-a.avgV; });
-
-  var sr = tv ? ((ts/tv)*100).toFixed(2) : 0;
-
-  var insData = [];
-  if(ts2.length > 0){
-    insData.push({c:TC[ts2[0].type],s:'Best format: '+ts2[0].label,t:'Averaging '+ts2[0].avgV+' views and '+ts2[0].avgS+' saves. Make this your primary format.'});
-  }
-  if(ts2.length > 1){
-    insData.push({c:'#8B3A3A',s:'Lowest format: '+ts2[ts2.length-1].label,t:'Averaging '+ts2[ts2.length-1].avgV+' views. Always precede product showcases with an educational slide.'});
-  }
-  insData.push({c:'#5A9A7A',s:'Save rate: '+sr+'% of views',t:'Industry average is ~1%. Your rate is '+(tv?(sr/1).toFixed(1):0)+'x the average.'});
-  insData.push({c:'#7B8BC9',s:'Email list: '+acc.email+' subscriber'+(acc.email!==1?'s':''),t:'Funnel is proven. Subscriber opened welcome email within 60 seconds. Priority: grow to 50+ for reliable revenue.'});
-  insData.push({c:'#8B6840',s:'Pinterest: '+acc.pinterest.toLocaleString()+' monthly views',t:acc.pinterest>=2000?'Past the 2,000 threshold. Check Pinterest analytics for outbound link clicks.':(2000-acc.pinterest).toLocaleString()+' views from the 2,000 outbound click threshold. Resume daily pinning.'});
-
-  document.getElementById('insights').innerHTML = insData.map(function(i){
-    return '<div class="ii"><div class="id2" style="background:'+i.c+'"></div><div><span class="is" style="color:'+i.c+'">'+i.s+'</span>'+i.t+'</div></div>';
-  }).join('');
-
-  document.getElementById('unlocks').innerHTML = [
-    [acc.followers>=1000?'Done':''+acc.followers+'/1,000','TikTok Bio Link','Clickable link removes manual URL friction - expected to 5-10x email signups overnight.',acc.followers>=1000],
-    [acc.email>=50?'Done':''+acc.email+'/50','50 Email Subscribers','Email as a reliable revenue driver - each send to 50 engaged subscribers generates 2-5 sales.',acc.email>=50],
-    ['Check Etsy','First Etsy Review','One review changes Etsy algorithm trust score and improves organic search visibility dramatically.',false],
-    [acc.pinterest>=2000?'Reached':''+acc.pinterest.toLocaleString()+'/2,000','Pinterest 2,000 Views','First outbound clicks to curatorsdesk.com - converts better than TikTok because users click directly.',acc.pinterest>=2000]
-  ].map(function(x){
-    return '<div class="mr"><div class="mp" style="color:'+(x[3]?'#5A9A7A':'var(--gold)')+'">'+x[0]+'</div><div class="ml" style="color:'+(x[3]?'#5A9A7A':'var(--parchment)')+'">'+x[1]+'</div><div class="md">'+x[2]+'</div></div>';
-  }).join('');
-
-  document.getElementById('revenue').innerHTML = [
+function buildStrategy(){
+  var posted=posts.filter(function(x){return x.status==='posted'&&x.type!=='__header__';});
+  var tv=posted.reduce(function(s,x){return s+x.views;},0);
+  var ts=posted.reduce(function(s,x){return s+x.saves;},0);
+  var sr=tv?((ts/tv)*100).toFixed(2):0;
+  var ts2=Object.keys(TL).map(function(t){var tp=posted.filter(function(x){return x.type===t;});return{type:t,label:TL[t],count:tp.length,avgV:tp.length?Math.round(tp.reduce(function(s,x){return s+x.views;},0)/tp.length):0,avgS:tp.length?(tp.reduce(function(s,x){return s+x.saves;},0)/tp.length).toFixed(1):0};}).filter(function(t){return t.count>0;}).sort(function(a,b){return b.avgV-a.avgV;});
+  var ins=[];
+  if(ts2.length>0)ins.push({c:TC[ts2[0].type],s:'Best format: '+ts2[0].label,t:'Averaging '+ts2[0].avgV+' views and '+ts2[0].avgS+' saves. Make this your primary format.'});
+  if(ts2.length>1)ins.push({c:'#8B3A3A',s:'Lowest format: '+ts2[ts2.length-1].label,t:'Averaging '+ts2[ts2.length-1].avgV+' views. Always precede product showcases with an educational slide.'});
+  ins.push({c:'#5A9A7A',s:'Save rate: '+sr+'% of views',t:'Industry average is 1%. You are '+(tv?(sr/1).toFixed(1):0)+'x the average. Saves are TikToks strongest push signal.'});
+  ins.push({c:'#7B8BC9',s:'Email list: '+acc.email+' subscriber'+(acc.email!==1?'s':''),t:'Third subscriber added to cart within 1 minute of signing up. Priority: grow to 50+ for reliable revenue.'});
+  ins.push({c:'#8B6840',s:'Pinterest: '+acc.pinterest.toLocaleString()+' monthly views',t:acc.pinterest>=2000?'Past the 2000 threshold. Check Pinterest for outbound link clicks.':(2000-acc.pinterest).toLocaleString()+' views from the 2000 outbound click threshold. Resume daily pinning.'});
+  document.getElementById('ins').innerHTML=ins.map(function(i){return '<div class="ii"><div class="idot" style="background:'+i.c+'"></div><div><span class="is" style="color:'+i.c+'">'+i.s+'</span>'+i.t+'</div></div>';}).join('');
+  document.getElementById('unl').innerHTML=[
+    [acc.followers>=1000?'Done':acc.followers+'/1,000','TikTok Bio Link','Clickable link removes manual URL friction - expected to 5-10x email signups overnight.',acc.followers>=1000],
+    [acc.email>=50?'Done':acc.email+'/50','50 Email Subscribers','Email as reliable revenue driver - each send to 50 engaged subscribers generates 2-5 sales.',acc.email>=50],
+    ['Check Etsy','First Etsy Review','One review changes Etsy algorithm trust and improves organic search visibility dramatically.',false],
+    [acc.pinterest>=2000?'Reached':acc.pinterest.toLocaleString()+'/2,000','Pinterest 2,000 Views','First outbound clicks to curatorsdesk.com - converts better than TikTok because users click directly.',acc.pinterest>=2000]
+  ].map(function(x){return '<div class="mr"><div class="mp" style="color:'+(x[3]?'#5A9A7A':'#C9A84C')+'">'+x[0]+'</div><div class="mlb" style="color:'+(x[3]?'#5A9A7A':'#F5E6C8')+'">'+x[1]+'</div><div class="md">'+x[2]+'</div></div>';}).join('');
+  document.getElementById('rev').innerHTML=[
     ['Sep 2026','$100-300','First sales, Etsy reviews begin'],
     ['Oct 2026','$300-600','Autumn season, Pinterest clicks, language journals live'],
     ['Nov 2026','$500-900','Holiday gifting window opens'],
@@ -768,14 +568,10 @@ function renderStrategy(){
     ['Apr 2027','$1,000-1,800','Full funnel mature, expanded catalogue'],
     ['May 2027','$1,500-2,500','New builds live, audience established'],
     ['Jun 2027','$2,500-3,500','Target month']
-  ].map(function(x){
-    return '<div class="rr"><div class="rm">'+x[0]+'</div><div class="rt">'+x[1]+'</div><div class="rd">'+x[2]+'</div></div>';
-  }).join('');
+  ].map(function(x){return '<div class="rr"><div class="rm">'+x[0]+'</div><div class="rt">'+x[1]+'</div><div class="rd">'+x[2]+'</div></div>';}).join('');
 }
 
-load();
-render();
-updateSB();
+load();renderPosts();updateSB();
 </script>
 </body>
 </html>
