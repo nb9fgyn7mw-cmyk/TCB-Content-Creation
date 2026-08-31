@@ -479,7 +479,44 @@ function load(){
   try{
     var sp=localStorage.getItem(PKEY);
     var sa=localStorage.getItem(AKEY);
-    posts=sp?JSON.parse(sp):JSON.parse(JSON.stringify(DEFAULTS));
+    if(sp){
+      var saved=JSON.parse(sp);
+      var savedIds={};
+      saved.forEach(function(p){ savedIds[p.id]=true; });
+      // Merge: add any new default posts not in saved data
+      var newPosts=[];
+      DEFAULTS.forEach(function(d){
+        if(!savedIds[d.id]) newPosts.push(JSON.parse(JSON.stringify(d)));
+      });
+      if(newPosts.length>0){
+        // Find insertion points — insert new posts after their nearest preceding default neighbour
+        var defaultIds=DEFAULTS.map(function(d){return d.id;});
+        newPosts.forEach(function(np){
+          var npIdx=defaultIds.indexOf(np.id);
+          // Find the closest preceding default id that exists in saved
+          var insertAfterIdx=-1;
+          for(var i=npIdx-1;i>=0;i--){
+            var prevId=defaultIds[i];
+            for(var j=0;j<saved.length;j++){
+              if(saved[j].id===prevId){ insertAfterIdx=j; break; }
+            }
+            if(insertAfterIdx>-1) break;
+          }
+          if(insertAfterIdx>-1){
+            saved.splice(insertAfterIdx+1,0,np);
+          } else {
+            // No preceding neighbour found — add at start
+            saved.unshift(np);
+          }
+        });
+        posts=saved;
+        save(); // persist the merged result
+      } else {
+        posts=saved;
+      }
+    } else {
+      posts=JSON.parse(JSON.stringify(DEFAULTS));
+    }
     if(sa) acc=JSON.parse(sa);
   }catch(e){posts=JSON.parse(JSON.stringify(DEFAULTS));}
 }
