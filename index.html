@@ -114,6 +114,7 @@ body{background:#0A0806;font-family:'Cormorant Garamond',Georgia,serif;color:#F5
     <button class="tab active" id="tab-content" onclick="showTab('content')">Content</button>
     <button class="tab" id="tab-analytics" onclick="showTab('analytics')">Analytics</button>
     <button class="tab" id="tab-strategy" onclick="showTab('strategy')">Strategy</button>
+    <button class="tab" id="tab-roadmap" onclick="showTab('roadmap')">Roadmap</button>
   </div>
 </div>
 
@@ -198,6 +199,11 @@ body{background:#0A0806;font-family:'Cormorant Garamond',Georgia,serif;color:#F5
     <div class="stc ft"><span class="sth">Key Unlocks</span><div id="unl"></div></div>
     <div class="stc"><span class="sth">Revenue Milestones - 3k Goal vs 10k Ambition</span><div id="rev"></div></div>
   </div>
+
+  <div class="tp" id="tp-roadmap">
+    <div id="roadmap-content"></div>
+  </div>
+
 </div>
 
 <div class="mo" id="edit-mo">
@@ -271,75 +277,197 @@ var DEFAULTS=[
   mk('p12','2024-07-30','Francis Bacon slides','scholar','posted',548,28,8,'he wrote one sentence in 1597 that still describes why serious readers journal','#darkacademia','148% above average'),
   mk('p13','2024-08-01','Bookmarks Vol. II slides','product','posted',204,8,1,'','#darkacademia',''),
   mk('p14','2024-08-03','Commonplace Educational slides','educational','posted',655,31,19,'','#darkacademia #commonplacebook',''),
-  mk('p15','2024-08-05','Reading Journal picture slides','product','posted',168,4,0,'','#darkacademia','No edu context - underperformed'),
+  mk('p15','2024-08-05','Reading Journal picture slides','product','posted',168,4,0,'','#darkacademia','No edu context'),
   mk('p16','2024-08-07','Carpe Diem slides','latin','posted',197,5,0,'','#darkacademia #latinwords',''),
-  mk('p17','2024-08-11','Commonplace Not a Diary slides','educational','posted',922,43,38,'most people journal their feelings - scholars journal their ideas','#darkacademia #commonplacebook','BEST EVER 38 saves'),
+  mk('p17','2024-08-11','Commonplace Not a Diary slides','educational','posted',1000,43,38,'most people journal their feelings - scholars journal their ideas','#darkacademia #commonplacebook','FIRST 1K VIDEO'),
   mk('p18','2024-08-13','Commonplace showcase voiceover','product','posted',142,4,1,'','#darkacademia','Voiceover without face underperforms'),
   mk('p19','2024-08-15','Before Google Commonplace slides','educational','posted',202,6,5,'','#darkacademia #commonplacebook',''),
   mk('p20','2024-08-17','Commonplace page flip video','product','posted',171,3,0,'','#darkacademia',''),
-  mk('p21','2024-08-19','Brand Introduction face video','face','posted',342,23,3,'literary goods for the reader who takes their inner life seriously','#darkacademia #thecuratorsdesk','PIN. +14 followers'),
+  mk('p21','2024-08-19','Brand Introduction face video','face','posted',563,46,4,'literary goods for the reader who takes their inner life seriously','#darkacademia #thecuratorsdesk','PIN. +25 followers'),
   mk('p22','2024-08-21','Classicist Companion showcase slides','product','posted',173,1,0,'','#darkacademia','No edu context - 1 like 0 saves'),
-  mk('p23','2024-08-23','Sapere Aude Latin slide','latin','scheduled',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords',''),
-  hd('h2','Week: Classicists Companion'),
-  mk('wk1a','2024-08-25',"Classicist's Companion - Educational slide",'educational','planned',0,0,0,'the journal that serious readers have always kept - what goes inside','#darkacademia #scholaraesthetic',''),
-  mk('wk1b','2024-08-27','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #boethius',''),
-  mk('wk1c','2024-08-29',"Classicist's Companion face video",'face','planned',0,0,0,'the journal built for the reader who thinks seriously - not just reads','#darkacademia #scholaraesthetic #booktok',''),
-  hd('h3','Week: Commonplace Book'),
-  mk('wk2a','2024-08-31','How to start a Commonplace Book - Educational','educational','planned',0,0,0,'how to start a commonplace book today - the scholars 5-step method','#darkacademia #commonplacebook',''),
-  mk('wk2b','2024-09-02','John Milton scholar slide','scholar','planned',0,0,0,'he went blind and wrote 10565 lines from memory','#darkacademia #johnmilton',''),
-  mk('wk2c','2024-09-04',"Scholar's Commonplace Book face video",'face','planned',0,0,0,'Jefferson kept one. Darwin kept one - this is yours','#darkacademia #commonplacebook #booktok','Most important face video'),
-  hd('h-lang','New Arrivals: Language Journals + Omnibus'),
-  mk('intro1','2024-09-05','New Arrivals - Language Journals plus Omnibus unboxing','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #booktok','Film Aug 24. Event moment. Hint Vol I-VIII coming.'),
-  hd('h4','Week: Reading Challenge'),
-  mk('wk3a','2024-09-06','Why serious readers track their books - Educational','educational','planned',0,0,0,'science says you forget 70% of what you read within 24 hours - unless you write it down','#darkacademia #readingchallenge',''),
-  mk('wk3b','2024-09-08','Augustine of Hippo scholar slide','scholar','planned',0,0,0,'he wrote the worlds first autobiography - addressed directly to God','#darkacademia #augustine',''),
-  mk('wk3c','2024-09-10',"Scholar's Reading Challenge face video",'face','planned',0,0,0,'50 books. one year. writing the goal down changes everything','#darkacademia #readingchallenge #booktok',''),
-  mk('lat1','2024-09-11','Dum Spiro Spero Latin slide','latin','planned',0,0,0,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords','Latin palette cleanser'),
-  hd('h5','Week: Morning Reflection Journal'),
-  mk('wk4a','2024-09-13','Why scholars journaled every morning - Educational','educational','planned',0,0,0,'Marcus Aurelius wrote the Meditations before the demands of the day began','#darkacademia #morningroutine',''),
-  mk('wk4b','2024-09-15','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #christianfaith','Faith theme'),
-  mk('wk4c','2024-09-17','Morning Reflection Journal face video','face','planned',0,0,0,'the scholars who journaled in the mornings said it sharpened everything else','#darkacademia #morningroutine #journalwithme',''),
-  hd('h6','Week: Classicists Reading Journal'),
-  mk('wk5a','2024-09-19','Why reading without writing is half the work - Educational','educational','planned',0,0,0,'you finish the book. a week later you remember almost none of it - here is the fix','#darkacademia #readingjournal #booktok',''),
-  mk('wk5b','2024-09-21','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords','Latin palette cleanser'),
-  mk('wk5c','2024-09-23',"Classicist's Reading Journal face video",'face','planned',0,0,0,'reading without writing is half the work - this is the other half','#darkacademia #readingjournal #booktok',''),
-  hd('h7','Week: Autumn Reading Journal'),
-  mk('wk6a','2024-09-25','Reading seasonally - the Autumn Scholar tradition - Educational','educational','planned',0,0,0,'there is a season made for reading - and the scholars who lived by it read more','#darkacademia #autumnreading #booktok',''),
-  mk('wk6b','2024-09-27','Autumn Scholar season opener','seasonal','planned',0,0,0,'Autumn Scholar season is here - the reading list gets longer','#darkacademia #autumnreading','Desk setup candle warm light'),
-  mk('wk6c','2024-09-29','Autumn Reading Journal face video','face','planned',0,0,0,'a reading journal built for the season when you want to read more intentionally','#darkacademia #autumnreading #readingjournal',''),
-  hd('h-adv','Advent Calendar - Early Intro'),
-  mk('adv1','2024-10-02','What is Advent and why scholars kept it - Educational','educational','planned',0,0,0,'Advent was never meant to be busy - 1500 years of scholars kept it intentionally','#darkacademia #advent #christianfaith','Early so gifting buyers discover in time'),
-  hd('h8','Week: Weekly Planner'),
-  mk('wk7a','2024-10-04','How scholars planned their weeks - Educational','educational','planned',0,0,0,'the difference between a productive week and an intentional one','#darkacademia #planwithme #weeklyplanner',''),
-  mk('wk7b','2024-10-06','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin','Perfect for planner week'),
-  mk('wk7c','2024-10-08',"Scholar's Weekly Planner face video",'face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner',''),
-  hd('h9','Week: Autumn TBR Journal'),
-  mk('wk8a','2024-10-09','The TBR list that never gets read - Educational','educational','planned',0,0,0,'why serious readers keep a dedicated TBR - and how it changes what you actually read','#darkacademia #tbrjournal #booktok',''),
-  mk('wk8b','2024-10-11','Virginia Woolf scholar slide','scholar','planned',0,0,0,'she kept reading lists journals and diaries her entire life - and published 9 novels','#darkacademia #virginiawoolf #booktok',''),
-  mk('wk8c','2024-10-13','Autumn TBR Journal face video','face','planned',0,0,0,'a home for the reading list that never gets read - no shame just organisation','#darkacademia #tbrjournal #booktok',''),
-  hd('h10','Week: Koine Greek Language Journal'),
-  mk('wk9a','2024-10-16','Why Koine Greek matters to scholars - Educational','educational','planned',0,0,0,'the language the New Testament was written in - and why learning it changes how you read scripture','#darkacademia #koinGreek #christianfaith',''),
-  mk('wk9b','2024-10-18','Erasmus scholar slide','scholar','planned',0,0,0,'he spent 20 years learning Greek so he could read the New Testament in its original language','#darkacademia #erasmus',''),
-  mk('wk9c','2024-10-20','Koine Greek Language Journal face video','face','planned',0,0,0,'90 days of studying the language of the New Testament - one word at a time','#darkacademia #koinGreek #christianfaith','New Lulu product'),
-  hd('h11','Week: Old English Language Journal'),
-  mk('wk10a','2024-10-23','Why Old English is the scholars hidden language - Educational','educational','planned',0,0,0,'the language of Beowulf - why serious scholars still study it','#darkacademia #oldEnglish',''),
-  mk('wk10b','2024-10-25','J.R.R. Tolkien scholar slide','scholar','planned',0,0,0,'he was a professor of Old English at Oxford - and used it to build Middle Earth','#darkacademia #tolkien','Huge name recognition'),
-  mk('wk10c','2024-10-27','Old English Language Journal face video','face','planned',0,0,0,'90 days of the language that shaped the English we speak','#darkacademia #oldEnglish','New Lulu product'),
-  hd('h12','Week: Hebrew Language Journal'),
-  mk('wk11a','2024-10-30','Why Biblical Hebrew is worth studying - Educational','educational','planned',0,0,0,'the language the Old Testament was written in - what you gain when you study it','#darkacademia #biblicalHebrew #christianfaith',''),
-  mk('wk11b','2024-11-01','C.S. Lewis scholar slide','scholar','planned',0,0,0,'he taught himself Hebrew in his 50s to read the Psalms in their original language','#darkacademia #cslewis #christianfaith',''),
-  mk('wk11c','2024-11-03','Hebrew Language Journal face video','face','planned',0,0,0,'90 days studying the language of the Old Testament - one word at a time','#darkacademia #biblicalHebrew #christianfaith','New Lulu product'),
-  hd('h13','Week: Curiosity Journal Omnibus'),
-  mk('wk12a','2024-11-06','What is a Curiosity Journal - Educational','educational','planned',0,0,0,'90 concepts across 5 disciplines - the journal built for the lifelong learner','#darkacademia #curiosityjournal',''),
-  mk('wk12b','2024-11-08','Leonardo da Vinci scholar slide','scholar','planned',0,0,0,'he kept notebooks on anatomy engineering art and philosophy all at once - we call that genius','#darkacademia #leonardodavinci',''),
-  mk('wk12c','2024-11-10','Curiosity Journal Omnibus face video','face','planned',0,0,0,'90 concepts. 5 disciplines. one journal - and Vol I-VIII is coming','#darkacademia #curiosityjournal #booktok','Hint Vol I-VIII Jan 2027'),
-  hd('h-gift','Gift Bundle Videos - Gifting Season'),
-  mk('gift1','2024-11-13',"Bundle 1 - The Reader's Bundle",'face','planned',0,0,0,'the perfect gift for the serious reader - the scholars reading bundle','#darkacademia #giftideas #booktok #christmasgifts','Commonplace Book + Classicists Reading Journal + Bookmarks'),
-  mk('lat2','2024-11-15','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords','Latin cleanser'),
-  mk('gift2','2024-11-17','Bundle 2 - The Morning Scholar Bundle','face','planned',0,0,0,'the gift for someone who wants to start their days more intentionally','#darkacademia #giftideas #christmasgifts','Morning Reflection + Weekly Planner'),
-  mk('gift3','2024-11-21','Bundle 3 - The Language Scholar Bundle','face','planned',0,0,0,'for the student seminarian or classical scholar on your list','#darkacademia #giftideas #christmasgifts','Language Journal + Classicists Companion'),
-  mk('gift4','2024-11-25','Bundle 4 - The Autumn Reading Bundle','face','planned',0,0,0,'for the reader who reads seasonally and loves the aesthetic','#darkacademia #giftideas #christmasgifts','Autumn Reading + Autumn TBR + Bookmarks'),
-  mk('lat3','2024-11-29','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'the phrase from Isaiah that scholars have carried for 2700 years','#darkacademia #latinwords #christianfaith','Advent season timing')
+  mk('p23','2024-08-23','Sapere Aude Latin slide','latin','posted',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords',''),
+  mk('p24','2024-08-25','Dum Spiro Spero Latin slide','latin','posted',523,26,10,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords','Best Latin slide ever'),
+  mk('p25','2024-08-28','How to Start a Commonplace Book slides','educational','posted',884,60,37,'how to start a commonplace book today - the scholars 5-step method','#darkacademia #commonplacebook','Best single day performance ever'),
+  hd('h-sep','September 2026 - Daily Posting'),
+  mk('sep1','2024-09-01','Sapere Aude Latin slide','latin','planned',0,0,0,'Kant called these two words the motto of the Enlightenment','#darkacademia #latinwords',''),
+  mk('sep2','2024-09-02','John Milton scholar slide','scholar','planned',0,0,0,'he went blind and wrote 10565 lines from memory','#darkacademia #johnmilton','Commonplace Book week close'),
+  mk('sep3','2024-09-03','Commonplace Book face video','face','planned',0,0,0,'Jefferson kept one. Darwin kept one - this is yours','#darkacademia #commonplacebook #booktok','Most important face video'),
+  mk('sep4','2024-09-04','New Arrivals intro - Language Journals plus Omnibus','face','planned',0,0,0,'the new arrivals - language journals and the scholars omnibus are here','#darkacademia #languagejournal #booktok','Film Aug 24 on arrival day. Event moment.'),
+  hd('h-gk','Week: Koine Greek Language Journal'),
+  mk('sep5','2024-09-05','Why Koine Greek matters to scholars - Educational','educational','planned',0,0,0,'the language the New Testament was written in - and why learning it changes how you read scripture','#darkacademia #koinGreek #christianfaith',''),
+  mk('sep6','2024-09-06','Erasmus scholar slide','scholar','planned',0,0,0,'he spent 20 years learning Greek to read the New Testament in its original language','#darkacademia #erasmus',''),
+  mk('sep7','2024-09-07','Koine Greek Language Journal face video','face','planned',0,0,0,'90 days of studying the language of the New Testament - one word at a time','#darkacademia #koinGreek #christianfaith','New Lulu product'),
+  hd('h-oe','Week: Old English Language Journal'),
+  mk('sep8','2024-09-08','Why Old English is the scholars hidden language - Educational','educational','planned',0,0,0,'the language of Beowulf - why serious scholars still study it','#darkacademia #oldEnglish',''),
+  mk('sep9','2024-09-09','J.R.R. Tolkien scholar slide','scholar','planned',0,0,0,'he was a professor of Old English at Oxford - and used it to build Middle Earth','#darkacademia #tolkien','Huge name recognition'),
+  mk('sep10','2024-09-10','Old English Language Journal face video','face','planned',0,0,0,'90 days of the language that shaped the English we speak','#darkacademia #oldEnglish','New Lulu product'),
+  hd('h-hb','Week: Hebrew Language Journal'),
+  mk('sep11','2024-09-11','Why Biblical Hebrew is worth studying - Educational','educational','planned',0,0,0,'the language the Old Testament was written in - what you gain when you study it','#darkacademia #biblicalHebrew #christianfaith',''),
+  mk('sep12','2024-09-12','C.S. Lewis scholar slide','scholar','planned',0,0,0,'he taught himself Hebrew in his 50s to read the Psalms in their original language','#darkacademia #cslewis #christianfaith',''),
+  mk('sep13','2024-09-13','Hebrew Language Journal face video','face','planned',0,0,0,'90 days studying the language of the Old Testament - one word at a time','#darkacademia #biblicalHebrew #christianfaith','New Lulu product'),
+  hd('h-omn','Week: Curiosity Journal Omnibus'),
+  mk('sep14','2024-09-14','What is a Curiosity Journal - Educational','educational','planned',0,0,0,'90 concepts across 5 disciplines - the journal built for the lifelong learner','#darkacademia #curiosityjournal',''),
+  mk('sep15','2024-09-15','Leonardo da Vinci scholar slide','scholar','planned',0,0,0,'he kept notebooks on anatomy engineering art and philosophy all at once - we call that genius','#darkacademia #leonardodavinci',''),
+  mk('sep16','2024-09-16','Curiosity Journal Omnibus face video','face','planned',0,0,0,'90 concepts. 5 disciplines. one journal - and Vol I-VIII is coming in January','#darkacademia #curiosityjournal #booktok','HINT Vol I-VIII coming Jan 2027'),
+  hd('h-rc','Week: Reading Challenge'),
+  mk('sep17','2024-09-17','Why serious readers track their books - Educational','educational','planned',0,0,0,'science says you forget 70% of what you read within 24 hours - unless you write it down','#darkacademia #readingchallenge #booktok',''),
+  mk('sep18','2024-09-18','Augustine of Hippo scholar slide','scholar','planned',0,0,0,'he wrote the worlds first autobiography - addressed directly to God','#darkacademia #augustine',''),
+  mk('sep19','2024-09-19','Reading Challenge face video','face','planned',0,0,0,'50 books. one year. writing the goal down changes everything','#darkacademia #readingchallenge #booktok',''),
+  mk('sep20','2024-09-20','Ora et Labora Latin slide','latin','planned',0,0,0,'pray and work - the Benedictine motto that shaped Western scholarship','#darkacademia #latinwords #christianfaith','Latin palette cleanser'),
+  hd('h-mr','Week: Morning Reflection Journal'),
+  mk('sep21','2024-09-21','Why scholars journaled every morning - Educational','educational','planned',0,0,0,'Marcus Aurelius wrote the Meditations before the demands of the day began','#darkacademia #morningroutine',''),
+  mk('sep22','2024-09-22','What is contemplative writing - Contemplative Journal','educational','planned',0,0,0,'the most important thinking does not happen while you are busy - it happens in the space you make for it','#darkacademia #contemplative','Contemplative Journal intro'),
+  mk('sep23','2024-09-23','Thomas Merton scholar slide','scholar','planned',0,0,0,'he left a prestigious career to live in silence - and wrote more than most scholars ever do','#darkacademia #thomasmerton #christianfaith','Scholar for contemplative week'),
+  mk('sep24','2024-09-24','Morning Reflection Journal face video','face','planned',0,0,0,'the scholars who journaled in the mornings said it sharpened everything else','#darkacademia #morningroutine #journalwithme',''),
+  mk('sep25','2024-09-25','Contemplative Journal face video','face','planned',0,0,0,'space for the thinking that requires silence','#darkacademia #contemplative #journalwithme',''),
+  mk('sep26','2024-09-26','Dum Spiro Spero Latin slide','latin','planned',0,0,0,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords','Latin palette cleanser'),
+  hd('h-arj','Week: Autumn Reading Journal'),
+  mk('sep27','2024-09-27','Autumn Scholar season opener','seasonal','planned',0,0,0,'Autumn Scholar season is here - the reading list gets longer and the light gets better','#darkacademia #autumnreading #autumnaesthetic','Desk setup candle warm light'),
+  mk('sep28','2024-09-28','Reading seasonally - the Autumn Scholar tradition - Educational','educational','planned',0,0,0,'there is a season made for reading - and the scholars who lived by it read more','#darkacademia #autumnreading #booktok',''),
+  mk('sep29','2024-09-29','Autumn Reading Journal face video','face','planned',0,0,0,'a reading journal built for the season when you want to read more intentionally','#darkacademia #autumnreading #readingjournal',''),
+  mk('sep30','2024-09-30','Soli Deo Gloria Latin slide','latin','planned',0,0,0,'to God alone the glory - the phrase Bach signed on every piece of music he wrote','#darkacademia #latinwords #christianfaith','Latin palette cleanser'),
+  hd('h-oct','October 2026 - Daily Posting Continues'),
+  hd('h-crj','Week: Classicists Reading Journal'),
+  mk('oct1','2024-10-01','Why reading without writing is half the work - Educational','educational','planned',0,0,0,'you finish the book. a week later you remember almost none of it - here is the fix','#darkacademia #readingjournal #booktok',''),
+  mk('oct2','2024-10-02','What is Advent and why scholars kept it - Educational','educational','planned',0,0,0,'Advent was never meant to be busy - 1500 years of scholars kept it intentionally','#darkacademia #advent #christianfaith','Early Advent intro for gifting season'),
+  mk('oct3','2024-10-03','Classicists Reading Journal face video','face','planned',0,0,0,'reading without writing is half the work - this is the other half','#darkacademia #readingjournal #booktok',''),
+  hd('h-tbr','Week: Autumn TBR Journal'),
+  mk('oct4','2024-10-04','The TBR list that never gets read - Educational','educational','planned',0,0,0,'why serious readers keep a dedicated TBR - and how it changes what you actually read','#darkacademia #tbrjournal #booktok',''),
+  mk('oct5','2024-10-05','Virginia Woolf scholar slide','scholar','planned',0,0,0,'she kept reading lists journals and diaries her entire life - and published 9 novels','#darkacademia #virginiawoolf #booktok',''),
+  mk('oct6','2024-10-06','Autumn TBR Journal face video','face','planned',0,0,0,'a home for the reading list that never gets read - no shame just organisation','#darkacademia #tbrjournal #booktok',''),
+  hd('h-sr','Week: Self-Reflection Journal'),
+  mk('oct7','2024-10-07','Nosce Te Ipsum - Self-Reflection Journal - Educational','educational','planned',0,0,0,'it was carved above the entrance to the Temple of Apollo - know thyself','#darkacademia #selfreflection #scholaraesthetic',''),
+  mk('oct8','2024-10-08','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #boethius',''),
+  mk('oct9','2024-10-09','Self-Reflection Journal face video','face','planned',0,0,0,'the hardest person to know honestly is yourself','#darkacademia #selfreflection #journalwithme',''),
+  mk('oct10','2024-10-10','Deus Providebit Latin slide','latin','planned',0,0,0,'God will provide - the phrase Abraham spoke on the mountain','#darkacademia #latinwords #christianfaith','Latin palette cleanser'),
+  hd('h-dl','Week: Daily Reading Log'),
+  mk('oct11','2024-10-11','Retrieval practice - the most effective memory technique - Educational','educational','planned',0,0,0,'most people read. few people remember what they read. the difference is what happens after the last page','#darkacademia #readinglog #booktok',''),
+  mk('oct12','2024-10-12','Dietrich Bonhoeffer scholar slide','scholar','planned',0,0,0,'he wrote in prison with faith and precision - his letters became theology','#darkacademia #bonhoeffer #christianfaith',''),
+  mk('oct13','2024-10-13','Daily Reading Log face video','face','planned',0,0,0,'60 days of end of day reflection - what you read today remembered tomorrow','#darkacademia #readinglog #journalwithme',''),
+  hd('h-arp','Week: Annual Reading Planner'),
+  mk('oct14','2024-10-14','Why scholars plan their reading a year at a time - Educational','educational','planned',0,0,0,'the difference between reading randomly and reading seriously is a plan','#darkacademia #readingplanner #booktok',''),
+  mk('oct15','2024-10-15','Samuel Johnson scholar slide','scholar','planned',0,0,0,'he read everything and forgot nothing - and kept meticulous lists','#darkacademia #samueljohnson',''),
+  mk('oct16','2024-10-16','Annual Reading Planner face video','face','planned',0,0,0,'plan the whole year - it lies completely flat when open','#darkacademia #readingplanner #journalwithme','Coil bound feature'),
+  hd('h-wc','Week: Writing Companion'),
+  mk('oct17','2024-10-17','Writing is thinking - Writing Companion - Educational','educational','planned',0,0,0,'you do not know what you think until you write it - Francis Bacon knew this in 1597','#darkacademia #writingjournal #scholaraesthetic',''),
+  mk('oct18','2024-10-18','Dorothy L. Sayers scholar slide','scholar','planned',0,0,0,'Oxford scholar detective novelist and theologian - she never stopped writing','#darkacademia #dorothysayers',''),
+  mk('oct19','2024-10-19','Writing Companion face video','face','planned',0,0,0,'for the writer who thinks on paper','#darkacademia #writingjournal #journalwithme',''),
+  hd('h-ic','Week: Idea Capture Journal'),
+  mk('oct20','2024-10-20','Why ideas disappear - Idea Capture Journal - Educational','educational','planned',0,0,0,'the best idea you ever had - you have already forgotten it','#darkacademia #ideajournal #scholaraesthetic',''),
+  mk('oct21','2024-10-21','Per Aspera Ad Astra Latin slide','latin','planned',0,0,0,'through hardship to the stars - the phrase that outlasted every empire that used it','#darkacademia #latinwords','Latin palette cleanser'),
+  mk('oct22','2024-10-22','Idea Capture Journal face video','face','planned',0,0,0,'Leonardo da Vinci filled 13000 pages. you can start with one.','#darkacademia #ideajournal #journalwithme',''),
+  hd('h-wp','Week: Weekly Planner'),
+  mk('oct23','2024-10-23','How scholars planned their weeks - Educational','educational','planned',0,0,0,'a productive week and an intentional week are not the same thing','#darkacademia #planwithme #weeklyplanner',''),
+  mk('oct24','2024-10-24','Benjamin Franklin scholar slide','scholar','planned',0,0,0,'he scheduled every hour of every day from age 20 - and reviewed it every night','#darkacademia #benjaminfranklin','Perfect for planner week'),
+  mk('oct25','2024-10-25','Weekly Planner face video','face','planned',0,0,0,'a planner that feels like stationery - not a spreadsheet','#darkacademia #planwithme #weeklyplanner',''),
+  mk('oct26','2024-10-26','Famous commonplace books throughout history - Educational','educational','planned',0,0,0,'what the greatest thinkers actually kept in their notebooks','#darkacademia #commonplacebook','Anchor topic high save potential'),
+  mk('oct27','2024-10-27','What goes in a commonplace book - Educational','educational','planned',0,0,0,'quotes observations words worth keeping - the scholars method','#darkacademia #commonplacebook','Anchor topic variation'),
+  mk('oct28','2024-10-28','Gift guide for the reader in your life - Educational','educational','planned',0,0,0,'what the serious reader on your list actually wants this Christmas','#darkacademia #giftideas #christmasgifts','Gifting season opens'),
+  mk('oct29','2024-10-29','Flannery O Connor scholar slide','scholar','planned',0,0,0,'she journaled every morning and said it was how she found out what she believed','#darkacademia #flanneryo',''),
+  mk('oct30','2024-10-30','What makes a good scholar gift - Educational','educational','planned',0,0,0,'not just beautiful - actually useful. here is what to look for','#darkacademia #giftideas #christmasgifts','Gifting season content'),
+  mk('oct31','2024-10-31','In Silentio Et Spe Latin slide','latin','planned',0,0,0,'in stillness and in hope shall be your strength - Isaiah 30:15','#darkacademia #latinwords #christianfaith','Advent season approaching'),
+  hd('h-nov','November 2026 - Final Pre-Departure Push'),
+  mk('nov1','2024-11-01','Bundle 1 - The Readers Bundle','face','planned',0,0,0,'the perfect gift for the serious reader - the scholars reading bundle','#darkacademia #giftideas #booktok #christmasgifts','Commonplace Book + Classicists Reading Journal + Bookmarks'),
+  mk('nov2','2024-11-02','Bundle 2 - The Morning Scholar Bundle','face','planned',0,0,0,'the gift for someone who wants to start their days more intentionally','#darkacademia #giftideas #christmasgifts','Morning Reflection + Weekly Planner'),
+  mk('nov3','2024-11-03','Bundle 3 - The Language Scholar Bundle','face','planned',0,0,0,'for the student seminarian or classical scholar on your list','#darkacademia #giftideas #christmasgifts','Language Journal + Classicists Companion'),
+  mk('nov4','2024-11-04','Bundle 4 - The Autumn Reading Bundle','face','planned',0,0,0,'for the reader who reads seasonally and loves the aesthetic','#darkacademia #giftideas #christmasgifts','Autumn Reading + TBR + Bookmarks'),
+  mk('nov5','2024-11-05','Nosce Te Ipsum Latin slide','latin','planned',0,0,0,'it was carved above the entrance to the most powerful oracle in the ancient world','#darkacademia #latinwords','Latin palette cleanser'),
+  mk('nov6','2024-11-06','The scholars Christmas list - Educational','educational','planned',0,0,0,'what the serious reader actually wants under the tree this year','#darkacademia #christmasgifts #giftideas','Aspirational gifting content'),
+  mk('nov7','2024-11-07','Advent Calendar Journal face video','face','planned',0,0,0,'25 days of intentional reflection - one word per day through Advent','#darkacademia #advent #christianfaith #journalwithme',''),
+  mk('nov8','2024-11-08','Behind the brand - Why TheCuratorsDesk exists','face','planned',0,0,0,'why I built a literary stationery brand and what I want it to mean','#darkacademia #thecuratorsdesk #behindthebrand','Personal story - humanises the brand'),
+  mk('nov9','2024-11-09','Commonplace book vs diary - the key differences','educational','planned',0,0,0,'most people journal their feelings - scholars journal their ideas','#darkacademia #commonplacebook','Anchor topic variation'),
+  mk('nov10','2024-11-10','What is on my reading list this autumn','face','planned',0,0,0,'what I am actually reading right now - and why','#darkacademia #readinglist #booktok','Personal content warms audience'),
+  mk('nov11','2024-11-11','Year in Letters teaser - something new is coming in January','face','planned',0,0,0,'I have been working on something I am genuinely excited about - it is coming in January','#darkacademia #thecuratorsdesk','Build anticipation before departure'),
+  mk('nov12','2024-11-12','Scholar gift guide revisit - last chance before Christmas','educational','planned',0,0,0,'the last chance to order for Christmas delivery - here is the full gift guide','#darkacademia #christmasgifts #giftideas','Gifting urgency'),
+  mk('nov13','2024-11-13','Advent Calendar - 1500 years of intentional Advent','educational','planned',0,0,0,'Advent was never meant to be busy - and the scholars who kept it best knew that','#darkacademia #advent #christianfaith','Peak Advent discovery window'),
+  mk('nov14','2024-11-14','John Calvin scholar slide','scholar','planned',0,0,0,'he wrote the Institutes of the Christian Religion at 26 - one of the most influential books ever written','#darkacademia #johncalvin #christianfaith',''),
+  mk('nov15','2024-11-15','Departure message - the desk stays open while I am away','face','planned',0,0,0,'I am heading abroad but the desk stays open - everything ships as normal','#darkacademia #thecuratorsdesk','LAST VIDEO BEFORE DEPARTURE - pre-schedule everything below'),
+  hd('h-abroad','November 16 - January 10 2027 - Abroad Pre-Scheduled'),
+  mk('ab1','2024-11-17','Soli Deo Gloria Latin slide','latin','planned',0,0,0,'to God alone the glory - the phrase Bach signed on every piece of music','#darkacademia #latinwords #christianfaith','Advent season faith content'),
+  mk('ab2','2024-11-20','Gift bundle reminder - Christmas is coming','educational','planned',0,0,0,'the scholar gift bundles are still available - here is what is in each one','#darkacademia #christmasgifts #giftideas','Gifting urgency'),
+  mk('ab3','2024-11-24','What scholars read in winter - Educational','educational','planned',0,0,0,'the books serious readers return to every winter - and why','#darkacademia #winterreading #booktok','Evergreen content'),
+  mk('ab4','2024-11-27','Deus Providebit Latin slide','latin','planned',0,0,0,'God will provide - Abraham and the mountain','#darkacademia #latinwords #christianfaith','Latin palette cleanser'),
+  hd('h-dec','December 2026 - Advent Calendar Word of Day Series'),
+  mk('dec1','2024-12-01','Advent word of day - Day 1','face','planned',0,0,0,'Day 1 of Advent - the word that opens the season','#darkacademia #advent #christianfaith #wordoftheday','Film all 24 in one batch session before Nov 16'),
+  mk('dec2','2024-12-02','Advent word of day - Day 2','face','planned',0,0,0,'Day 2 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec3','2024-12-03','Advent word of day - Day 3','face','planned',0,0,0,'Day 3 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec4','2024-12-04','Advent word of day - Day 4','face','planned',0,0,0,'Day 4 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec5','2024-12-05','Advent word of day - Day 5 + shipping deadline reminder','face','planned',0,0,0,'Day 5 of Advent - and a reminder of last order dates for Christmas delivery','#darkacademia #advent #christmasgifts','CRITICAL - include shipping deadline in caption'),
+  mk('dec6','2024-12-06','Advent word of day - Day 6','face','planned',0,0,0,'Day 6 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec7','2024-12-07','Advent word of day - Day 7','face','planned',0,0,0,'Day 7 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec8','2024-12-08','Advent word of day - Day 8','face','planned',0,0,0,'Day 8 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec9','2024-12-09','Advent word of day - Day 9','face','planned',0,0,0,'Day 9 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec10','2024-12-10','Advent word of day - Day 10','face','planned',0,0,0,'Day 10 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec11','2024-12-11','Advent word of day - Day 11','face','planned',0,0,0,'Day 11 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec12','2024-12-12','Advent word of day - Day 12 + final shipping deadline','face','planned',0,0,0,'Day 12 of Advent - last chance to order for Christmas delivery','#darkacademia #advent #christmasgifts','CRITICAL - last shipping deadline reminder'),
+  mk('dec13','2024-12-13','Advent word of day - Day 13','face','planned',0,0,0,'Day 13 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec14','2024-12-14','Advent word of day - Day 14','face','planned',0,0,0,'Day 14 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec15','2024-12-15','Advent word of day - Day 15','face','planned',0,0,0,'Day 15 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec16','2024-12-16','Advent word of day - Day 16','face','planned',0,0,0,'Day 16 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec17','2024-12-17','Advent word of day - Day 17','face','planned',0,0,0,'Day 17 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec18','2024-12-18','Advent word of day - Day 18','face','planned',0,0,0,'Day 18 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec19','2024-12-19','Advent word of day - Day 19','face','planned',0,0,0,'Day 19 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec20','2024-12-20','Advent word of day - Day 20','face','planned',0,0,0,'Day 20 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec21','2024-12-21','Advent word of day - Day 21','face','planned',0,0,0,'Day 21 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec22','2024-12-22','Advent word of day - Day 22','face','planned',0,0,0,'Day 22 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec23','2024-12-23','Advent word of day - Day 23','face','planned',0,0,0,'Day 23 of Advent','#darkacademia #advent #christianfaith #wordoftheday',''),
+  mk('dec24','2024-12-24','Advent word of day - Day 24 - Christmas Eve','face','planned',0,0,0,'Day 24 of Advent - Christmas Eve - the word that closes the season','#darkacademia #advent #christianfaith #christmaseve','Final Advent video'),
+  mk('dec25','2024-12-25','Christmas message to the scholarly community','face','planned',0,0,0,'Merry Christmas from the desk - thank you for being part of this community','#darkacademia #thecuratorsdesk #christmas','Pre-filmed personal message'),
+  mk('dec28','2024-12-28','What is coming to the desk in January','face','planned',0,0,0,'Year in Letters and the Curiosity Journal series - coming in January','#darkacademia #thecuratorsdesk','Teaser for January launches'),
+  mk('jan1','2025-01-01','New year new chapter - scholar goals for 2027','face','planned',0,0,0,'a new year of intentional reading writing and thinking - here is how to start','#darkacademia #newyear #readinggoals','New year journaling surge'),
+  mk('jan3','2025-01-03','Why serious readers set reading goals - Educational','educational','planned',0,0,0,'writing a goal down makes you 42% more likely to achieve it - here is the scholars method','#darkacademia #readinggoals #newyear',''),
+  mk('jan6','2025-01-06','Sapere Aude Latin slide','latin','planned',0,0,0,'dare to know - the motto of the Enlightenment and the best resolution you can make','#darkacademia #latinwords #newyear','New year angle'),
+  mk('jan8','2025-01-08','Year in Letters sneak peek - what is inside','educational','planned',0,0,0,'a first look at what is arriving on January 11 - the Year in Letters','#darkacademia #yearinletters','Final anticipation build before return'),
+  hd('h-ret','January 11 2027 - Return and Year in Letters Launch'),
+  mk('ret1','2025-01-11','I am back - and here is what is launching','face','planned',0,0,0,'I am back from abroad and the new arrivals are here - Year in Letters and more','#darkacademia #thecuratorsdesk #yearinletters','Return announcement'),
+  mk('ret2','2025-01-13','What is the Year in Letters - Educational','educational','planned',0,0,0,'one letter per month to the person you are becoming - here is how it works','#darkacademia #yearinletters',''),
+  mk('ret3','2025-01-15','Virginia Woolf scholar slide - letters as scholarship','scholar','planned',0,0,0,'she wrote letters as serious intellectual work - and they are some of her best writing','#darkacademia #virginiawoolf',''),
+  mk('ret4','2025-01-17','Year in Letters face video','face','planned',0,0,0,'one letter per month - to the person you are becoming by the end of this year','#darkacademia #yearinletters #journalwithme',''),
+  mk('ret5','2025-01-19','What is The Year I Noticed You - Educational','educational','planned',0,0,0,'a year of writing about the people who matter to you - one person per month','#darkacademia #yearinletters',''),
+  mk('ret6','2025-01-21','The Year I Noticed You face video','face','planned',0,0,0,'a year of noticing the people who matter - one month at a time','#darkacademia #yearinletters #journalwithme',''),
+  mk('ret7','2025-01-23','Curiosity Journal series - the full collection is almost here','educational','planned',0,0,0,'Vol I through VIII is coming this February - here is what is inside each one','#darkacademia #curiosityjournal','Build anticipation'),
+  mk('ret8','2025-01-25','Monthly use - Year in Letters January','face','planned',0,0,0,'this is what I wrote in my Year in Letters this month - and why','#darkacademia #yearinletters','ONGOING SERIES - one per month all year'),
+  mk('ret9','2025-01-27','Aristotle scholar slide','scholar','planned',0,0,0,'he wrote on logic ethics biology politics poetry and physics - all of it','#darkacademia #aristotle','Precursor to Curiosity Journal launch'),
+  mk('ret10','2025-02-01','Curiosity Journal Vol I-VIII - Collection announcement','face','planned',0,0,0,'the full Curiosity Journal series is here - 8 volumes across 5 disciplines','#darkacademia #curiosityjournal #booktok','EVENT - show all 8 volumes together'),
+  hd('h-cj','February 2027 - Curiosity Journal Launch'),
+  mk('cj1','2025-02-03','Curiosity Journal Vol I - History - Educational','educational','planned',0,0,0,'90 historical concepts every serious scholar should know','#darkacademia #curiosityjournal #history',''),
+  mk('cj2','2025-02-05','Curiosity Journal Vol II - Philosophy - Educational','educational','planned',0,0,0,'90 philosophical ideas that shaped how we think','#darkacademia #curiosityjournal #philosophy',''),
+  mk('cj3','2025-02-07','Curiosity Journal Vol III - Language - Educational','educational','planned',0,0,0,'90 concepts about language linguistics and communication','#darkacademia #curiosityjournal #language',''),
+  mk('cj4','2025-02-10','Curiosity Journal Vol IV - Science - Educational','educational','planned',0,0,0,'90 scientific concepts every curious mind should understand','#darkacademia #curiosityjournal #science',''),
+  mk('cj5','2025-02-12','Curiosity Journal Vol V - Theology - Educational','educational','planned',0,0,0,'90 theological concepts from the most important tradition in Western scholarship','#darkacademia #curiosityjournal #theology #christianfaith',''),
+  mk('cj6','2025-02-14','Curiosity Journal Vol VI-VIII tease','educational','planned',0,0,0,'three more volumes coming - here is what they cover','#darkacademia #curiosityjournal','Valentines angle'),
+  mk('cj7','2025-02-17','History discipline scholar slide','scholar','planned',0,0,0,'the historian who shaped how we understand the ancient world','#darkacademia #scholar #history','One per discipline'),
+  mk('cj8','2025-02-19','Philosophy discipline scholar slide','scholar','planned',0,0,0,'the philosopher whose questions we are still answering','#darkacademia #scholar #philosophy',''),
+  mk('cj9','2025-02-21','Language discipline scholar slide','scholar','planned',0,0,0,'the linguist who changed how we understand human communication','#darkacademia #scholar #language',''),
+  mk('cj10','2025-02-24','Science discipline scholar slide','scholar','planned',0,0,0,'the scientist who proved that curiosity is a method not a personality trait','#darkacademia #scholar #science',''),
+  mk('cj11','2025-02-26','Theology discipline scholar slide','scholar','planned',0,0,0,'the theologian whose work still shapes Christian thought today','#darkacademia #scholar #theology #christianfaith',''),
+  mk('cj12','2025-03-01','Full Curiosity Journal collection face video','face','planned',0,0,0,'the scholars library is complete - 8 volumes 5 disciplines everything you need','#darkacademia #curiosityjournal #booktok',''),
+  mk('cj13','2025-03-03','Monthly use - Year in Letters February','face','planned',0,0,0,'this is what I wrote in my Year in Letters in February','#darkacademia #yearinletters','Ongoing monthly series'),
+  mk('cj14','2025-03-05','Spring Reading Journal - What is it - Educational','educational','planned',0,0,0,'a reading journal built for the season when everything begins again','#darkacademia #springreading #readingjournal',''),
+  mk('cj15','2025-03-07','Spring Reading Journal face video','face','planned',0,0,0,'for the reader who wants to read more intentionally this spring','#darkacademia #springreading #readingjournal #booktok',''),
+  hd('h-mc','March 2027 - Method Companions Launch'),
+  mk('mc1','2025-03-15','Method Companion 1 - Educational','educational','planned',0,0,0,'the first method companion - how serious scholars approach this discipline','#darkacademia #methodcompanion',''),
+  mk('mc2','2025-03-19','Method Companion 1 face video','face','planned',0,0,0,'the method companion for the scholar who wants to go deeper','#darkacademia #methodcompanion #journalwithme',''),
+  mk('mc3','2025-03-22','Method Companion 2 - Educational','educational','planned',0,0,0,'the second method companion','#darkacademia #methodcompanion',''),
+  mk('mc4','2025-03-26','Method Companion 2 face video','face','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  mk('mc5','2025-03-29','Method Companion 3 - Educational','educational','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  mk('mc6','2025-04-02','Method Companion 3 face video','face','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  mk('mc7','2025-04-03','Monthly use - Year in Letters March','face','planned',0,0,0,'this is what I wrote in my Year in Letters in March','#darkacademia #yearinletters','Ongoing monthly series'),
+  mk('mc8','2025-04-05','Method Companion 4 - Educational','educational','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  mk('mc9','2025-04-09','Method Companion 4 face video','face','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  mk('mc10','2025-04-12','Method Companion 5 - Educational','educational','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  mk('mc11','2025-04-16','Method Companion 5 face video','face','planned',0,0,0,'','#darkacademia #methodcompanion',''),
+  hd('h-sc','April 2027 - Subject Companions Launch'),
+  mk('sc1','2025-04-20','Subject Companions - Collection announcement','face','planned',0,0,0,'10 subject companions dropping today - the complete scholars subject library','#darkacademia #subjectcompanion #booktok','Show all 10 together'),
+  mk('sc2','2025-04-22','Subject Companion 1 and 2 - Educational','educational','planned',0,0,0,'the first two subject companions - what they cover and why','#darkacademia #subjectcompanion','Two per week'),
+  mk('sc3','2025-04-24','Subject Companion 3 and 4 - Educational','educational','planned',0,0,0,'','#darkacademia #subjectcompanion',''),
+  mk('sc4','2025-04-26','Subject Companion 5 and 6 - Educational','educational','planned',0,0,0,'','#darkacademia #subjectcompanion',''),
+  mk('sc5','2025-04-28','Subject Companion 7 and 8 - Educational','educational','planned',0,0,0,'','#darkacademia #subjectcompanion',''),
+  mk('sc6','2025-04-30','Subject Companion 9 and 10 - Educational','educational','planned',0,0,0,'','#darkacademia #subjectcompanion',''),
+  mk('sc7','2025-05-02','Subject Companion scholar slides','scholar','planned',0,0,0,'one scholar per subject discipline - the thinkers who defined each field','#darkacademia #scholar #subjectcompanion','5 posts across 2 weeks'),
+  mk('sc8','2025-05-10','Full scholar library face video - everything TCD makes','face','planned',0,0,0,'the complete scholars library - every journal planner and companion we make','#darkacademia #thecuratorsdesk #booktok','The complete catalogue moment'),
+  mk('sc9','2025-05-15','Monthly use - Year in Letters April and May','face','planned',0,0,0,'two months of Year in Letters - what I wrote and what changed','#darkacademia #yearinletters','Ongoing monthly series'),
+  mk('sc10','2025-05-20','Revenue milestone - thank you to the community','face','planned',0,0,0,'thank you for being part of this - here is what we have built together','#darkacademia #thecuratorsdesk #community','If 3k is hit celebrate it publicly')
 ];
 
 var acc={followers:45,email:3,pinterest:1400,etsy:0};
@@ -361,12 +489,13 @@ function save(){
 }
 
 function showTab(t){
-  ['content','analytics','strategy'].forEach(function(x){
+  ['content','analytics','strategy','roadmap'].forEach(function(x){
     document.getElementById('tp-'+x).classList.toggle('active',x===t);
     document.getElementById('tab-'+x).classList.toggle('active',x===t);
   });
   if(t==='analytics') buildAnalytics();
   if(t==='strategy') buildStrategy();
+  if(t==='roadmap') buildRoadmap();
 }
 
 function updateSB(){
@@ -589,6 +718,244 @@ function buildStrategy(){
     'Build toward 3k. If a video breaks out or ads work early - everything is already in place to capture it.'+
     '</div>';
 }
+
+
+function buildRoadmap(){
+  var phases = [
+    {
+      title: "September 2026 — Daily Posting Begins",
+      count: "30 posts",
+      note: "Language journals moved to September. All face videos filmed in batch. Autumn Scholar palette active Sep 27.",
+      posts: [
+        ["Sep 1","latin","Sapere Aude Latin slide","Already scheduled"],
+        ["Sep 2","scholar","John Milton scholar slide","Commonplace Book week close"],
+        ["Sep 3","face","Commonplace Book face video","Jefferson kept one. Darwin kept one."],
+        ["Sep 4","face","New Arrivals intro — Language Journals + Omnibus","Film Aug 24 on arrival day"],
+        ["Sep 5","educational","Why Koine Greek matters to scholars","Koine Greek week"],
+        ["Sep 6","scholar","Erasmus scholar slide","20 years learning Greek"],
+        ["Sep 7","face","Koine Greek Language Journal face video","90 days one word at a time"],
+        ["Sep 8","educational","Why Old English is the scholar's hidden language","Old English week"],
+        ["Sep 9","scholar","J.R.R. Tolkien scholar slide","Oxford professor — built Middle Earth"],
+        ["Sep 10","face","Old English Language Journal face video","Language that shaped English"],
+        ["Sep 11","educational","Why Biblical Hebrew is worth studying","Hebrew week"],
+        ["Sep 12","scholar","C.S. Lewis scholar slide","Taught himself Hebrew in his 50s"],
+        ["Sep 13","face","Hebrew Language Journal face video","90 days of the Old Testament language"],
+        ["Sep 14","educational","What is a Curiosity Journal — Omnibus","Omnibus week"],
+        ["Sep 15","scholar","Leonardo da Vinci scholar slide","Notebooks across 5 disciplines"],
+        ["Sep 16","face","Curiosity Journal Omnibus face video","HINT: Vol I-VIII coming January"],
+        ["Sep 17","educational","Why serious readers track their books","Reading Challenge week"],
+        ["Sep 18","scholar","Augustine of Hippo scholar slide","World's first autobiography to God"],
+        ["Sep 19","face","Scholar's Reading Challenge face video","50 books. one year."],
+        ["Sep 20","latin","Ora et Labora Latin slide","Pray and work — Benedictine motto"],
+        ["Sep 21","educational","Why scholars journaled every morning","Morning Reflection week"],
+        ["Sep 22","educational","What is contemplative writing — Contemplative Journal","Contemplative Journal intro"],
+        ["Sep 23","scholar","Thomas Merton scholar slide","Silence and scholarship"],
+        ["Sep 24","face","Morning Reflection Journal face video","Before the day begins"],
+        ["Sep 25","face","Contemplative Journal face video","Space for thinking that requires silence"],
+        ["Sep 26","latin","Dum Spiro Spero Latin slide","Already performed well"],
+        ["Sep 27","seasonal","Autumn Scholar season opener","Desk setup candle warm light"],
+        ["Sep 28","educational","Reading seasonally — Autumn Scholar tradition","Autumn Reading Journal week"],
+        ["Sep 29","face","Autumn Reading Journal face video","Built for the season"],
+        ["Sep 30","latin","Soli Deo Gloria Latin slide","To God alone the glory"]
+      ]
+    },
+    {
+      title: "October 2026 — Daily Posting Continues",
+      count: "31 posts",
+      note: "Missing journals all introduced. Gifting season content begins Oct 28. All face videos filmed in October batch session before departure.",
+      posts: [
+        ["Oct 1","educational","Why reading without writing is half the work","Classicist's Reading Journal week"],
+        ["Oct 2","educational","What is Advent and why scholars kept it","Early Advent intro — gifting awareness"],
+        ["Oct 3","face","Classicist's Reading Journal face video","Reading without writing is half the work"],
+        ["Oct 4","educational","The TBR list that never gets read","Autumn TBR week"],
+        ["Oct 5","scholar","Virginia Woolf scholar slide","Reading lists and diaries — 9 novels"],
+        ["Oct 6","face","Autumn TBR Journal face video","Home for the list that never gets read"],
+        ["Oct 7","educational","Nosce Te Ipsum — Self-Reflection Journal","Self-Reflection week"],
+        ["Oct 8","scholar","Boethius scholar slide","Greatest work while awaiting execution"],
+        ["Oct 9","face","Self-Reflection Journal face video","Know thyself"],
+        ["Oct 10","latin","Deus Providebit Latin slide","God will provide — faith angle"],
+        ["Oct 11","educational","Retrieval practice — Daily Reading Log","Daily Reading Log week"],
+        ["Oct 12","scholar","Dietrich Bonhoeffer scholar slide","Faith and scholarship under pressure"],
+        ["Oct 13","face","Daily Reading Log face video","60 days end of day reflection"],
+        ["Oct 14","educational","Why scholars plan their reading a year at a time","Annual Reading Planner week"],
+        ["Oct 15","scholar","Samuel Johnson scholar slide","Dictionary man — prolific reader and planner"],
+        ["Oct 16","face","Annual Reading Planner face video","Lies completely flat — plan the whole year"],
+        ["Oct 17","educational","Writing is thinking — Writing Companion","Writing Companion week"],
+        ["Oct 18","scholar","Dorothy L. Sayers scholar slide","Oxford scholar, detective novelist, theologian"],
+        ["Oct 19","face","Writing Companion face video","For the writer who thinks on paper"],
+        ["Oct 20","educational","Why ideas disappear — Idea Capture Journal","Idea Capture week"],
+        ["Oct 21","latin","Per Aspera Ad Astra Latin slide","Through hardship to the stars"],
+        ["Oct 22","face","Idea Capture Journal face video","The best idea you ever had — you already forgot"],
+        ["Oct 23","educational","How scholars planned their weeks","Weekly Planner week"],
+        ["Oct 24","scholar","Benjamin Franklin scholar slide","Scheduled every hour from age 20"],
+        ["Oct 25","face","Scholar's Weekly Planner face video","Feels like stationery not a spreadsheet"],
+        ["Oct 26","educational","Famous commonplace books throughout history","Anchor topic — high save potential"],
+        ["Oct 27","educational","What goes in a commonplace book","Anchor topic variation"],
+        ["Oct 28","educational","Gift guide for the reader in your life","Gifting season opens"],
+        ["Oct 29","scholar","Flannery O'Connor scholar slide","Journaled every morning — faith and literature"],
+        ["Oct 30","educational","What makes a good scholar gift","Gifting season content"],
+        ["Oct 31","latin","In Silentio Et Spe Latin slide","Advent season approaching"]
+      ]
+    },
+    {
+      title: "November 1-15 2026 — Final Pre-Departure Push",
+      count: "15 posts",
+      note: "CRITICAL: Every post must be pre-filmed and pre-scheduled before Nov 16 departure. Nov 15 is your last live post.",
+      posts: [
+        ["Nov 1","face","Bundle 1 — The Reader's Bundle","Commonplace + Reading Journal + Bookmarks"],
+        ["Nov 2","face","Bundle 2 — The Morning Scholar Bundle","Morning Reflection + Weekly Planner"],
+        ["Nov 3","face","Bundle 3 — The Language Scholar Bundle","Language Journal + Classicist's Companion"],
+        ["Nov 4","face","Bundle 4 — The Autumn Reading Bundle","Autumn Reading + TBR + Bookmarks"],
+        ["Nov 5","latin","Nosce Te Ipsum Latin slide","Latin palette cleanser"],
+        ["Nov 6","educational","The scholar's Christmas list","Aspirational gifting content"],
+        ["Nov 7","face","Advent Calendar Journal face video","25 days of intentional reflection"],
+        ["Nov 8","face","Behind the brand — Why TheCuratorsDesk exists","Personal story — humanises the brand"],
+        ["Nov 9","educational","Commonplace book vs diary — the key differences","Anchor topic variation"],
+        ["Nov 10","face","What is on my reading list this autumn","Personal content — warms audience"],
+        ["Nov 11","face","Year in Letters teaser — something new is coming in January","Build anticipation before departure"],
+        ["Nov 12","educational","Scholar gift guide revisit — last chance before Christmas","Gifting urgency"],
+        ["Nov 13","educational","Advent Calendar — 1500 years of intentional Advent","Peak Advent discovery window"],
+        ["Nov 14","scholar","John Calvin scholar slide","Wrote Institutes at 26 — prolific theologian"],
+        ["Nov 15","face","Departure message — the desk stays open while I am away","LAST VIDEO BEFORE DEPARTURE"]
+      ]
+    },
+    {
+      title: "November 16 – January 10 2027 — Abroad (Pre-Scheduled)",
+      count: "19 posts + 24 Advent daily",
+      note: "All pre-filmed before Nov 16. December runs the Advent Calendar word-of-day series — 24 consecutive daily videos Dec 1-24. Shipping deadline posts Dec 5 and Dec 12 are your most important commercial posts of the year.",
+      posts: [
+        ["Nov 17","latin","Soli Deo Gloria Latin slide","Advent season faith content"],
+        ["Nov 20","educational","Gift bundle reminder — Christmas is coming","Gifting urgency"],
+        ["Nov 24","educational","What scholars read in winter","Evergreen content"],
+        ["Nov 27","latin","Deus Providebit Latin slide","Latin palette cleanser"],
+        ["Dec 1","face","Advent word of day — Day 1 (pre-filmed)","SERIES BEGINS — 24 consecutive days"],
+        ["Dec 2","face","Advent word of day — Day 2","Daily through Dec 24"],
+        ["Dec 3","face","Advent word of day — Day 3",""],
+        ["Dec 4","face","Advent word of day — Day 4",""],
+        ["Dec 5","face","Advent word of day — Day 5 + shipping deadline reminder","CRITICAL: last order dates for Christmas"],
+        ["Dec 6-23","face","Advent word of day — Days 6-23","Daily — all pre-filmed in one batch session"],
+        ["Dec 24","face","Advent word of day — Day 24 — Christmas Eve","Final Advent video"],
+        ["Dec 25","face","Christmas message to the scholarly community","Pre-filmed personal message"],
+        ["Dec 28","face","What is coming to the desk in January","Year in Letters and Curiosity Journal teaser"],
+        ["Jan 1","face","New year new chapter — scholar goals for 2027","New year journaling surge"],
+        ["Jan 3","educational","Why serious readers set reading goals","New year reading content"],
+        ["Jan 6","latin","Sapere Aude Latin slide","Dare to know — new year angle"],
+        ["Jan 8","educational","Year in Letters sneak peek — what is inside","Final anticipation build before return"]
+      ]
+    },
+    {
+      title: "January 11 – February 2027 — Return + Year in Letters Launch",
+      count: "11 posts",
+      note: "Return Jan 11. Year in Letters and Year I Noticed You launch immediately. Monthly use video series begins — one per month through Dec 2027.",
+      posts: [
+        ["Jan 11","face","I am back — and here is what is launching","Return announcement"],
+        ["Jan 13","educational","What is the Year in Letters","Year in Letters week"],
+        ["Jan 15","scholar","Virginia Woolf — letters as scholarship","She wrote letters as serious intellectual work"],
+        ["Jan 17","face","Year in Letters face video","One letter per month to the person you are becoming"],
+        ["Jan 19","educational","What is The Year I Noticed You","Year I Noticed You week"],
+        ["Jan 21","face","The Year I Noticed You face video","A year of noticing the people who matter"],
+        ["Jan 23","educational","Curiosity Journal series — almost here","Build Curiosity Journal anticipation"],
+        ["Jan 25","face","Monthly use — Year in Letters January","ONGOING SERIES — one per month all year"],
+        ["Jan 27","scholar","Classicist scholar — curiosity across disciplines","Curiosity Journal warm up"],
+        ["Jan 29","scholar","Aristotle scholar slide","Wrote on everything — precursor to launch"],
+        ["Feb 1","face","Curiosity Journal Vol I-VIII — Collection announcement","EVENT. Show all 8 volumes."]
+      ]
+    },
+    {
+      title: "February – March 2027 — Curiosity Journal Vol I-VIII Launch",
+      count: "15 posts",
+      note: "Your biggest content event of the year. Omnibus has seeded this audience since September. One educational slide per volume, one scholar per discipline, full collection face video.",
+      posts: [
+        ["Feb 3","educational","Vol I — History — Educational","One volume per slide"],
+        ["Feb 5","educational","Vol II — Philosophy — Educational",""],
+        ["Feb 7","educational","Vol III — Language — Educational",""],
+        ["Feb 10","educational","Vol IV — Science — Educational",""],
+        ["Feb 12","educational","Vol V — Theology — Educational",""],
+        ["Feb 14","educational","Vol VI-VII-VIII tease","Valentine's angle"],
+        ["Feb 17","scholar","History discipline scholar slide","One scholar per discipline"],
+        ["Feb 19","scholar","Philosophy discipline scholar slide",""],
+        ["Feb 21","scholar","Language discipline scholar slide",""],
+        ["Feb 24","scholar","Science discipline scholar slide",""],
+        ["Feb 26","scholar","Theology discipline scholar slide",""],
+        ["Mar 1","face","Full collection face video — the scholar's library is complete","Celebrate the full series"],
+        ["Mar 3","face","Monthly use — Year in Letters February","Ongoing monthly series"],
+        ["Mar 5","educational","Spring Reading Journal — What is it","Spring Reading Journal week"],
+        ["Mar 7","face","Spring Reading Journal face video",""]
+      ]
+    },
+    {
+      title: "March – April 2027 — Method Companions Launch",
+      count: "11 posts",
+      note: "5 Method Companions — one per week. Paid ads should be running by this point to amplify launch content.",
+      posts: [
+        ["Mar 15","educational","Method Companion 1 — Educational","One per week x 5"],
+        ["Mar 19","face","Method Companion 1 face video",""],
+        ["Mar 22","educational","Method Companion 2 — Educational",""],
+        ["Mar 26","face","Method Companion 2 face video",""],
+        ["Mar 29","educational","Method Companion 3 — Educational",""],
+        ["Apr 2","face","Method Companion 3 face video",""],
+        ["Apr 3","face","Monthly use — Year in Letters March","Ongoing monthly series"],
+        ["Apr 5","educational","Method Companion 4 — Educational",""],
+        ["Apr 9","face","Method Companion 4 face video",""],
+        ["Apr 12","educational","Method Companion 5 — Educational",""],
+        ["Apr 16","face","Method Companion 5 face video",""]
+      ]
+    },
+    {
+      title: "April – May 2027 — Subject Companions + Spring Push",
+      count: "10 posts",
+      note: "10 Subject Companions as one collection event. This is the 3k and 10k target window — full catalogue, mature audience, paid ads running.",
+      posts: [
+        ["Apr 20","face","Subject Companions — Collection announcement","Show all 10 together"],
+        ["Apr 22","educational","Subject Companion 1 + 2 — Educational","Two per week"],
+        ["Apr 24","educational","Subject Companion 3 + 4 — Educational",""],
+        ["Apr 26","educational","Subject Companion 5 + 6 — Educational",""],
+        ["Apr 28","educational","Subject Companion 7 + 8 — Educational",""],
+        ["Apr 30","educational","Subject Companion 9 + 10 — Educational",""],
+        ["May 2","scholar","Subject Companion scholar slides — one per discipline","5 posts across 2 weeks"],
+        ["May 10","face","Full scholar library face video — everything TCD makes","The complete catalogue moment"],
+        ["May 15","face","Monthly use — Year in Letters April and May","Ongoing monthly series"],
+        ["May 20","face","Revenue milestone — thank you to the community","If 3k is hit — celebrate it publicly"]
+      ]
+    }
+  ];
+
+  var TC2 = {face:'#7B5EA7',educational:'#2D4A3E',scholar:'#8B6840',latin:'#C9A84C',seasonal:'#8B3A3A',other:'#555'};
+  var TL2 = {face:'Face',educational:'Educational',scholar:'Scholar',latin:'Latin',seasonal:'Seasonal',other:'Other'};
+
+  var html = '<div style="margin-bottom:12px;padding:10px 12px;background:#120D06;border-left:2px solid #C9A84C;border-radius:0 4px 4px 0;font-size:.78rem;color:#9B8060;line-height:1.6">' +
+    '142 posts mapped across Sep 2026 - May 2027. Daily Sep 1 - Nov 15. Pre-scheduled abroad Nov 16 - Jan 10. ' +
+    'December runs 24-day Advent Calendar word-of-day series. Roadmap dates are broad guides — adjust as builds complete.' +
+    '</div>';
+
+  phases.forEach(function(phase){
+    html += '<div style="margin-bottom:20px">';
+    html += '<div style="font-family:Cinzel,serif;font-size:.52rem;letter-spacing:.16em;color:#C9A84C;text-transform:uppercase;border-bottom:1px solid #2a2010;padding-bottom:6px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline">' +
+      '<span>'+phase.title+'</span>' +
+      '<span style="font-size:.46rem;color:#9B8060;letter-spacing:.08em">'+phase.count+'</span>' +
+      '</div>';
+    if(phase.note){
+      var isAlert = phase.note.indexOf('CRITICAL') > -1;
+      html += '<div style="font-size:.7rem;color:'+(isAlert?'#C9A0A0':'#9B8060')+';font-style:italic;margin-bottom:8px;padding:5px 8px;background:'+(isAlert?'#1a0808':'#120D06')+';border-left:2px solid '+(isAlert?'#8B3A3A':'#2a2010')+';border-radius:0 3px 3px 0;line-height:1.5">'+phase.note+'</div>';
+    }
+    phase.posts.forEach(function(post){
+      var color = TC2[post[1]] || '#555';
+      var label = TL2[post[1]] || post[1];
+      html += '<div style="display:grid;grid-template-columns:52px 80px 1fr;gap:6px;align-items:center;padding:5px 6px;border-bottom:1px solid #120D06;border-radius:2px">' +
+        '<div style="font-family:Cinzel,serif;font-size:.48rem;color:#C9A84C;opacity:.8">'+post[0]+'</div>' +
+        '<div style="font-size:.42rem;font-family:Cinzel,serif;letter-spacing:.06em;padding:2px 5px;background:'+color+';color:'+(post[1]==='latin'?'#1E1510':'#fff')+';border-radius:2px;text-align:center;white-space:nowrap">'+label+'</div>' +
+        '<div style="font-size:.8rem;color:#F5E6C8;line-height:1.3">' +
+          post[2] +
+          (post[3]?'<span style="font-size:.58rem;color:#9B8060;font-style:italic;margin-left:6px">'+post[3]+'</span>':'') +
+        '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('roadmap-content').innerHTML = html;
+}
+
 
 load();renderPosts();updateSB();
 </script>
