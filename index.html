@@ -610,6 +610,7 @@ function addPost(){
   posts.push(mk('px'+Date.now(),document.getElementById('nf-da').value,ti,
     document.getElementById('nf-ty').value,document.getElementById('nf-st').value,
     0,0,0,document.getElementById('nf-ca').value,document.getElementById('nf-ha').value,document.getElementById('nf-no').value));
+  sortByDate();
   save();closeAdd();renderPosts();updateSB();
 }
 
@@ -637,6 +638,40 @@ function openEdit(id){
   document.getElementById('edit-mo').classList.add('open');
 }
 function closeEdit(){document.getElementById('edit-mo').classList.remove('open');editId=null;}
+function sortByDate(){
+  // Separate headers and posts, sort posts by date, re-interleave headers
+  var nonHeaders=posts.filter(function(x){return x.type!=='__header__';});
+  var headers=posts.filter(function(x){return x.type==='__header__';});
+  nonHeaders.sort(function(a,b){
+    var da=a.date||'9999';var db=b.date||'9999';
+    return da<db?-1:da>db?1:0;
+  });
+  // Re-insert headers at their relative positions
+  // Keep headers at their current index relative to surrounding posts
+  var headerPositions=[];
+  posts.forEach(function(p,i){
+    if(p.type==='__header__'){
+      // Find nearest non-header post before this header
+      var beforeId=null;
+      for(var j=i-1;j>=0;j--){
+        if(posts[j].type!=='__header__'){beforeId=posts[j].id;break;}
+      }
+      headerPositions.push({header:p,beforeId:beforeId});
+    }
+  });
+  // Start with sorted posts
+  var result=nonHeaders.slice();
+  // Insert headers after their anchor posts
+  headerPositions.forEach(function(hp){
+    if(hp.beforeId){
+      var idx=result.findIndex(function(x){return x.id===hp.beforeId;});
+      if(idx>-1){result.splice(idx+1,0,hp.header);return;}
+    }
+    result.unshift(hp.header);
+  });
+  posts=result;
+}
+
 function saveEdit(){
   if(!editId)return;
   posts=posts.map(function(x){
@@ -648,6 +683,7 @@ function saveEdit(){
       parseInt(document.getElementById('ef-sa').value)||0,
       document.getElementById('ef-ca').value,document.getElementById('ef-ha').value,document.getElementById('ef-no').value);
   });
+  sortByDate();
   save();closeEdit();renderPosts();updateSB();
 }
 
