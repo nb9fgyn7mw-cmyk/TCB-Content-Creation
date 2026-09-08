@@ -139,7 +139,6 @@ body{background:#0A0806;font-family:'Cormorant Garamond',Georgia,serif;color:#F5
         <option value="posted">Posted</option>
         <option value="scheduled">Scheduled</option>
         <option value="planned">Planned</option>
-        <option value="not planned">Not Planned</option>
         <option value="deleted">Deleted</option>
       </select>
       <select id="fty" onchange="renderPosts()">
@@ -169,7 +168,7 @@ body{background:#0A0806;font-family:'Cormorant Garamond',Georgia,serif;color:#F5
           </select></div>
         <div class="fg"><label class="fl">Status</label>
           <select class="fsl" id="nf-st">
-            <option value="not planned" selected>Not Planned</option><option value="planned">Planned</option><option value="scheduled">Scheduled</option><option value="posted">Posted</option>
+            <option value="planned">Planned</option><option value="scheduled">Scheduled</option><option value="posted">Posted</option>
           </select></div>
       </div>
       <div class="fg" style="margin-top:7px"><label class="fl">Caption</label><textarea class="fta" id="nf-ca" rows="2"></textarea></div>
@@ -288,7 +287,6 @@ var DEFAULTS=[
   mk('p21','2024-08-19','Brand Introduction face video','face','posted',563,46,4,'literary goods for the reader who takes their inner life seriously','#darkacademia #scholaraesthetic #journalwithme #booktok #thecuratorsdesk #stationerylove','PIN. +25 followers'),
   mk('p22','2024-08-21','Classicist Companion showcase slides','product','posted',173,1,0,'','#darkacademia #scholaraesthetic #journalwithme #stationerylove #booktok #journaling #classicalliterature #greatbooks #classicalscholar','No edu context - 1 like 0 saves'),
   mk('p23','2024-08-25','Dum Spiro Spero Latin slide','latin','posted',523,26,10,'the Latin phrase that ties hope to breathing - not to circumstances','#darkacademia #latinwords #scholaraesthetic #deadlanguages #classicallatin #darkacademiaesthetic','Best Latin slide ever'),
-  mk('p23b','2024-08-27','Boethius scholar slide','scholar','posted',419,7,4,'he wrote the Consolation of Philosophy while awaiting execution','#darkacademia #scholaraesthetic #studytok #historyoftok',''),
   mk('p24','2024-08-28','How to Start a Commonplace Book - Educational','educational','posted',1066,82,59,'how to start a commonplace book today - the scholars 5-step method','#darkacademia #scholaraesthetic #studytok #booktok #learnontiktok #darkacademiaesthetic #commonplacebook #commonplacejournaling','ALL TIME BEST - 59 saves'),
   mk('p25','2024-08-31','John Milton scholar slide','scholar','posted',0,0,0,'he went blind and wrote 10565 lines from memory','#darkacademia #scholaraesthetic #studytok #historyoftok #darkacademiaesthetic #learnontiktok','Posted today'),
   hd('h-sep','September 2026 — Daily Posting'),
@@ -340,7 +338,7 @@ var DEFAULTS=[
   mk('s1007','2024-10-07','Classicists Reading Journal face video','face','planned',0,0,0,'reading without writing is half the work - this is the other half','#darkacademia #scholaraesthetic #journalwithme #booktok #thecuratorsdesk #stationerylove #readingjournal #bookworm #readinglog #classicalliterature #greatbooks #classicalscholar',''),
   hd('h-sr','Week: Self-Reflection Journal'),
   mk('s1008','2024-10-08','Nosce Te Ipsum - Self-Reflection Journal - Educational','educational','planned',0,0,0,'','#darkacademia #scholaraesthetic #studytok #booktok #learnontiktok #darkacademiaesthetic #selfreflection #journalprompts #mindsetjournal #growthmindset #classicallatin #knowthyself',''),
-  mk('s1009','2024-10-09','Michel de Montaigne scholar slide','scholar','planned',0,0,0,'he invented an entirely new form of writing just to understand himself - and ended up understanding everyone','#darkacademia #scholaraesthetic #studytok #historyoftok #darkacademiaesthetic #learnontiktok','Inventor of the personal essay - perfect for Self-Reflection week'),
+  mk('s1009','2024-10-09','Boethius scholar slide','scholar','planned',0,0,0,'he wrote his greatest work while awaiting execution','#darkacademia #scholaraesthetic #studytok #historyoftok #darkacademiaesthetic #learnontiktok',''),
   mk('s1010','2024-10-10','Self-Reflection Journal face video','face','planned',0,0,0,'the hardest person to know honestly is yourself','#darkacademia #scholaraesthetic #journalwithme #booktok #thecuratorsdesk #stationerylove #selfreflection #journalprompts #mindsetjournal #growthmindset',''),
   mk('s1011','2024-10-11','Deus Providebit Latin slide','latin','planned',0,0,0,'God will provide - the phrase Abraham spoke on the mountain','#darkacademia #latinwords #scholaraesthetic #deadlanguages #classicallatin #darkacademiaesthetic #christianfaith #biblicalpromises #trustingGod #christianacademia',''),
   hd('h-dl','Week: Daily Reading Log'),
@@ -477,7 +475,7 @@ var DEFAULTS=[
 var acc={followers:63,email:4,pinterest:1400,etsy:0};
 var posts=[];
 var editId=null,expId=null,dragId=null,barC=null,lineC=null;
-var PKEY='tcd_final_posts',AKEY='tcd_final_acc',VKEY='tcd_version',VVAL='v11';
+var PKEY='tcd_final_posts',AKEY='tcd_final_acc',VKEY='tcd_version',VVAL='v8';
 
 
 function buildRoadmap(){
@@ -646,7 +644,6 @@ function renderPosts(){
   var filtered=posts.filter(function(x){
     if(x.type==='__header__') return true;
     if(x.status==='deleted'&&sf!=='deleted') return false;
-    if(x.status==='not planned'&&sf!=='not planned'&&sf!=='all') return false;
     if(sf!=='all'&&x.status!==sf) return false;
     if(tf!=='all'&&x.type!==tf) return false;
     return true;
